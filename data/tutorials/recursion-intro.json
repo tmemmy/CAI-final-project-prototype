@@ -1,0 +1,244 @@
+{
+  "id": "recursion-intro",
+  "topic": "recursion",
+  "title": "Recursion: The Bowl Stack Method",
+  "subtitle": "Finally understand recursion by physically stacking bowls and watching the call stack unravel.",
+  "encouragement": "Recursion is genuinely one of the hardest concepts in programming. It was formalized by brilliant mathematicians in the 20th century. If it doesn't click immediately, that is completely normal. You are NOT supposed to figure this out from scratch; you're learning from the work of geniuses. Let's make it physical so it makes sense.",
+  "realWorldExample": "Recursion is like looking up a word in the dictionary and finding it defined using another word you don't know. So you look THAT word up, and keep going until you find one you understand. Then you trace back through all the definitions.",
+  "materials": [
+    {
+      "item": "5 bowls, cups, or small containers",
+      "detail": "They need to be stackable. Cups, mugs, small boxes, or even folded paper \"boats\" all work. Label them 1 through 5.",
+      "emoji": "\ud83e\udd63"
+    },
+    {
+      "item": "5 sticky notes or small paper pieces",
+      "detail": "Anything you can write on and attach to the bowls: sticky notes, tape with paper, painter's tape you can write on, or even paper held in place with a rubber band.",
+      "emoji": "\ud83d\udccc"
+    },
+    {
+      "item": "A pen",
+      "detail": "To write on the sticky notes or paper pieces.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    }
+  ],
+  "setup": [
+    "Clear a space on your desk. You need room for a stack of bowls.",
+    "Keep the 5 bowls, 5 sticky notes, and pen nearby but DON'T stack anything yet. We'll build the stack step by step.",
+    "Read this before starting: we're going to compute sum_to(4), which means 1 + 2 + 3 + 4 = 10. But instead of just adding the numbers, we'll see how a RECURSIVE function solves this."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Here's the key idea of recursion: <strong>a function that calls itself to solve a simpler version of the same problem.</strong>",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "The function <code>sum_to(n)</code> works like this: \"I don't know the sum from 1 to n... but if someone tells me the sum from 1 to (n-1), I can just add n to that!\" So it asks a simpler version of itself for help.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 2,
+      "instruction": "Every recursive function has <strong>three key parts</strong>:<br><br>1. <strong>Base case:</strong> the simplest version that you KNOW the answer to. No more calling yourself.<br>2. <strong>Recursive assumption:</strong> trust that your function correctly solves the smaller problem. \"If I call sum_to(3), I trust it gives me the right answer.\"<br>3. <strong>Work done by this call:</strong> use the result from the smaller problem to solve YOUR version. This is where the current call does its own piece of the work.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Think of it like teamwork. You do ONE piece of work (adding n), then you hand the rest of the job to your friend (the recursive call). You trust your friend will get it right. Your friend does the same thing: one piece of work, hand the rest off. Eventually someone gets a problem so simple they just know the answer. That's the base case.",
+      "hint": "If you forget the base case, the function calls itself forever. That's infinite recursion, like looking up a word that's defined using only itself.",
+      "diagram": null
+    },
+    {
+      "id": 3,
+      "instruction": "Let's start. We want to compute <strong>sum_to(4)</strong>. The function says: \"My job is to add 4 to whatever sum_to(3) gives me. But I don't know sum_to(3) yet.\" So it <strong>PAUSES</strong> and calls sum_to(3).",
+      "action": "Write on sticky note #1: <strong>\"sum_to(4) = 4 + ???\"</strong> and write <strong>\"WAITING\"</strong> below it. Attach it to Bowl 1. Place Bowl 1 on the desk.",
+      "checkpoint": "You should have ONE bowl on the desk with a note that says sum_to(4) = 4 + ??? / WAITING.",
+      "conceptNote": "This is the crucial moment: the function does NOT continue past the recursive call. It FREEZES right at the point where it needs the smaller answer and waits for sum_to(3) to come back.",
+      "hint": "This \"pause\" is the single most important thing to understand about recursion. The function is alive but frozen, waiting.",
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(4) = 4 + ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "<strong>sum_to(3)</strong> starts running. It says: \"My piece of work is adding 3. But I need sum_to(2) first.\" So it PAUSES too.",
+      "action": "Write on sticky note #2: <strong>\"sum_to(3) = 3 + ???\"</strong> / <strong>\"WAITING\"</strong>. Attach it to Bowl 2. Stack Bowl 2 ON TOP of Bowl 1.",
+      "checkpoint": "Two bowls stacked. Bowl 2 (sum_to(3)) is on top of Bowl 1 (sum_to(4)).",
+      "conceptNote": "Now TWO functions are paused simultaneously. sum_to(4) is waiting for sum_to(3), which is waiting for sum_to(2). Each paused function takes up space in memory; this is the \"call stack.\"",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(3) = 3 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "sum_to(4) = 4 + ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "<strong>sum_to(2)</strong> starts. Same pattern: \"I'll add 2 to whatever sum_to(1) gives me. Don't have that yet.\" Pauses.",
+      "action": "Write on sticky note #3: <strong>\"sum_to(2) = 2 + ???\"</strong> / <strong>\"WAITING\"</strong>. Attach it to Bowl 3. Stack on top.",
+      "checkpoint": "Three bowls stacked. sum_to(2) on top.",
+      "conceptNote": "Notice the pattern: each function does exactly one piece of work (adding its own number) and delegates the rest. That's the recursive assumption in action: \"I trust sum_to(n-1) will handle everything below me.\"",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(2) = 2 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "sum_to(3) = 3 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "sum_to(4) = 4 + ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "<strong>sum_to(1)</strong> starts. But wait: <strong>this is the BASE CASE!</strong> We KNOW that sum_to(1) = 1. No more calls needed!",
+      "action": "Write on sticky note #4: <strong>\"sum_to(1) = 1\"</strong> and write <strong>\"DONE!\"</strong> below it. Attach it to Bowl 4. Stack it on top.",
+      "checkpoint": "Four bowls stacked. The top bowl says sum_to(1) = 1 / DONE! All others say WAITING.",
+      "conceptNote": "The base case is what STOPS the recursion. Without it, we'd keep going: sum_to(0), sum_to(-1), sum_to(-2)... forever.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(1) = 1", "status": "DONE!", "isBase": true, "resolved": false },
+          { "label": "sum_to(2) = 2 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "sum_to(3) = 3 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "sum_to(4) = 4 + ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Now the magic begins: <strong>THE UNRAVELING.</strong> The base case returns its answer, and each waiting function can finally do its piece of work and finish, from top to bottom.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "This is where most people get lost. The key: we go BACK UP the stack. The most recently called function finishes first (just like a stack, LIFO!).",
+      "hint": "If you did the Stack tutorial, you already know this pattern! The call stack IS a stack. The last function called is the first to return.",
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "<strong>sum_to(1) returns 1.</strong> Remove Bowl 4 (the top bowl) from the stack. It's done its job.",
+      "action": "Take Bowl 4 off the stack and set it aside. Now look at Bowl 3 (sum_to(2)). It was waiting for sum_to(1)'s answer. The answer is 1!",
+      "checkpoint": "Bowl 4 is off the stack. Three bowls remain. The top is Bowl 3: sum_to(2) = 2 + ???",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(2) = 2 + ???", "status": "Received: 1", "isBase": false, "resolved": false },
+          { "label": "sum_to(3) = 3 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "sum_to(4) = 4 + ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "<strong>sum_to(2) can now do its work!</strong> It was: 2 + ???. The ??? is 1 (from sum_to(1)). So its piece of work: 2 + 1 = <strong>3</strong>.",
+      "action": "On Bowl 3's note, cross out \"???\" and write <strong>1</strong>. Cross out \"WAITING\" and write <strong>\"= 3\"</strong>. Now remove Bowl 3 from the stack.",
+      "checkpoint": "Bowl 3 is set aside. It says: sum_to(2) = 2 + 1 = 3. Two bowls remain.",
+      "conceptNote": "The function was frozen, waiting for its smaller answer. Now that it received 1, it unfreezes, does its own work (adds 2), and returns 3 to the function below it.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(3) = 3 + ???", "status": "Received: 3", "isBase": false, "resolved": false },
+          { "label": "sum_to(4) = 4 + ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "<strong>sum_to(3)</strong> was waiting for sum_to(2). The answer is 3! So its work: 3 + 3 = <strong>6</strong>.",
+      "action": "On Bowl 2's note, cross out \"???\" and write <strong>3</strong>. Cross out \"WAITING\" and write <strong>\"= 6\"</strong>. Remove Bowl 2.",
+      "checkpoint": "Bowl 2 set aside: sum_to(3) = 3 + 3 = 6. One bowl remains.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(4) = 4 + ???", "status": "Received: 6", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "<strong>sum_to(4)</strong> was waiting for sum_to(3). The answer is 6! So its work: 4 + 6 = <strong>10</strong>.",
+      "action": "On Bowl 1's note, cross out \"???\" and write <strong>6</strong>. Cross out \"WAITING\" and write <strong>\"= 10\"</strong>. Remove the last bowl.",
+      "checkpoint": "All bowls are off the stack. The final answer is <strong>10</strong>. Check: 1 + 2 + 3 + 4 = 10. It works!",
+      "conceptNote": "The original caller of sum_to(4) now gets back <strong>10</strong>. The entire chain of recursive calls and returns is complete.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "sum_to(4) = 4 + 6 = 10", "status": "DONE! Final answer: 10", "isBase": false, "resolved": true }
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "instruction": "Now lay out all your notes in a line, left to right, in the order they were RESOLVED (finished):",
+      "action": "Line up: sum_to(1) = 1, then sum_to(2) = 3, then sum_to(3) = 6, then sum_to(4) = 10.",
+      "checkpoint": "You should see the chain: 1 \u2192 3 \u2192 6 \u2192 10. Each result feeds into the next.",
+      "conceptNote": null,
+      "hint": "This sequence (1, 3, 6, 10) is called the \"triangular numbers\"; each one is the sum of all integers up to that point.",
+      "diagram": null
+    },
+    {
+      "id": 13,
+      "instruction": "Let's name the two phases you just experienced:<br><br><strong>Phase 1: WINDING</strong> (building up the call stack). Each call pauses and adds a new bowl to the stack.<br><strong>Phase 2: UNWINDING</strong> (the unraveling). The base case returns, then each paused call does its work and finishes, from top to bottom.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "In the computer's memory, this is exactly what happens. Each recursive call creates a \"stack frame\" (like a bowl) that stores the function's local variables and where it paused. When the function returns, the frame is removed (popped off the stack).",
+      "hint": "This is why infinite recursion causes a \"stack overflow\" error: you keep stacking bowls forever until you run out of table space (memory).",
+      "diagram": null
+    },
+    {
+      "id": 14,
+      "instruction": "Let's revisit the three parts now that you've seen them in action:<br><br>1. <strong>Base case:</strong> sum_to(1) = 1. The bowl that said \"DONE!\" without calling anyone else.<br>2. <strong>Recursive assumption:</strong> each call TRUSTED that the smaller call would give the right answer. sum_to(4) trusted sum_to(3) without checking its work.<br>3. <strong>Work done by this call:</strong> each call added its own number to the result it received. That's the one piece of work each call was responsible for.",
+      "action": "Look at your bowls again. Each bowl did exactly ONE addition. No bowl tried to solve the whole problem alone. That's the power of recursion: breaking a big problem into small, manageable pieces.",
+      "checkpoint": null,
+      "conceptNote": "When you sit down to write recursive code, think about these three parts: What is the simplest case I already know the answer to? What work does THIS call need to do? And what smaller problem can I hand off to a recursive call, trusting it will work?",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 15,
+      "instruction": "<strong>Try it yourself!</strong> Stack the bowls again, but this time compute <strong>sum_to(5)</strong> = 1 + 2 + 3 + 4 + 5.",
+      "action": "You'll need all 5 bowls. The base case is still sum_to(1) = 1. Wind up to 5 bowls, then unwind. The answer should be 15.",
+      "checkpoint": "If you got 15, you've got it! The chain: 1 \u2192 3 \u2192 6 \u2192 10 \u2192 15.",
+      "conceptNote": null,
+      "hint": "If you get stuck during the unwinding, remember: always start from the TOP of the stack (the most recently called function) and work DOWN.",
+      "diagram": null
+    },
+    {
+      "id": 16,
+      "instruction": "<strong>Harder challenge:</strong> Can you do sum_to(4) again, but this time WITHOUT looking at any notes from before? Do it entirely from the three-part framework: identify your base case, trust the recursive assumption, and figure out the work each call does.",
+      "action": "Set up fresh notes on your bowls. Don't peek at previous answers. If you can do this from scratch, you truly understand the structure of recursion.",
+      "checkpoint": "You should still get 10. If you did it without looking back, congratulations: you understand recursion.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "What would happen if we forgot the base case? How many bowls would we stack?",
+      "answer": "We'd never stop stacking! sum_to(0), sum_to(-1), sum_to(-2)... forever. In code, this causes a stack overflow error because the computer runs out of memory for stack frames."
+    },
+    {
+      "question": "Could you solve sum_to(4) with a simple for loop instead? Why might recursion still be useful for other problems?",
+      "answer": "Yes, a for loop adding 1+2+3+4 works fine here. But some problems (like traversing trees or nested structures) are naturally recursive: the data itself is nested, so a recursive approach matches the shape of the problem."
+    },
+    {
+      "question": "In the bowl stack, which function returned FIRST: sum_to(4) or sum_to(1)? Why?",
+      "answer": "sum_to(1) returned first! It was the last one called (top of the stack) and the first to finish. This is LIFO, just like the stack data structure."
+    },
+    {
+      "question": "If you called sum_to(100), how many bowls (stack frames) would be stacked at the deepest point? Is that a problem?",
+      "answer": "100 bowls (stack frames) at the deepest point. In Python, the default recursion limit is about 1000. For very deep recursion, you can run out of stack space. This is one reason iterative solutions are sometimes preferred."
+    }
+  ],
+  "nextTutorial": null
+}

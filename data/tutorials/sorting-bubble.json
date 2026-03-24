@@ -1,0 +1,195 @@
+{
+  "id": "sorting-bubble",
+  "topic": "sorting",
+  "title": "Bubble Sort: Watch Numbers Float Up",
+  "subtitle": "Physically swap cards on your desk to see exactly how bubble sort works.",
+  "encouragement": "Sorting algorithms were first studied in the 1950s by computer science pioneers. Bubble sort is one of the simplest to understand, and once you see it with your hands, you'll never forget it.",
+  "realWorldExample": "Imagine sorting a hand of playing cards by repeatedly comparing two neighbors and swapping them if they're out of order. That's exactly bubble sort.",
+  "materials": [
+    {
+      "item": "6 index cards or paper squares",
+      "detail": "Write one number on each: 5, 2, 8, 1, 9, 3. Any scrap paper works; cut or tear it into roughly equal pieces.",
+      "emoji": "\ud83c\udccf"
+    },
+    {
+      "item": "A flat surface",
+      "detail": "A desk, table, or even the floor where you can lay the cards in a row.",
+      "emoji": "\ud83e\uddf9"
+    },
+    {
+      "item": "A pen and scrap paper (optional)",
+      "detail": "To keep track of how many comparisons and swaps you make.",
+      "emoji": "\ud83d\udcdd"
+    }
+  ],
+  "setup": [
+    "Lay your 6 cards in a row from left to right: 5, 2, 8, 1, 9, 3",
+    "Leave a little space between each card so you can swap them easily.",
+    "If you have scrap paper, draw two columns labeled \"Comparisons\" and \"Swaps\"; make a tally mark for each one as you go."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Here's the one rule of bubble sort: <strong>Compare two neighbors. If the left one is bigger, swap them.</strong> Start from the very left.",
+      "action": "Point at the first two cards: <strong>5</strong> and <strong>2</strong>. Is 5 > 2? Yes! Swap them.",
+      "checkpoint": "Your row should now be: 2, 5, 8, 1, 9, 3",
+      "conceptNote": "In code: <code>if lst[i] > lst[i+1]: lst[i], lst[i+1] = lst[i+1], lst[i]</code>. This is a single comparison and conditional swap.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "1", "9", "3"],
+        "swapIndices": [0, 1]
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Move one position to the right. Compare the next two neighbors: <strong>5</strong> and <strong>8</strong>.",
+      "action": "Is 5 > 8? No. Don't swap. Leave them as they are.",
+      "checkpoint": "Row is still: 2, 5, 8, 1, 9, 3",
+      "conceptNote": "Not every comparison results in a swap. We only swap when the left neighbor is larger.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "1", "9", "3"],
+        "highlight": [1, 2]
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Next pair: <strong>8</strong> and <strong>1</strong>.",
+      "action": "Is 8 > 1? Yes! Swap them.",
+      "checkpoint": "Row: 2, 5, 1, 8, 9, 3",
+      "conceptNote": null,
+      "hint": "Notice how 8 is \"moving\" to the right. It's bubbling up toward its correct position.",
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "1", "8", "9", "3"],
+        "swapIndices": [2, 3]
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Next: <strong>8</strong> and <strong>9</strong>.",
+      "action": "Is 8 > 9? No. Leave them.",
+      "checkpoint": null,
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "1", "8", "9", "3"],
+        "highlight": [3, 4]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Last pair of this pass: <strong>9</strong> and <strong>3</strong>.",
+      "action": "Is 9 > 3? Yes! Swap them.",
+      "checkpoint": "After Pass 1, your row is: <strong>2, 5, 1, 8, 3, 9</strong>",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "1", "8", "3", "9"],
+        "swapIndices": [4, 5]
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Look at the LAST card. It's <strong>9</strong>, the biggest number! After one complete pass, <strong>the largest number is guaranteed to be in its correct final position.</strong>",
+      "action": "Put a small mark on the 9 card or mentally note: 9 is DONE. We won't compare it again.",
+      "checkpoint": null,
+      "conceptNote": "This is the key insight of bubble sort: after pass k, the k largest elements are in their final positions. This is why each pass can stop one position earlier.",
+      "hint": "It's called \"bubble\" sort because the largest values \"bubble up\" to the right end, like air bubbles rising in water.",
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "1", "8", "3", "9"],
+        "highlight": [5]
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "<strong>Pass 2:</strong> Go back to the left. Same rule, but this time stop BEFORE the last card (9 is already placed).",
+      "action": "Compare 2 and 5: 2 > 5? No. Compare 5 and 1: 5 > 1? Yes, swap! Compare 5 and 8: No. Compare 8 and 3: 8 > 3? Yes, swap!",
+      "checkpoint": "After Pass 2: <strong>2, 1, 5, 3, 8, 9</strong>. Now 8 AND 9 are in their final spots.",
+      "conceptNote": "Pass 2 makes 4 comparisons (one fewer than Pass 1). Each pass does one fewer comparison.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "1", "5", "3", "8", "9"],
+        "highlight": [4, 5]
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "<strong>Pass 3:</strong> Back to the left. Stop before the last two cards.",
+      "action": "Compare 2 and 1: 2 > 1? Yes, swap! Compare 2 and 5: No. Compare 5 and 3: 5 > 3? Yes, swap!",
+      "checkpoint": "After Pass 3: <strong>1, 2, 3, 5, 8, 9</strong>. Now 5, 8, and 9 are placed.",
+      "conceptNote": null,
+      "hint": "Wait: the entire row looks sorted already! But the algorithm doesn't \"know\" that yet. It will keep going unless we add an optimization.",
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "2", "3", "5", "8", "9"],
+        "highlight": [3, 4, 5]
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "<strong>Pass 4:</strong> Compare the remaining unsorted portion.",
+      "action": "Compare 1 and 2: No swap. Compare 2 and 3: No swap.",
+      "checkpoint": "After Pass 4: <strong>1, 2, 3, 5, 8, 9</strong>. No swaps happened!",
+      "conceptNote": "Optimization: if an entire pass makes ZERO swaps, the list is already sorted and we can stop early. In code, use a <code>swapped = False</code> flag.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "2", "3", "5", "8", "9"],
+        "highlight": [0, 1, 2, 3, 4, 5]
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "The list is sorted! Let's count: how many total <strong>comparisons</strong> did you make across all passes?",
+      "action": "Pass 1: 5 comparisons. Pass 2: 4. Pass 3: 3. Pass 4: 2. Total: 5 + 4 + 3 + 2 = <strong>14 comparisons</strong>.",
+      "checkpoint": null,
+      "conceptNote": "For n items, the worst case is: (n-1) + (n-2) + ... + 1 = n(n-1)/2 comparisons. For n = 6, that's 6\u00d75/2 = 15. We did 14 because we stopped one pass early. This is why bubble sort is <strong>O(n\u00b2)</strong>.",
+      "hint": "O(n\u00b2) means if you double the number of items, the work roughly quadruples. Bubble sort is simple but slow for large lists.",
+      "diagram": null
+    },
+    {
+      "id": 11,
+      "instruction": "<strong>Try it yourself!</strong> Shuffle your cards back to a random order and do bubble sort again from scratch. This time, <strong>count your swaps too</strong> and try the early-stop optimization.",
+      "action": "If a full pass has zero swaps, stop immediately; the list is sorted!",
+      "checkpoint": null,
+      "conceptNote": "Best case: the list is already sorted. You do one pass with 0 swaps and stop. That's O(n), just n-1 comparisons. Worst case (reverse sorted): every pair swaps every pass. That's O(n\u00b2).",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 12,
+      "instruction": "<strong>Bonus challenge:</strong> Try sorting 8 cards instead of 6. Notice how much more work it takes. Can you feel the O(n\u00b2) growth?",
+      "action": "Write numbers 1 through 8 on cards, shuffle them, and run bubble sort. Count every comparison and every swap.",
+      "checkpoint": "With 8 cards, worst case comparisons: 7+6+5+4+3+2+1 = 28. That's double the work for only 2 extra cards!",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "Why does the largest unsorted number always end up at the right after each pass?",
+      "answer": "Because we compare neighbors left to right, the biggest number always \"wins\" every comparison and keeps getting swapped to the right until it reaches the end of the unsorted section."
+    },
+    {
+      "question": "What would happen if the list started already sorted? How many passes would you need?",
+      "answer": "Just one pass with zero swaps. The early-stop optimization detects this and stops. That's the best case: O(n)."
+    },
+    {
+      "question": "What if the list was in reverse order (9, 8, 5, 3, 2, 1)? Would that be more work? Why?",
+      "answer": "Yes, that's the worst case! Every pair is out of order, so every comparison results in a swap. You need the maximum number of passes with the maximum swaps each time."
+    },
+    {
+      "question": "Could you sort the list by bubbling the SMALLEST to the left instead? What would change?",
+      "answer": "Yes! You'd compare right to left instead, and the smallest value would \"sink\" to the left each pass. The algorithm is the same idea in reverse, with the same O(n\u00b2) runtime."
+    }
+  ],
+  "nextTutorial": "recursion-intro"
+}

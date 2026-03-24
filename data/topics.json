@@ -1,0 +1,52 @@
+{
+  "topics": [
+    {
+      "id": "stacks",
+      "title": "Stacks",
+      "icon": "stacks",
+      "description": "Learn LIFO (Last In, First Out) by building a stack with paper strips and numbered pieces.",
+      "color": "#7C3AED",
+      "tutorials": [
+        {
+          "id": "stacks-operations",
+          "title": "Stack Push & Pop: Build It With Paper",
+          "difficulty": "warm-up",
+          "estimatedMinutes": 15,
+          "file": "tutorials/stacks-operations.json"
+        }
+      ]
+    },
+    {
+      "id": "sorting",
+      "title": "Sorting",
+      "icon": "sorting",
+      "description": "See how sorting algorithms work by physically swapping cards on your desk.",
+      "color": "#F59E0B",
+      "tutorials": [
+        {
+          "id": "sorting-bubble",
+          "title": "Bubble Sort: Watch Numbers Float Up",
+          "difficulty": "warm-up",
+          "estimatedMinutes": 20,
+          "file": "tutorials/sorting-bubble.json"
+        }
+      ]
+    },
+    {
+      "id": "recursion",
+      "title": "Recursion",
+      "icon": "recursion",
+      "description": "Finally understand recursion by stacking bowls and watching the call stack unravel.",
+      "color": "#10B981",
+      "tutorials": [
+        {
+          "id": "recursion-intro",
+          "title": "Recursion: The Bowl Stack Method",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 25,
+          "file": "tutorials/recursion-intro.json"
+        }
+      ]
+    }
+  ]
+}

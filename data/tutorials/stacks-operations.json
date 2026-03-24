@@ -1,0 +1,211 @@
+{
+  "id": "stacks-operations",
+  "topic": "stacks",
+  "title": "Stack Push & Pop: Build It With Paper",
+  "subtitle": "See how a stack really works by physically pushing and popping items.",
+  "encouragement": "Stacks are one of the most fundamental structures in all of computing. Once you feel how they work with your hands, the code becomes obvious. You've got this.",
+  "realWorldExample": "Think of your browser's back button. Every page you visit gets pushed onto a stack. Hitting \"back\" pops the most recent one off. Undo in a text editor? Also a stack.",
+  "materials": [
+    {
+      "item": "One long strip of paper",
+      "detail": "About 12 inches long, 2 inches wide. This will be your array.",
+      "emoji": "\ud83d\udccf"
+    },
+    {
+      "item": "A pen or marker",
+      "detail": "To draw index boxes and labels on the strip.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    },
+    {
+      "item": "6 small paper squares",
+      "detail": "About 1 inch each. Write these numbers on them: 3, 7, 1, 9, 4, 2",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "A paperclip or small arrow cutout",
+      "detail": "This will be your \"top\" pointer; it tracks where the top of the stack is.",
+      "emoji": "\ud83d\udcce"
+    }
+  ],
+  "setup": [
+    "Draw 6 equally-spaced boxes on your paper strip. Make them big enough to fit your small squares inside.",
+    "Write the numbers 0 through 5 underneath each box. These are the indices.",
+    "Place your paperclip to the LEFT of index 0, off the strip. This means the stack is currently empty; there's no \"top\" yet.",
+    "Lay out your numbered squares (3, 7, 1, 9, 4, 2) nearby but NOT on the strip."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Let's <strong>push</strong> the number <strong>3</strong> onto the stack. Pick up the square with 3 on it.",
+      "action": "Place the \"3\" square into box 0 on your strip. Move your paperclip to point at box 0.",
+      "checkpoint": "Your strip should have: [3][ ][ ][ ][ ][ ] with the paperclip at index 0.",
+      "conceptNote": "In Python, this operation is <code>stack.push(3)</code>. The stack places the value at the next available slot and updates the top pointer.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "", "", "", "", ""],
+        "pointer": { "index": 0, "label": "top" }
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Now push <strong>7</strong>. Pick up the 7 square.",
+      "action": "Place \"7\" into box 1. Move your paperclip to point at box 1.",
+      "checkpoint": "Strip: [3][7][ ][ ][ ][ ], paperclip at index 1.",
+      "conceptNote": "Each <code>push</code> always goes to the NEXT empty box. The top pointer tells us where the top is.",
+      "hint": "Notice the top pointer always moves RIGHT by one on a push.",
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "7", "", "", "", ""],
+        "pointer": { "index": 1, "label": "top" }
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Push <strong>1</strong>.",
+      "action": "Place \"1\" into box 2. Move your paperclip to index 2.",
+      "checkpoint": null,
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "7", "1", "", "", ""],
+        "pointer": { "index": 2, "label": "top" }
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Push <strong>9</strong>.",
+      "action": "Place \"9\" into box 3. Move your paperclip to index 3.",
+      "checkpoint": "Your strip should now have: [3][7][1][9][ ][ ] with the paperclip at index 3. Four items in the stack!",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "7", "1", "9", "", ""],
+        "pointer": { "index": 3, "label": "top" }
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Now let's <strong>pop</strong>. Popping removes the item at the top. Look at where your paperclip is pointing: which number is there?",
+      "action": "Remove the \"9\" square from box 3. Move your paperclip LEFT to index 2.",
+      "checkpoint": "Strip: [3][7][1][ ][ ][ ], paperclip at index 2. The 9 square should be off the strip.",
+      "conceptNote": "In Python: <code>val = stack.pop()</code>. It returns 9 and the top moves back. The value at position 3 is gone.",
+      "hint": "Pop ALWAYS removes from the top. You never remove from the middle or bottom of a stack.",
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "7", "1", "", "", ""],
+        "pointer": { "index": 2, "label": "top" }
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Pop again. What's at the top now?",
+      "action": "Remove the \"1\" square from box 2. Move your paperclip LEFT to index 1.",
+      "checkpoint": "Strip: [3][7][ ][ ][ ][ ], paperclip at index 1.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "7", "", "", "", ""],
+        "pointer": { "index": 1, "label": "top" }
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Stop and think: we pushed 3, 7, 1, 9. We popped and got 9, then 1. <strong>The last item pushed was the first one popped.</strong> This is LIFO: Last In, First Out.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "LIFO is the defining property of a stack. It's why stacks are used for undo operations (the most recent action is undone first) and for your browser's back button.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "Let's do a <strong>top</strong> (also called <strong>peek</strong>) operation. This lets you SEE the top item without removing it.",
+      "action": "Look at where your paperclip is pointing. What number is in that box? It should be 7. DON'T remove it; just look.",
+      "checkpoint": "The answer is 7. The strip is unchanged: [3][7][ ][ ][ ][ ] with the paperclip still at index 1.",
+      "conceptNote": "In Python: <code>stack.top()</code> returns 7 without modifying the stack. The top pointer doesn't move.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "7", "", "", "", ""],
+        "pointer": { "index": 1, "label": "top" },
+        "highlight": [1]
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "Now push <strong>4</strong> and <strong>2</strong> in sequence.",
+      "action": "Place \"4\" in box 2 (move paperclip to 2). Then place \"2\" in box 3 (move paperclip to 3).",
+      "checkpoint": "Strip: [3][7][4][2][ ][ ], paperclip at index 3.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["3", "7", "4", "2", "", ""],
+        "pointer": { "index": 3, "label": "top" }
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "Let's check: <strong>how many items</strong> are in the stack? Count them.",
+      "action": "Count the filled boxes: 3, 7, 4, 2. That's 4 items. Notice: the size equals top index + 1.",
+      "checkpoint": null,
+      "conceptNote": "In Python: <code>len(stack)</code> returns 4. Internally, if top is at index 3, then size = 3 + 1 = 4.",
+      "hint": "You don't need to count every item. If you know where the top pointer is, the size is just top_index + 1.",
+      "diagram": null
+    },
+    {
+      "id": 11,
+      "instruction": "Is the stack <strong>empty</strong>? How can you tell by looking at the paperclip?",
+      "action": "The paperclip is at index 3, so the stack is NOT empty. The stack is empty only when the paperclip is to the LEFT of index 0 (off the strip).",
+      "checkpoint": null,
+      "conceptNote": "In Python: <code>stack.is_empty()</code> checks if the size is 0. Often implemented by checking if the top index is -1.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 12,
+      "instruction": "Now pop ALL remaining items, one at a time. Say each number out loud as you remove it.",
+      "action": "Pop 2 (move to index 2). Pop 4 (move to index 1). Pop 7 (move to index 0). Pop 3 (move paperclip off the strip to the left).",
+      "checkpoint": "The strip should be completely empty: [ ][ ][ ][ ][ ][ ] with the paperclip off the strip. You should have said: 2, 4, 7, 3.",
+      "conceptNote": "Notice the order: 2, 4, 7, 3. That's the exact reverse of how they were pushed. This is LIFO in action.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["", "", "", "", "", ""],
+        "pointer": { "index": -1, "label": "" }
+      }
+    },
+    {
+      "id": 13,
+      "instruction": "One more thing: what happens if you try to <strong>pop from an empty stack</strong>? Try it. Look at your empty strip with the paperclip off to the left.",
+      "action": "There's nothing to remove! The paperclip can't move further left. This is called a STACK UNDERFLOW, an error condition.",
+      "checkpoint": null,
+      "conceptNote": "In the ArrayStack code, <code>pop()</code> on an empty stack raises an <code>Exception</code>. Your code should always check <code>is_empty()</code> before popping.",
+      "hint": "Similarly, if you push onto a full stack (all 6 boxes filled), that's a STACK OVERFLOW. The stack needs to resize, which is where ArrayList and amortized analysis come in.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "What always happens to the top pointer when you push? When you pop?",
+      "answer": "Push moves the top pointer RIGHT by one (to the next index). Pop moves it LEFT by one (back to the previous index)."
+    },
+    {
+      "question": "If you pushed A, B, C, D in that order and then popped twice, what would you get?",
+      "answer": "You'd get D first, then C. The last items pushed are the first ones popped (LIFO)."
+    },
+    {
+      "question": "Why is LIFO useful for an undo button? Think about what should be undone first.",
+      "answer": "The most RECENT action should be undone first. That's exactly what LIFO gives you: the last thing added (your most recent action) is the first thing removed."
+    },
+    {
+      "question": "Can you access the item at the BOTTOM of the stack without popping everything above it?",
+      "answer": "No! A stack only lets you see or remove the TOP item. To reach the bottom, you'd have to pop everything above it. This is a limitation of the stack structure."
+    }
+  ],
+  "nextTutorial": "sorting-bubble"
+}
