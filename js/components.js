@@ -151,6 +151,7 @@ export function renderDiagram(diagram) {
   if (diagram.type === 'array') return renderArrayDiagram(diagram);
   if (diagram.type === 'callstack') return renderCallStackDiagram(diagram);
   if (diagram.type === 'swap') return renderSwapDiagram(diagram);
+  if (diagram.type === 'midstack') return renderMidStackDiagram(diagram);
   return '';
 }
 
@@ -213,6 +214,40 @@ function renderCallStackDiagram(d) {
 
 function renderSwapDiagram(d) {
   return renderArrayDiagram({ ...d, type: 'array' });
+}
+
+function renderMidStackDiagram(d) {
+  const renderHalf = (cells, name) => {
+    if (cells.length === 0) {
+      return `<div class="midstack-empty">empty</div>`;
+    }
+    return cells.map(val =>
+      `<div class="diagram-cell">${val}</div>`
+    ).join('');
+  };
+
+  const bottomCells = renderHalf(d.bottom, 'bottom');
+  const topCells = renderHalf(d.top, 'top');
+
+  return `
+    <div class="diagram-container">
+      <div class="midstack-layout">
+        <div class="midstack-half">
+          <div class="midstack-label">Bottom Half (Stack)</div>
+          <div class="diagram-array">${bottomCells}</div>
+        </div>
+        <div class="midstack-divider">
+          <div class="midstack-divider-line"></div>
+          <div class="midstack-divider-label">middle</div>
+        </div>
+        <div class="midstack-half">
+          <div class="midstack-label">Top Half (Deque)</div>
+          <div class="diagram-array">${topCells}</div>
+        </div>
+      </div>
+      ${d.label ? `<div class="midstack-note">${d.label}</div>` : ''}
+    </div>
+  `;
 }
 
 export function renderReflection(questions) {

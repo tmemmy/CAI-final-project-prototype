@@ -1,0 +1,239 @@
+{
+  "id": "stacks-midstack",
+  "topic": "stacks",
+  "title": "MidStack: Insert in the Middle in O(1)",
+  "subtitle": "Build a stack that lets you push to the middle using two zones on your desk.",
+  "encouragement": "This is a real homework-level data structure. If you can physically run a MidStack, the code will make total sense. Take your time with the rebalancing steps.",
+  "realWorldExample": "Imagine a playlist where you can always insert the next song right in the middle of the queue. A normal stack can't do that efficiently, but a MidStack can, because it splits the work across two internal structures.",
+  "materials": [
+    {
+      "item": "A large sheet of paper or two smaller ones",
+      "detail": "You need two separate zones: one for the 'Bottom Half' and one for the 'Top Half'. Draw a vertical line down the middle, or use two sheets side by side.",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "8 small paper cards",
+      "detail": "Cut or tear 8 small squares. Write these letters on them: A, B, C, D, E, F, M, X",
+      "emoji": "\u2702\ufe0f"
+    },
+    {
+      "item": "A pen or marker",
+      "detail": "To label your zones and write on cards.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    },
+    {
+      "item": "Two small objects for pointers (optional)",
+      "detail": "Paperclips, coins, or small rocks. One marks the top of the bottom half, one marks the right end of the top half. Helpful but not required.",
+      "emoji": "\ud83d\udcce"
+    }
+  ],
+  "setup": [
+    "Divide your workspace into two zones. Label the left side 'Bottom Half (Stack)' and the right side 'Top Half (Deque)'. Draw a clear dividing line between them.",
+    "The Bottom Half works like a regular stack: you add and remove from the top only (the side closest to the dividing line).",
+    "The Top Half works like a deque: you can add or remove from BOTH ends. The left end touches the middle. The right end is the overall top of the MidStack.",
+    "Lay your lettered cards (A, B, C, D, E, F, M, X) off to the side, face up.",
+    "Both zones start empty. The rule we need to maintain: the Top Half always holds exactly floor(n/2) cards, where n is the total number of cards in the MidStack."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Let's <strong>push A</strong> onto the MidStack. In a push, the card always goes to the <strong>right end of the Top Half</strong> first.",
+      "action": "Place the 'A' card on the right side of your Top Half zone.",
+      "checkpoint": "Bottom Half: [ empty ]. Top Half: [A]. Total cards: 1.",
+      "conceptNote": "In the code, <code>push(e)</code> calls <code>self.top_half.enqueue_last(e)</code>. The card enters from the right end of the deque.",
+      "hint": null,
+      "diagram": {
+        "type": "midstack",
+        "bottom": [],
+        "top": ["A"],
+        "label": "After push, before rebalance"
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Now <strong>rebalance</strong>. Count your total cards: n=1. The Top Half should hold floor(1/2) = <strong>0</strong> cards. But it has 1. That's too many.",
+      "action": "Move 'A' from the LEFT end of the Top Half over to the Bottom Half. Place it as the top card on the bottom stack.",
+      "checkpoint": "Bottom Half: [A]. Top Half: [ empty ]. This is balanced: top has 0, which equals floor(1/2).",
+      "conceptNote": "This is <code>fix_size()</code>. When <code>len(top_half) > desired_top</code>, it calls <code>top_half.dequeue_first()</code> and pushes that value onto <code>bottom_half</code>.",
+      "hint": "Rebalancing always moves ONE card. Never more than one at a time.",
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A"],
+        "top": [],
+        "label": "After rebalance"
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Push <strong>B</strong>. Place it on the right end of the Top Half.",
+      "action": "Place 'B' in the Top Half. Now rebalance: n=2, Top should have floor(2/2) = 1. Top has 1. Balanced. No cards need to move.",
+      "checkpoint": "Bottom Half: [A]. Top Half: [B]. Total: 2.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A"],
+        "top": ["B"],
+        "label": "Balanced"
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Push <strong>C</strong>. Place it on the right end of the Top Half.",
+      "action": "Top Half now has [B, C]. Rebalance: n=3, Top should have floor(3/2) = 1. Top has 2. Too many. Move 'B' from the LEFT end of the Top Half to the Bottom Half.",
+      "checkpoint": "Bottom Half: [A, B] (B is on top). Top Half: [C]. Total: 3.",
+      "conceptNote": null,
+      "hint": "Notice the pattern: the Bottom Half grows from the side closest to the dividing line. Think of it as stacking upward toward the middle.",
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B"],
+        "top": ["C"],
+        "label": "After rebalance"
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Push <strong>D</strong>. Right end of Top Half.",
+      "action": "Top Half: [C, D]. Rebalance: n=4, Top should have floor(4/2) = 2. Top has 2. Balanced.",
+      "checkpoint": "Bottom Half: [A, B]. Top Half: [C, D]. Total: 4.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B"],
+        "top": ["C", "D"],
+        "label": "Balanced"
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Stop. Read the full stack from bottom to top: start at the bottom of the Bottom Half, go up, then continue from the left end of the Top Half to the right end.",
+      "action": "Read it out: A, B, C, D. Now look at where the two zones meet. The <strong>middle of the stack</strong> is right at the boundary between Bottom and Top.",
+      "checkpoint": null,
+      "conceptNote": "This split is the whole trick. By keeping two balanced halves, we always know exactly where the middle is: it's the top of the Bottom Half, or the left end of the Top Half.",
+      "hint": null,
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B"],
+        "top": ["C", "D"],
+        "label": "Full stack: A, B | C, D. Middle is at the boundary."
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Now the special operation: <strong>mid_push('M')</strong>. Count your total: n=4. Since 4 is <strong>even</strong>, place M on top of the Bottom Half.",
+      "action": "Place 'M' on top of the Bottom Half (on top of B, closest to the dividing line).",
+      "checkpoint": "Bottom Half: [A, B, M] (M is on top). Top Half: [C, D]. Total: 5.",
+      "conceptNote": "In the code, when n is even, <code>mid_push</code> calls <code>self.bottom_half.push(e)</code>. When n is odd, it calls <code>self.top_half.enqueue_first(e)</code>. Either way, the element lands at the boundary.",
+      "hint": "No rebalancing is needed after mid_push. The sizes stay correct automatically. That's part of why it's O(1).",
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B", "M"],
+        "top": ["C", "D"],
+        "label": "M inserted at the middle"
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "Read the full stack again: A, B, M, C, D. Where is M?",
+      "action": "Count: M is at position 2 (0-indexed) out of 5 elements. That's the middle. It landed exactly where it should, and you didn't have to shift anything.",
+      "checkpoint": null,
+      "conceptNote": "In a regular stack or array, inserting in the middle costs O(n) because you'd shift half the elements. MidStack does it in O(1) amortized by maintaining the two-half split.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 9,
+      "instruction": "Push <strong>E</strong>. Right end of Top Half.",
+      "action": "Top Half: [C, D, E]. Rebalance: n=6, Top should have 3. Top has 3. Balanced.",
+      "checkpoint": "Bottom Half: [A, B, M]. Top Half: [C, D, E]. Full stack: A, B, M, C, D, E.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B", "M"],
+        "top": ["C", "D", "E"],
+        "label": "Balanced"
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "Let's <strong>pop</strong>. In a pop, the card always comes off the <strong>right end of the Top Half</strong>.",
+      "action": "Remove 'E' from the right end of the Top Half. Rebalance: n=5, Top should have floor(5/2) = 2. Top has 2. Balanced.",
+      "checkpoint": "Bottom Half: [A, B, M]. Top Half: [C, D]. You popped E. The stack reads: A, B, M, C, D.",
+      "conceptNote": "In the code, <code>pop()</code> calls <code>self.top_half.dequeue_last()</code>, then <code>fix_size()</code>.",
+      "hint": null,
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B", "M"],
+        "top": ["C", "D"],
+        "label": "After pop E"
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "Pop again. Remove the right end of the Top Half.",
+      "action": "Remove 'D'. Now Top Half has [C]. Rebalance: n=4, Top should have 2. Top has 1. <strong>Too few.</strong> Move M from the top of the Bottom Half to the LEFT end of the Top Half.",
+      "checkpoint": "Bottom Half: [A, B]. Top Half: [M, C]. Full stack: A, B, M, C.",
+      "conceptNote": "When <code>len(top_half) < desired_top</code>, <code>fix_size()</code> pops from <code>bottom_half</code> and calls <code>top_half.enqueue_first()</code>. The card goes to the left end of the deque.",
+      "hint": "This is the reverse of what we saw in step 2. When the top half is too small, a card moves UP from the bottom half to fill it.",
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B"],
+        "top": ["M", "C"],
+        "label": "After rebalance: M moved up"
+      }
+    },
+    {
+      "id": 12,
+      "instruction": "Look at what just happened. M was sitting in the Bottom Half, and the rebalance moved it into the Top Half. <strong>The cards shift between halves to stay balanced.</strong> That's the engine of the whole data structure.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "The invariant (Top has exactly floor(n/2) cards) is maintained after EVERY push and pop. This is what makes mid_push work: the boundary is always the true middle.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 13,
+      "instruction": "One more mid_push to see the odd case. n=4 (even), so <strong>mid_push('X')</strong> goes on top of the Bottom Half.",
+      "action": "Place 'X' on top of the Bottom Half (on top of B). Bottom: [A, B, X]. Top: [M, C]. Full stack: A, B, X, M, C.",
+      "checkpoint": "Total: 5. Top should have floor(5/2) = 2. Top has 2. Balanced.",
+      "conceptNote": null,
+      "hint": "Notice X landed at position 2 out of 5 elements. Right in the middle again.",
+      "diagram": {
+        "type": "midstack",
+        "bottom": ["A", "B", "X"],
+        "top": ["M", "C"],
+        "label": "X inserted at middle"
+      }
+    },
+    {
+      "id": 14,
+      "instruction": "Final question: why is mid_push O(1) amortized? Look at your workspace. When you did mid_push, how many cards did you move?",
+      "action": "Just one. You placed the new card at the boundary. No shifting, no rebalancing needed. The two-half split means the middle is always right there.",
+      "checkpoint": null,
+      "conceptNote": "In a regular array, inserting in the middle requires shifting n/2 elements: O(n). The MidStack avoids this because the split point IS the middle. The only cost is the occasional rebalance in push/pop, which moves one card per operation: O(1) amortized.",
+      "hint": null,
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "Why does the MidStack use a stack for the bottom half and a deque for the top half? Why not two stacks?",
+      "answer": "The bottom half only needs to add/remove from the top (toward the middle), so a stack works. The top half needs to add/remove from BOTH ends: the left end (for rebalancing and mid_push) and the right end (for push/pop). That requires a deque."
+    },
+    {
+      "question": "What happens during rebalancing? When does a card move down vs. up?",
+      "answer": "If the top half has too many cards (after a push), one moves DOWN from the left of the top half to the bottom half. If the top half has too few (after a pop), one moves UP from the top of the bottom half to the left of the top half."
+    },
+    {
+      "question": "If you mid_push three times in a row, will the elements stay in the middle?",
+      "answer": "Each mid_push inserts at the current middle, but the middle shifts as n grows. The elements won't be adjacent; they'll spread out as new pushes and rebalances occur. Try it with your cards to see!"
+    },
+    {
+      "question": "Could you implement mid_push on a regular ArrayStack? What would the cost be?",
+      "answer": "You could, but inserting in the middle of an array means shifting half the elements over by one slot. That's O(n). The MidStack's two-half trick avoids all that shifting."
+    }
+  ],
+  "nextTutorial": "sorting-bubble"
+}

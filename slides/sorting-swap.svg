@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&amp;display=swap');
+    text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+  </style>
+  <defs>
+    <filter id="shadow"><feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.15"/></filter>
+    <pattern id="lines" patternUnits="userSpaceOnUse" width="100" height="24">
+      <line x1="0" y1="23" x2="100" y2="23" stroke="#B8C8D8" stroke-width="0.5" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <!-- Warm desk background -->
+  <rect width="800" height="500" fill="#E8DCC8" rx="4"/>
+  <line x1="0" y1="140" x2="800" y2="143" stroke="#D6CBAE" stroke-width="1.2" opacity="0.4"/>
+  <line x1="0" y1="300" x2="800" y2="297" stroke="#D6CBAE" stroke-width="1" opacity="0.35"/>
+  <line x1="0" y1="440" x2="800" y2="442" stroke="#D6CBAE" stroke-width="1.2" opacity="0.4"/>
+
+  <!-- Title pencil annotation -->
+  <text x="400" y="36" text-anchor="middle" fill="#555" font-size="26" font-weight="700" font-family="Caveat, cursive" transform="rotate(-0.5, 400, 36)">Sorting: Comparing &amp; Swapping</text>
+  <path d="M 210 42 Q 400 46 590 41" stroke="#555" stroke-width="1" fill="none" opacity="0.35"/>
+
+  <!-- === LEFT HAND holding "7" (small, 60%) === -->
+  <g transform="translate(165, 65) scale(0.6)">
+    <path d="M 10 90 Q 0 78 -5 55 Q -8 35 0 22 Q 10 12 20 18 Q 24 2 35 -2 Q 48 0 50 12 Q 58 2 68 4 Q 78 10 78 24 Q 82 14 90 16 Q 98 22 96 38 Q 94 58 88 80 Q 84 100 78 120 Q 72 138 60 150 Q 46 158 30 156 Q 16 150 12 136 Q 8 120 10 100 Z" fill="#F5D6C3" stroke="#2D2D2D" stroke-width="2" fill-opacity="0.9"/>
+    <path d="M 20 22 Q 22 34 24 42" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 48 12 Q 50 24 51 32" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 72 18 Q 74 28 74 36" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+  </g>
+
+  <!-- Paper card "7" held up (left) -->
+  <g filter="url(#shadow)" transform="rotate(-4, 260, 155)">
+    <rect x="210" y="110" width="100" height="90" rx="3" fill="#F0D6D6" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="212" y="112" width="96" height="86" fill="url(#lines)" opacity="0.4"/>
+    <text x="260" y="172" text-anchor="middle" fill="#2D2D2D" font-size="48" font-weight="700" font-family="Caveat, cursive">7</text>
+  </g>
+
+  <!-- === RIGHT HAND holding "3" (small, 60%) === -->
+  <g transform="translate(520, 60) scale(0.6)">
+    <path d="M 50 90 Q 60 78 75 72 Q 90 74 96 84 Q 104 74 114 72 Q 126 76 128 88 Q 136 80 146 82 Q 154 88 152 104 Q 158 100 164 104 Q 170 112 166 128 Q 162 148 154 168 Q 146 184 132 196 Q 116 206 96 206 Q 78 204 66 194 Q 56 184 52 166 Q 48 148 46 128 Q 45 108 50 90 Z" fill="#F5D6C3" stroke="#2D2D2D" stroke-width="2" fill-opacity="0.9"/>
+    <path d="M 82 82 Q 84 94 85 102" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 110 78 Q 112 90 113 98" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 138 86 Q 140 96 140 104" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+  </g>
+
+  <!-- Paper card "3" held up (right) -->
+  <g filter="url(#shadow)" transform="rotate(3, 540, 155)">
+    <rect x="490" y="110" width="100" height="90" rx="3" fill="#D6E4F0" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="492" y="112" width="96" height="86" fill="url(#lines)" opacity="0.4"/>
+    <text x="540" y="172" text-anchor="middle" fill="#2D2D2D" font-size="48" font-weight="700" font-family="Caveat, cursive">3</text>
+  </g>
+
+  <!-- Swap arrows (pencil style) -->
+  <g>
+    <path d="M 315 135 Q 400 90 485 135" stroke="#555" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 475 127 L 488 136 L 478 144" fill="none" stroke="#555" stroke-width="2"/>
+    <path d="M 485 180 Q 400 225 315 180" stroke="#555" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 325 188 L 312 180 L 322 172" fill="none" stroke="#555" stroke-width="2"/>
+    <text x="400" y="165" text-anchor="middle" fill="#555" font-size="22" font-weight="700" font-family="Caveat, cursive" transform="rotate(-2, 400, 165)">swap!</text>
+  </g>
+
+  <!-- Divider - pencil dashed line -->
+  <path d="M 80 265 Q 400 260 720 265" stroke="#555" stroke-width="1" fill="none" stroke-dasharray="8,5" opacity="0.35"/>
+  <text x="400" y="290" text-anchor="middle" fill="#555" font-size="18" font-family="Caveat, cursive" opacity="0.6" transform="rotate(-0.5, 400, 290)">cards laid out on the desk:</text>
+
+  <!-- === Bottom row of 5 index cards on desk === -->
+
+  <!-- Card: 3 (highlighted) -->
+  <g filter="url(#shadow)">
+    <rect x="108" y="310" width="100" height="90" rx="3" fill="#D6E4F0" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="110" y="312" width="96" height="86" fill="url(#lines)" opacity="0.3"/>
+    <text x="158" y="370" text-anchor="middle" fill="#2D2D2D" font-size="42" font-weight="700" font-family="Caveat, cursive">3</text>
+    <!-- Highlight circle -->
+    <circle cx="158" cy="358" r="28" fill="none" stroke="#E8785A" stroke-width="2" stroke-dasharray="5,3" opacity="0.6"/>
+  </g>
+  <!-- Tape on card 3 -->
+  <rect x="138" y="303" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.55" transform="rotate(-6, 158, 310)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Card: 7 (highlighted) -->
+  <g filter="url(#shadow)">
+    <rect x="238" y="310" width="100" height="90" rx="3" fill="#F0D6D6" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="240" y="312" width="96" height="86" fill="url(#lines)" opacity="0.3"/>
+    <text x="288" y="370" text-anchor="middle" fill="#2D2D2D" font-size="42" font-weight="700" font-family="Caveat, cursive">7</text>
+    <!-- Highlight circle -->
+    <circle cx="288" cy="358" r="28" fill="none" stroke="#E8785A" stroke-width="2" stroke-dasharray="5,3" opacity="0.6"/>
+  </g>
+  <!-- Tape on card 7 -->
+  <rect x="268" y="303" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.55" transform="rotate(5, 288, 310)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Comparison bracket (pencil) -->
+  <path d="M 155 410 Q 155 430 222 430 Q 290 430 290 410" stroke="#555" stroke-width="1.8" fill="none"/>
+  <text x="222" y="455" text-anchor="middle" fill="#555" font-size="17" font-weight="700" font-family="Caveat, cursive" transform="rotate(1, 222, 455)">7 > 3? yes, swap!</text>
+
+  <!-- Card: 5 -->
+  <g filter="url(#shadow)">
+    <rect x="368" y="310" width="100" height="90" rx="3" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="370" y="312" width="96" height="86" fill="url(#lines)" opacity="0.3"/>
+    <text x="418" y="370" text-anchor="middle" fill="#2D2D2D" font-size="42" font-weight="700" font-family="Caveat, cursive">5</text>
+  </g>
+  <rect x="398" y="303" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.5" transform="rotate(-3, 418, 310)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Card: 1 -->
+  <g filter="url(#shadow)">
+    <rect x="498" y="310" width="100" height="90" rx="3" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="500" y="312" width="96" height="86" fill="url(#lines)" opacity="0.3"/>
+    <text x="548" y="370" text-anchor="middle" fill="#2D2D2D" font-size="42" font-weight="700" font-family="Caveat, cursive">1</text>
+  </g>
+  <rect x="528" y="303" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.5" transform="rotate(7, 548, 310)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Card: 9 -->
+  <g filter="url(#shadow)">
+    <rect x="628" y="310" width="100" height="90" rx="3" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="630" y="312" width="96" height="86" fill="url(#lines)" opacity="0.3"/>
+    <text x="678" y="370" text-anchor="middle" fill="#2D2D2D" font-size="42" font-weight="700" font-family="Caveat, cursive">9</text>
+  </g>
+  <rect x="658" y="303" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.5" transform="rotate(-8, 678, 310)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Index markers (pencil) -->
+  <text x="158" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[0]</text>
+  <text x="288" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[1]</text>
+  <text x="418" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[2]</text>
+  <text x="548" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[3]</text>
+  <text x="678" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[4]</text>
+
+  <!-- Small paper scrap decorations -->
+  <rect x="40" y="460" width="22" height="14" rx="1" fill="#D6F0D6" opacity="0.4" transform="rotate(12, 51, 467)"/>
+  <rect x="740" y="55" width="18" height="12" rx="1" fill="#F0ECD6" opacity="0.35" transform="rotate(-15, 749, 61)"/>
+</svg>

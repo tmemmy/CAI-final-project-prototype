@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&amp;display=swap');
+    text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+  </style>
+  <defs>
+    <filter id="pencil" x="-2%" y="-2%" width="104%" height="104%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="4" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#FFF9F0" rx="12"/>
+
+  <!-- Title -->
+  <text x="370" y="42" text-anchor="middle" fill="#2D2D2D" font-size="30" font-weight="700" font-family="Caveat, cursive">Recursion: Nesting &amp; Unwinding</text>
+
+  <!-- Bowl 1 (bottom, largest) - sum(1) BASE CASE -->
+  <g filter="url(#pencil)">
+    <!-- Bowl body -->
+    <path d="M 180 420 Q 185 460 300 465 Q 415 460 420 420" stroke="#2D2D2D" stroke-width="2.5" fill="#5B8FD4" fill-opacity="0.3"/>
+    <!-- Bowl rim -->
+    <ellipse cx="300" cy="420" rx="122" ry="18" fill="#5B8FD4" fill-opacity="0.5" stroke="#2D2D2D" stroke-width="2.5"/>
+    <!-- Label -->
+    <text x="300" y="428" text-anchor="middle" fill="#2D2D2D" font-size="22" font-weight="700" font-family="Caveat, cursive">sum(1)</text>
+  </g>
+
+  <!-- Star / base case marker -->
+  <g transform="translate(300, 455)">
+    <path d="M 0 -10 L 3 -3 L 10 -3 L 5 2 L 7 10 L 0 5 L -7 10 L -5 2 L -10 -3 L -3 -3 Z" fill="#F4C554" stroke="#2D2D2D" stroke-width="1.5"/>
+  </g>
+  <text x="300" y="490" text-anchor="middle" fill="#7DB87D" font-size="18" font-weight="700" font-family="Caveat, cursive">base case! returns 1</text>
+
+  <!-- Bowl 2 - sum(2) -->
+  <g filter="url(#pencil)">
+    <path d="M 195 350 Q 200 385 300 390 Q 400 385 405 350" stroke="#2D2D2D" stroke-width="2.5" fill="#E8785A" fill-opacity="0.3"/>
+    <ellipse cx="300" cy="350" rx="107" ry="16" fill="#E8785A" fill-opacity="0.5" stroke="#2D2D2D" stroke-width="2.5"/>
+    <text x="300" y="358" text-anchor="middle" fill="#2D2D2D" font-size="22" font-weight="700" font-family="Caveat, cursive">sum(2)</text>
+  </g>
+
+  <!-- Bowl 3 - sum(3) -->
+  <g filter="url(#pencil)">
+    <path d="M 210 280 Q 215 312 300 316 Q 385 312 390 280" stroke="#2D2D2D" stroke-width="2.5" fill="#7DB87D" fill-opacity="0.3"/>
+    <ellipse cx="300" cy="280" rx="92" ry="15" fill="#7DB87D" fill-opacity="0.5" stroke="#2D2D2D" stroke-width="2.5"/>
+    <text x="300" y="288" text-anchor="middle" fill="#2D2D2D" font-size="22" font-weight="700" font-family="Caveat, cursive">sum(3)</text>
+  </g>
+
+  <!-- Bowl 4 (top, smallest) - sum(4) being placed by hand -->
+  <g filter="url(#pencil)">
+    <path d="M 228 195 Q 233 222 300 226 Q 367 222 372 195" stroke="#2D2D2D" stroke-width="2.5" fill="#F4C554" fill-opacity="0.3"/>
+    <ellipse cx="300" cy="195" rx="74" ry="13" fill="#F4C554" fill-opacity="0.5" stroke="#2D2D2D" stroke-width="2.5"/>
+    <text x="300" y="203" text-anchor="middle" fill="#2D2D2D" font-size="22" font-weight="700" font-family="Caveat, cursive">sum(4)</text>
+  </g>
+
+  <!-- Hand placing top bowl -->
+  <g filter="url(#pencil)">
+    <path d="M 340 110 Q 330 100 325 82 Q 322 65 328 54 Q 336 46 346 52 Q 350 38 360 35 Q 372 34 375 44 Q 382 35 392 35 Q 403 39 403 52 Q 407 42 416 44 Q 424 50 422 64 Q 420 82 416 100 Q 412 120 408 140 Q 404 158 394 172 Q 382 182 365 182 Q 350 178 345 164 Q 340 148 340 130 Z" fill="#F5D6C3" stroke="#2D2D2D" stroke-width="2.5" fill-opacity="0.9"/>
+    <path d="M 346 56 Q 348 68 350 76" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 373 46 Q 375 58 376 66" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 397 50 Q 398 60 398 68" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+  </g>
+
+  <!-- "Calling down" label with arrow on left -->
+  <g>
+    <path d="M 130 180 Q 128 250 130 400" stroke="#5B8FD4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 123 390 L 130 408 L 137 390" fill="#5B8FD4" stroke="#5B8FD4" stroke-width="2"/>
+    <text x="108" y="300" text-anchor="middle" fill="#5B8FD4" font-size="20" font-weight="700" font-family="Caveat, cursive" transform="rotate(-90, 108, 300)">calling down</text>
+  </g>
+
+  <!-- "Unwinding" curved arrow on right -->
+  <g>
+    <path d="M 480 430 Q 520 420 540 380 Q 560 340 555 300 Q 550 260 540 230 Q 530 200 510 180" stroke="#E8785A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 518 188 L 508 175 L 504 192" fill="#E8785A" stroke="#E8785A" stroke-width="2"/>
+    <text x="570" y="300" text-anchor="middle" fill="#E8785A" font-size="20" font-weight="700" font-family="Caveat, cursive">unwinding!</text>
+  </g>
+
+  <!-- Return values along unwinding arrow -->
+  <text x="540" y="410" fill="#2D2D2D" font-size="16" font-family="Caveat, cursive" opacity="0.7">returns 1</text>
+  <text x="560" y="365" fill="#2D2D2D" font-size="16" font-family="Caveat, cursive" opacity="0.7">returns 1+2 = 3</text>
+  <text x="570" y="318" fill="#2D2D2D" font-size="16" font-family="Caveat, cursive" opacity="0.7">returns 3+3 = 6</text>
+  <text x="565" y="260" fill="#2D2D2D" font-size="16" font-family="Caveat, cursive" opacity="0.7">returns 6+4 = 10</text>
+
+  <!-- Final answer bubble -->
+  <g>
+    <ellipse cx="620" cy="170" rx="65" ry="35" fill="#F4C554" fill-opacity="0.3" stroke="#2D2D2D" stroke-width="2"/>
+    <text x="620" y="165" text-anchor="middle" fill="#2D2D2D" font-size="18" font-weight="700" font-family="Caveat, cursive">answer:</text>
+    <text x="620" y="188" text-anchor="middle" fill="#E8785A" font-size="26" font-weight="700" font-family="Caveat, cursive">10!</text>
+  </g>
+
+  <!-- Decorative dots -->
+  <circle cx="700" cy="460" r="3" fill="#7DB87D" opacity="0.5"/>
+  <circle cx="715" cy="470" r="2" fill="#5B8FD4" opacity="0.5"/>
+  <circle cx="80" cy="460" r="3" fill="#F4C554" opacity="0.5"/>
+</svg>

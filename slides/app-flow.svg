@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&amp;display=swap');
+    text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+  </style>
+  <defs>
+    <filter id="shadow"><feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.15"/></filter>
+    <pattern id="cork" patternUnits="userSpaceOnUse" width="40" height="40">
+      <rect width="40" height="40" fill="#D4B896"/>
+      <circle cx="8" cy="12" r="1.5" fill="#C4A882" opacity="0.5"/>
+      <circle cx="28" cy="5" r="1" fill="#C4A882" opacity="0.4"/>
+      <circle cx="18" cy="30" r="1.8" fill="#C4A882" opacity="0.45"/>
+      <circle cx="35" cy="25" r="1.2" fill="#C4A882" opacity="0.4"/>
+      <circle cx="5" cy="35" r="1" fill="#C4A882" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Cork board background -->
+  <rect width="900" height="500" fill="url(#cork)" rx="4"/>
+  <!-- Cork board frame -->
+  <rect x="3" y="3" width="894" height="494" rx="4" fill="none" stroke="#8B6F47" stroke-width="6"/>
+
+  <!-- Title - written on a strip of paper taped to board -->
+  <g filter="url(#shadow)">
+    <rect x="270" y="10" width="360" height="36" rx="2" fill="white" stroke="#bbb" stroke-width="0.5" transform="rotate(-0.5, 450, 28)"/>
+    <text x="450" y="35" text-anchor="middle" fill="#555" font-size="24" font-weight="700" font-family="Caveat, cursive">AlgoHands CAI - User Journey</text>
+  </g>
+  <!-- Tape on title -->
+  <rect x="280" y="5" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.55" transform="rotate(-8, 300, 12)" stroke="#E0D080" stroke-width="0.5"/>
+  <rect x="580" y="5" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.55" transform="rotate(6, 600, 12)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- ========== SCREEN 1: Welcome ========== -->
+  <g filter="url(#shadow)" transform="rotate(-2, 95, 195)">
+    <!-- Index card -->
+    <rect x="22" y="70" width="146" height="220" rx="4" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <!-- Red line at top -->
+    <line x1="22" y1="90" x2="168" y2="90" stroke="#E8A0A0" stroke-width="0.8" opacity="0.6"/>
+    <!-- Blue lines -->
+    <line x1="22" y1="114" x2="168" y2="114" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="22" y1="138" x2="168" y2="138" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="22" y1="162" x2="168" y2="162" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="22" y1="186" x2="168" y2="186" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="22" y1="210" x2="168" y2="210" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="22" y1="234" x2="168" y2="234" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="22" y1="258" x2="168" y2="258" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Phone wireframe drawn in pencil -->
+    <rect x="52" y="100" width="86" height="140" rx="10" fill="none" stroke="#555" stroke-width="1.5"/>
+    <!-- Status bar -->
+    <line x1="66" y1="110" x2="124" y2="110" stroke="#555" stroke-width="0.8" opacity="0.4"/>
+    <!-- Logo circle -->
+    <circle cx="95" cy="145" r="16" fill="none" stroke="#5B8FD4" stroke-width="1.5" opacity="0.7"/>
+    <text x="95" y="151" text-anchor="middle" fill="#5B8FD4" font-size="14" font-weight="700" font-family="Caveat, cursive" opacity="0.8">AH</text>
+    <!-- Welcome text -->
+    <text x="95" y="180" text-anchor="middle" fill="#555" font-size="13" font-weight="700" font-family="Caveat, cursive">Welcome!</text>
+    <text x="95" y="195" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive" opacity="0.6">Learn CS with</text>
+    <text x="95" y="206" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive" opacity="0.6">your hands</text>
+    <!-- Button -->
+    <rect x="62" y="215" width="66" height="18" rx="8" fill="none" stroke="#7DB87D" stroke-width="1.2" opacity="0.7"/>
+    <text x="95" y="228" text-anchor="middle" fill="#7DB87D" font-size="11" font-weight="700" font-family="Caveat, cursive">Start!</text>
+
+    <!-- Label below -->
+    <text x="95" y="275" text-anchor="middle" fill="#555" font-size="16" font-weight="700" font-family="Caveat, cursive">1. Welcome</text>
+  </g>
+  <!-- Push pin on card 1 -->
+  <circle cx="95" cy="68" r="7" fill="#E85050" stroke="#C03030" stroke-width="1"/>
+  <circle cx="94" cy="66" r="2" fill="#F5A0A0" opacity="0.6"/>
+
+  <!-- ========== SCREEN 2: Pick a Topic ========== -->
+  <g filter="url(#shadow)" transform="rotate(1, 275, 195)">
+    <rect x="202" y="70" width="146" height="220" rx="4" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <line x1="202" y1="90" x2="348" y2="90" stroke="#E8A0A0" stroke-width="0.8" opacity="0.6"/>
+    <line x1="202" y1="114" x2="348" y2="114" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="202" y1="138" x2="348" y2="138" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="202" y1="162" x2="348" y2="162" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="202" y1="186" x2="348" y2="186" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="202" y1="210" x2="348" y2="210" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="202" y1="234" x2="348" y2="234" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="202" y1="258" x2="348" y2="258" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+
+    <rect x="232" y="100" width="86" height="140" rx="10" fill="none" stroke="#555" stroke-width="1.5"/>
+    <line x1="246" y1="110" x2="304" y2="110" stroke="#555" stroke-width="0.8" opacity="0.4"/>
+    <text x="275" y="128" text-anchor="middle" fill="#555" font-size="12" font-weight="700" font-family="Caveat, cursive">Pick a Topic</text>
+    <!-- Topic cards -->
+    <rect x="242" y="136" width="66" height="22" rx="4" fill="none" stroke="#5B8FD4" stroke-width="1.2" opacity="0.7"/>
+    <text x="275" y="152" text-anchor="middle" fill="#5B8FD4" font-size="11" font-family="Caveat, cursive">Stacks</text>
+    <rect x="242" y="164" width="66" height="22" rx="4" fill="none" stroke="#E8785A" stroke-width="1.2" opacity="0.7"/>
+    <text x="275" y="180" text-anchor="middle" fill="#E8785A" font-size="11" font-family="Caveat, cursive">Sorting</text>
+    <rect x="242" y="192" width="66" height="22" rx="4" fill="none" stroke="#F4C554" stroke-width="1.2" opacity="0.7"/>
+    <text x="275" y="208" text-anchor="middle" fill="#C4A030" font-size="11" font-family="Caveat, cursive">Recursion</text>
+
+    <text x="275" y="275" text-anchor="middle" fill="#555" font-size="16" font-weight="700" font-family="Caveat, cursive">2. Pick Topic</text>
+  </g>
+  <!-- Tape on card 2 -->
+  <rect x="255" y="62" width="42" height="14" rx="2" fill="#F5E8A0" opacity="0.55" transform="rotate(5, 276, 69)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Arrow 1->2 (marker style) -->
+  <g>
+    <path d="M 172 180 Q 188 175 200 180" stroke="#2D2D2D" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 194 174 L 204 180 L 194 186" fill="#2D2D2D" stroke="#2D2D2D" stroke-width="1.5"/>
+  </g>
+
+  <!-- ========== SCREEN 3: Materials Checklist ========== -->
+  <g filter="url(#shadow)" transform="rotate(-1.5, 455, 195)">
+    <rect x="382" y="70" width="146" height="220" rx="4" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <line x1="382" y1="90" x2="528" y2="90" stroke="#E8A0A0" stroke-width="0.8" opacity="0.6"/>
+    <line x1="382" y1="114" x2="528" y2="114" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="382" y1="138" x2="528" y2="138" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="382" y1="162" x2="528" y2="162" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="382" y1="186" x2="528" y2="186" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="382" y1="210" x2="528" y2="210" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="382" y1="234" x2="528" y2="234" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="382" y1="258" x2="528" y2="258" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+
+    <rect x="412" y="100" width="86" height="140" rx="10" fill="none" stroke="#555" stroke-width="1.5"/>
+    <line x1="426" y1="110" x2="484" y2="110" stroke="#555" stroke-width="0.8" opacity="0.4"/>
+    <text x="455" y="128" text-anchor="middle" fill="#555" font-size="12" font-weight="700" font-family="Caveat, cursive">You'll Need:</text>
+    <!-- Checklist items -->
+    <path d="M 422 140 L 426 145 L 432 137" stroke="#7DB87D" stroke-width="1.5" fill="none"/>
+    <text x="440" y="145" fill="#555" font-size="10" font-family="Caveat, cursive">Scissors</text>
+    <path d="M 422 158 L 426 163 L 432 155" stroke="#7DB87D" stroke-width="1.5" fill="none"/>
+    <text x="440" y="163" fill="#555" font-size="10" font-family="Caveat, cursive">Paper</text>
+    <path d="M 422 176 L 426 181 L 432 173" stroke="#7DB87D" stroke-width="1.5" fill="none"/>
+    <text x="440" y="181" fill="#555" font-size="10" font-family="Caveat, cursive">Tape</text>
+    <path d="M 422 194 L 426 199 L 432 191" stroke="#7DB87D" stroke-width="1.5" fill="none"/>
+    <text x="440" y="199" fill="#555" font-size="10" font-family="Caveat, cursive">Bowls</text>
+    <!-- Button -->
+    <rect x="420" y="212" width="70" height="18" rx="8" fill="none" stroke="#7DB87D" stroke-width="1.2" opacity="0.7"/>
+    <text x="455" y="225" text-anchor="middle" fill="#7DB87D" font-size="10" font-weight="700" font-family="Caveat, cursive">I'm Ready!</text>
+
+    <text x="455" y="275" text-anchor="middle" fill="#555" font-size="16" font-weight="700" font-family="Caveat, cursive">3. Materials</text>
+  </g>
+  <!-- Push pin on card 3 -->
+  <circle cx="455" cy="68" r="7" fill="#5B8FD4" stroke="#3A6AA0" stroke-width="1"/>
+  <circle cx="454" cy="66" r="2" fill="#8FB8E8" opacity="0.6"/>
+
+  <!-- Arrow 2->3 -->
+  <g>
+    <path d="M 352 180 Q 368 175 380 180" stroke="#2D2D2D" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 374 174 L 384 180 L 374 186" fill="#2D2D2D" stroke="#2D2D2D" stroke-width="1.5"/>
+  </g>
+
+  <!-- ========== SCREEN 4: Tutorial ========== -->
+  <g filter="url(#shadow)" transform="rotate(1, 635, 195)">
+    <rect x="562" y="70" width="146" height="220" rx="4" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <line x1="562" y1="90" x2="708" y2="90" stroke="#E8A0A0" stroke-width="0.8" opacity="0.6"/>
+    <line x1="562" y1="114" x2="708" y2="114" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="562" y1="138" x2="708" y2="138" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="562" y1="162" x2="708" y2="162" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="562" y1="186" x2="708" y2="186" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="562" y1="210" x2="708" y2="210" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="562" y1="234" x2="708" y2="234" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="562" y1="258" x2="708" y2="258" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+
+    <rect x="592" y="100" width="86" height="140" rx="10" fill="none" stroke="#555" stroke-width="1.5"/>
+    <line x1="606" y1="110" x2="664" y2="110" stroke="#555" stroke-width="0.8" opacity="0.4"/>
+    <text x="635" y="126" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="Caveat, cursive">Step 1 of 5</text>
+    <!-- Speech bubble -->
+    <path d="M 600 134 Q 598 130 635 128 Q 672 130 674 134 Q 676 138 675 170 Q 674 202 672 206 Q 670 210 635 209 Q 618 209 610 216 Q 612 208 600 206 Q 598 202 599 170 Z" fill="none" stroke="#F4C554" stroke-width="1" opacity="0.6"/>
+    <text x="635" y="152" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive">Cut 5 paper</text>
+    <text x="635" y="164" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive">strips and write</text>
+    <text x="635" y="176" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive">numbers 1-5</text>
+    <text x="635" y="190" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive">on each one.</text>
+    <!-- Progress dots -->
+    <circle cx="619" cy="222" r="3" fill="#5B8FD4" stroke="#555" stroke-width="0.5"/>
+    <circle cx="631" cy="222" r="3" fill="none" stroke="#555" stroke-width="0.5" opacity="0.4"/>
+    <circle cx="643" cy="222" r="3" fill="none" stroke="#555" stroke-width="0.5" opacity="0.4"/>
+    <circle cx="655" cy="222" r="3" fill="none" stroke="#555" stroke-width="0.5" opacity="0.4"/>
+
+    <text x="635" y="275" text-anchor="middle" fill="#555" font-size="16" font-weight="700" font-family="Caveat, cursive">4. Tutorial</text>
+  </g>
+  <!-- Tape on card 4 -->
+  <rect x="615" y="62" width="42" height="14" rx="2" fill="#F5E8A0" opacity="0.55" transform="rotate(-7, 636, 69)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Arrow 3->4 -->
+  <g>
+    <path d="M 532 180 Q 548 175 560 180" stroke="#2D2D2D" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 554 174 L 564 180 L 554 186" fill="#2D2D2D" stroke="#2D2D2D" stroke-width="1.5"/>
+  </g>
+
+  <!-- ========== SCREEN 5: Reflection ========== -->
+  <g filter="url(#shadow)" transform="rotate(-1, 795, 340)">
+    <rect x="722" y="310" width="146" height="170" rx="4" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <line x1="722" y1="330" x2="868" y2="330" stroke="#E8A0A0" stroke-width="0.8" opacity="0.6"/>
+    <line x1="722" y1="354" x2="868" y2="354" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="722" y1="378" x2="868" y2="378" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="722" y1="402" x2="868" y2="402" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="722" y1="426" x2="868" y2="426" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="722" y1="450" x2="868" y2="450" stroke="#B8C8D8" stroke-width="0.5" opacity="0.3"/>
+
+    <rect x="752" y="338" width="86" height="110" rx="10" fill="none" stroke="#555" stroke-width="1.5"/>
+    <line x1="766" y1="348" x2="824" y2="348" stroke="#555" stroke-width="0.8" opacity="0.4"/>
+    <text x="795" y="366" text-anchor="middle" fill="#555" font-size="12" font-weight="700" font-family="Caveat, cursive">Reflection</text>
+    <text x="795" y="385" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive" opacity="0.7">What did you</text>
+    <text x="795" y="396" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive" opacity="0.7">notice about</text>
+    <text x="795" y="407" text-anchor="middle" fill="#555" font-size="9" font-family="Caveat, cursive" opacity="0.7">the order?</text>
+    <!-- Text input -->
+    <rect x="762" y="414" width="66" height="16" rx="3" fill="none" stroke="#555" stroke-width="0.8" opacity="0.4"/>
+    <text x="770" y="425" fill="#555" font-size="7" font-family="Caveat, cursive" opacity="0.3">Type here...</text>
+    <!-- Stars -->
+    <g transform="translate(770, 434)">
+      <path d="M 5 0 L 6.5 3.5 L 10 3.5 L 7.5 6 L 8.5 10 L 5 7.5 L 1.5 10 L 2.5 6 L 0 3.5 L 3.5 3.5 Z" fill="#F4C554" stroke="#555" stroke-width="0.5"/>
+      <path d="M 17 0 L 18.5 3.5 L 22 3.5 L 19.5 6 L 20.5 10 L 17 7.5 L 13.5 10 L 14.5 6 L 12 3.5 L 15.5 3.5 Z" fill="#F4C554" stroke="#555" stroke-width="0.5"/>
+      <path d="M 29 0 L 30.5 3.5 L 34 3.5 L 31.5 6 L 32.5 10 L 29 7.5 L 25.5 10 L 26.5 6 L 24 3.5 L 27.5 3.5 Z" fill="#F4C554" stroke="#555" stroke-width="0.5"/>
+      <path d="M 41 0 L 42.5 3.5 L 46 3.5 L 43.5 6 L 44.5 10 L 41 7.5 L 37.5 10 L 38.5 6 L 36 3.5 L 39.5 3.5 Z" fill="#F4C554" fill-opacity="0.3" stroke="#555" stroke-width="0.5"/>
+    </g>
+
+    <text x="795" y="490" text-anchor="middle" fill="#555" font-size="16" font-weight="700" font-family="Caveat, cursive">5. Reflection</text>
+  </g>
+  <!-- Push pin on card 5 -->
+  <circle cx="795" cy="308" r="7" fill="#7DB87D" stroke="#4A8A4A" stroke-width="1"/>
+  <circle cx="794" cy="306" r="2" fill="#A8D8A8" opacity="0.6"/>
+
+  <!-- Arrow 4->5 (curves down to reflection) -->
+  <g>
+    <path d="M 712 230 Q 750 250 770 290 Q 780 310 760 320" stroke="#2D2D2D" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 766 314 L 756 324 L 754 310" fill="#2D2D2D" stroke="#2D2D2D" stroke-width="1.5"/>
+  </g>
+
+  <!-- Small paper scrap decoration -->
+  <rect x="30" y="440" width="24" height="16" rx="1" fill="#F0D6D6" opacity="0.4" transform="rotate(10, 42, 448)" filter="url(#shadow)"/>
+  <rect x="850" y="440" width="20" height="12" rx="1" fill="#D6E4F0" opacity="0.35" transform="rotate(-14, 860, 446)"/>
+</svg>

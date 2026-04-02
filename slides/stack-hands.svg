@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&amp;display=swap');
+    text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+  </style>
+  <defs>
+    <filter id="shadow"><feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.15"/></filter>
+    <!-- Lined paper pattern -->
+    <pattern id="lines" patternUnits="userSpaceOnUse" width="100" height="24">
+      <line x1="0" y1="23" x2="100" y2="23" stroke="#B8C8D8" stroke-width="0.5" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <!-- Warm desk background -->
+  <rect width="800" height="500" fill="#E8DCC8" rx="4"/>
+  <!-- Subtle wood grain -->
+  <line x1="0" y1="120" x2="800" y2="125" stroke="#D6CBAE" stroke-width="1.5" opacity="0.5"/>
+  <line x1="0" y1="250" x2="800" y2="248" stroke="#D6CBAE" stroke-width="1" opacity="0.4"/>
+  <line x1="0" y1="380" x2="800" y2="383" stroke="#D6CBAE" stroke-width="1.2" opacity="0.4"/>
+
+  <!-- Title as pencil annotation, slightly tilted -->
+  <text x="400" y="38" text-anchor="middle" fill="#555" font-size="26" font-weight="700" font-family="Caveat, cursive" transform="rotate(-1, 400, 38)">Stack: Last In, First Out (LIFO)</text>
+  <!-- Underline scribble -->
+  <path d="M 230 44 Q 400 48 570 43" stroke="#555" stroke-width="1.2" fill="none" opacity="0.4"/>
+
+  <!-- === CARD A (bottom) === -->
+  <g filter="url(#shadow)">
+    <path d="M 310 385 L 490 383 L 492 388 L 491 448 L 489 453 L 488 455 L 311 456 L 309 452 L 308 390 Z" fill="#D6E4F0" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="312" y="387" width="178" height="66" fill="url(#lines)" opacity="0.5"/>
+    <!-- Red margin line -->
+    <line x1="335" y1="385" x2="335" y2="455" stroke="#E8A0A0" stroke-width="0.8" opacity="0.5"/>
+    <text x="400" y="432" text-anchor="middle" fill="#2D2D2D" font-size="36" font-weight="700" font-family="Caveat, cursive">A</text>
+  </g>
+  <!-- Tape holding bottom card -->
+  <rect x="375" y="445" width="50" height="18" rx="2" fill="#F5E8A0" opacity="0.55" transform="rotate(-8, 400, 454)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- === CARD B === -->
+  <g filter="url(#shadow)">
+    <path d="M 308 310 L 491 308 L 493 313 L 492 372 L 490 377 L 312 378 L 309 374 L 307 315 Z" fill="#F0ECD6" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="310" y="312" width="180" height="64" fill="url(#lines)" opacity="0.4"/>
+    <line x1="333" y1="310" x2="333" y2="378" stroke="#E8A0A0" stroke-width="0.8" opacity="0.5"/>
+    <text x="400" y="356" text-anchor="middle" fill="#2D2D2D" font-size="36" font-weight="700" font-family="Caveat, cursive">B</text>
+  </g>
+
+  <!-- === CARD C === -->
+  <g filter="url(#shadow)">
+    <path d="M 306 235 L 492 233 L 494 238 L 493 297 L 491 302 L 308 303 L 305 299 L 304 240 Z" fill="#F0D6D6" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="308" y="237" width="183" height="64" fill="url(#lines)" opacity="0.4"/>
+    <line x1="331" y1="235" x2="331" y2="303" stroke="#E8A0A0" stroke-width="0.8" opacity="0.5"/>
+    <text x="400" y="281" text-anchor="middle" fill="#2D2D2D" font-size="36" font-weight="700" font-family="Caveat, cursive">C</text>
+  </g>
+
+  <!-- === CARD D === -->
+  <g filter="url(#shadow)">
+    <path d="M 304 160 L 493 158 L 495 163 L 494 222 L 492 227 L 306 228 L 303 224 L 302 165 Z" fill="#D6F0D6" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="306" y="162" width="186" height="64" fill="url(#lines)" opacity="0.4"/>
+    <line x1="329" y1="160" x2="329" y2="228" stroke="#E8A0A0" stroke-width="0.8" opacity="0.5"/>
+    <text x="400" y="206" text-anchor="middle" fill="#2D2D2D" font-size="36" font-weight="700" font-family="Caveat, cursive">D</text>
+  </g>
+
+  <!-- === CARD E (being placed on top) === -->
+  <g filter="url(#shadow)" transform="rotate(-3, 400, 115)">
+    <path d="M 302 82 L 495 80 L 497 85 L 496 145 L 494 150 L 304 152 L 301 148 L 300 87 Z" fill="white" stroke="#bbb" stroke-width="0.5"/>
+    <rect x="304" y="84" width="190" height="65" fill="url(#lines)" opacity="0.4"/>
+    <line x1="327" y1="82" x2="327" y2="152" stroke="#E8A0A0" stroke-width="0.8" opacity="0.5"/>
+    <text x="400" y="130" text-anchor="middle" fill="#2D2D2D" font-size="36" font-weight="700" font-family="Caveat, cursive">E</text>
+  </g>
+
+  <!-- Small doodle hand placing E (60% size) -->
+  <g transform="translate(500, 58) scale(0.6)">
+    <path d="M 10 80 Q 0 70 -5 50 Q -8 30 0 18 Q 8 8 18 14 Q 22 0 32 -4 Q 44 -2 46 8 Q 54 -2 64 0 Q 74 4 74 18 Q 78 8 86 10 Q 94 16 92 30 Q 90 50 86 70 Q 82 90 78 110 Q 74 125 64 138 Q 52 148 35 148 Q 20 144 15 130 Q 10 115 10 100 Z" fill="#F5D6C3" stroke="#2D2D2D" stroke-width="2" fill-opacity="0.9"/>
+    <path d="M 18 18 Q 20 30 22 38" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 44 8 Q 46 20 47 28" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 68 14 Q 70 24 70 32" stroke="#2D2D2D" stroke-width="1" fill="none" opacity="0.4"/>
+  </g>
+
+  <!-- Push arrow as pencil annotation (left side) -->
+  <g>
+    <path d="M 200 95 Q 198 200 200 420" stroke="#555" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="6,4"/>
+    <path d="M 192 410 L 200 430 L 208 410" fill="none" stroke="#555" stroke-width="2"/>
+    <text x="180" y="270" text-anchor="middle" fill="#555" font-size="22" font-weight="700" font-family="Caveat, cursive" transform="rotate(-90, 180, 270)">push( )</text>
+  </g>
+
+  <!-- Pop arrow as pencil annotation (right side) -->
+  <g>
+    <path d="M 600 420 Q 598 200 600 95" stroke="#555" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="6,4"/>
+    <path d="M 592 105 L 600 85 L 608 105" fill="none" stroke="#555" stroke-width="2"/>
+    <text x="622" y="270" text-anchor="middle" fill="#555" font-size="22" font-weight="700" font-family="Caveat, cursive" transform="rotate(90, 622, 270)">pop( )</text>
+  </g>
+
+  <!-- Pencil annotations -->
+  <text x="520" y="460" fill="#555" font-size="16" font-family="Caveat, cursive" transform="rotate(-2, 520, 460)">bottom ^</text>
+  <path d="M 510 455 Q 498 450 495 445" stroke="#555" stroke-width="0.8" fill="none" opacity="0.5"/>
+
+  <text x="520" y="95" fill="#555" font-size="16" font-family="Caveat, cursive" transform="rotate(1, 520, 95)">top (newest) ^</text>
+  <path d="M 510 90 Q 500 88 498 92" stroke="#555" stroke-width="0.8" fill="none" opacity="0.5"/>
+
+  <!-- Extra tape piece on card C -->
+  <rect x="460" y="258" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.5" transform="rotate(12, 480, 265)" stroke="#E0D080" stroke-width="0.5"/>
+
+  <!-- Desk surface line -->
+  <path d="M 250 470 Q 400 473 550 470" stroke="#555" stroke-width="1" fill="none" stroke-dasharray="8,5" opacity="0.3"/>
+
+  <!-- Small scattered paper scraps for craft feel -->
+  <rect x="680" y="430" width="25" height="15" rx="1" fill="#D6E4F0" opacity="0.4" transform="rotate(15, 692, 437)"/>
+  <rect x="100" y="450" width="20" height="12" rx="1" fill="#F0D6D6" opacity="0.35" transform="rotate(-20, 110, 456)"/>
+</svg>

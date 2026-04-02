@@ -13,6 +13,13 @@
           "difficulty": "warm-up",
           "estimatedMinutes": 15,
           "file": "tutorials/stacks-operations.json"
+        },
+        {
+          "id": "stacks-midstack",
+          "title": "MidStack: Insert in the Middle in O(1)",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 25,
+          "file": "tutorials/stacks-midstack.json"
         }
       ]
     },
