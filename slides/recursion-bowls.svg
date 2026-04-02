@@ -7,11 +7,14 @@
     <filter id="shadow"><feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.15"/></filter>
   </defs>
 
-  <!-- Warm desk background -->
-  <rect width="800" height="500" fill="#E8DCC8" rx="4"/>
-  <line x1="0" y1="150" x2="800" y2="153" stroke="#D6CBAE" stroke-width="1.2" opacity="0.4"/>
-  <line x1="0" y1="320" x2="800" y2="318" stroke="#D6CBAE" stroke-width="1" opacity="0.35"/>
-  <line x1="0" y1="460" x2="800" y2="462" stroke="#D6CBAE" stroke-width="1" opacity="0.4"/>
+  <!-- Soft warm background -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFCF7"/>
+      <stop offset="100%" stop-color="#F5EDE0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)" rx="8"/>
 
   <!-- Title pencil annotation -->
   <text x="370" y="38" text-anchor="middle" fill="#555" font-size="26" font-weight="700" font-family="Caveat, cursive" transform="rotate(-0.8, 370, 38)">Recursion: Nesting &amp; Unwinding</text>

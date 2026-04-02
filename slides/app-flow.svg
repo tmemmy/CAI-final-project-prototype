@@ -15,10 +15,14 @@
     </pattern>
   </defs>
 
-  <!-- Cork board background -->
-  <rect width="900" height="500" fill="url(#cork)" rx="4"/>
-  <!-- Cork board frame -->
-  <rect x="3" y="3" width="894" height="494" rx="4" fill="none" stroke="#8B6F47" stroke-width="6"/>
+  <!-- Soft warm background -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFCF7"/>
+      <stop offset="100%" stop-color="#F5EDE0"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="500" fill="url(#bg)" rx="8"/>
 
   <!-- Title - written on a strip of paper taped to board -->
   <g filter="url(#shadow)">

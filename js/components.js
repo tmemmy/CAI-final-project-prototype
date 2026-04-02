@@ -155,59 +155,214 @@ export function renderDiagram(diagram) {
   return '';
 }
 
-function renderArrayDiagram(d) {
-  const cells = d.cells.map((val, i) => {
-    let classes = 'diagram-cell';
-    if (val === '' || val === null) classes += ' empty';
-    if (d.highlight && d.highlight.includes(i)) classes += ' highlight';
-    if (d.swapIndices && d.swapIndices.includes(i)) {
-      classes += i === d.swapIndices[0] ? ' swap-left' : ' swap-right';
-    }
-    return `<div class="${classes}">${val !== '' && val !== null ? val : ''}</div>`;
-  }).join('');
+// ============================================
+// SVG DIAGRAM RENDERERS - COLLAGE/CRAFT STYLE
+// ============================================
 
-  const indices = d.cells.map((_, i) =>
-    `<div class="diagram-index">${i}</div>`
-  ).join('');
+const CARD_COLORS = ['#D6E4F0', '#FFFFFF', '#F0D6D6', '#D6F0D6', '#F0ECD6', '#E8D6F0'];
+const CARD_W = 58;
+const CARD_H = 58;
+const CARD_GAP = 8;
+const FONT = "'Caveat', cursive";
 
-  let pointerRow = '';
-  if (d.pointer) {
-    pointerRow = d.cells.map((_, i) =>
-      `<div class="diagram-pointer-arrow">${i === d.pointer.index ? d.pointer.label : ''}</div>`
-    ).join('');
+function svgDefs() {
+  return `
+    <defs>
+      <filter id="paper-shadow"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-opacity="0.12"/></filter>
+      <pattern id="paper-lines" patternUnits="userSpaceOnUse" width="100" height="14">
+        <line x1="0" y1="13" x2="100" y2="13" stroke="#c0d0e0" stroke-width="0.5" opacity="0.4"/>
+      </pattern>
+    </defs>
+  `;
+}
+
+function svgCard(x, y, val, i, opts = {}) {
+  const w = opts.w || CARD_W;
+  const h = opts.h || CARD_H;
+  const isEmpty = val === '' || val === null || val === undefined;
+  const color = opts.color || CARD_COLORS[i % CARD_COLORS.length];
+  const rotation = (i % 2 === 0) ? -0.8 : 0.7;
+  const isHighlight = opts.highlight;
+  const isSwap = opts.swap;
+
+  if (isEmpty) {
+    return `
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4"
+        fill="#F5F0E8" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,3"
+        transform="rotate(${rotation}, ${x + w/2}, ${y + h/2})"/>
+    `;
   }
 
-  let swapRow = '';
-  if (d.swapIndices) {
-    swapRow = `<div class="diagram-swap-row">&#8596; swap</div>`;
-  }
+  const highlightRing = isHighlight ? `
+    <rect x="${x-3}" y="${y-3}" width="${w+6}" height="${h+6}" rx="6"
+      fill="none" stroke="#F4C554" stroke-width="2.5" opacity="0.6"
+      transform="rotate(${rotation}, ${x + w/2}, ${y + h/2})"/>
+  ` : '';
+
+  const swapRing = isSwap ? `
+    <rect x="${x-3}" y="${y-3}" width="${w+6}" height="${h+6}" rx="6"
+      fill="none" stroke="#E8785A" stroke-width="2" stroke-dasharray="4,3" opacity="0.7"
+      transform="rotate(${rotation}, ${x + w/2}, ${y + h/2})"/>
+  ` : '';
+
+  // Tape piece on some cards
+  const showTape = (i === 0 || i === 3);
+  const tapeAngle = (i % 2 === 0) ? -8 : 6;
+  const tape = showTape ? `
+    <rect x="${x + w/2 - 16}" y="${y - 6}" width="32" height="10" rx="1.5"
+      fill="#F5E8A0" opacity="0.55" stroke="#E0D080" stroke-width="0.5"
+      transform="rotate(${tapeAngle}, ${x + w/2}, ${y})"/>
+  ` : '';
 
   return `
-    <div class="diagram-container">
-      ${swapRow}
-      <div class="diagram-array">${cells}</div>
-      <div class="diagram-indices">${indices}</div>
-      ${pointerRow ? `<div class="diagram-pointer">${pointerRow}</div>` : ''}
+    ${highlightRing}
+    ${swapRing}
+    <g filter="url(#paper-shadow)" transform="rotate(${rotation}, ${x + w/2}, ${y + h/2})">
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4"
+        fill="${color}" stroke="#bbb" stroke-width="1"/>
+      <rect x="${x+2}" y="${y+2}" width="${w-4}" height="${h-4}"
+        fill="url(#paper-lines)" opacity="0.35"/>
+    </g>
+    ${tape}
+    <text x="${x + w/2}" y="${y + h/2 + 8}" text-anchor="middle"
+      font-family="${FONT}" font-size="26" font-weight="700" fill="#2D2D2D"
+      transform="rotate(${rotation}, ${x + w/2}, ${y + h/2})">${val}</text>
+  `;
+}
+
+function renderArrayDiagram(d) {
+  const n = d.cells.length;
+  const totalW = n * (CARD_W + CARD_GAP) - CARD_GAP + 40;
+  const hasPointer = d.pointer && d.pointer.index >= 0;
+  const totalH = CARD_H + 60 + (hasPointer ? 30 : 0);
+  const startX = 20;
+  const startY = 15;
+
+  let cards = '';
+  d.cells.forEach((val, i) => {
+    const x = startX + i * (CARD_W + CARD_GAP);
+    const isHighlight = d.highlight && d.highlight.includes(i);
+    const isSwap = d.swapIndices && d.swapIndices.includes(i);
+    cards += svgCard(x, startY, val, i, { highlight: isHighlight, swap: isSwap });
+  });
+
+  // Index labels
+  let indices = '';
+  d.cells.forEach((_, i) => {
+    const x = startX + i * (CARD_W + CARD_GAP) + CARD_W / 2;
+    indices += `<text x="${x}" y="${startY + CARD_H + 18}" text-anchor="middle"
+      font-family="${FONT}" font-size="15" fill="#B5A898">${i}</text>`;
+  });
+
+  // Pointer arrow
+  let pointer = '';
+  if (hasPointer) {
+    const px = startX + d.pointer.index * (CARD_W + CARD_GAP) + CARD_W / 2;
+    const py = startY + CARD_H + 28;
+    pointer = `
+      <path d="M ${px} ${py} L ${px-6} ${py+10} L ${px+6} ${py+10} Z" fill="#C0785A"/>
+      <text x="${px}" y="${py + 26}" text-anchor="middle"
+        font-family="${FONT}" font-size="16" font-weight="700" fill="#C0785A">${d.pointer.label}</text>
+    `;
+  }
+
+  // Swap arrows
+  let swapArrows = '';
+  if (d.swapIndices) {
+    const x1 = startX + d.swapIndices[0] * (CARD_W + CARD_GAP) + CARD_W / 2;
+    const x2 = startX + d.swapIndices[1] * (CARD_W + CARD_GAP) + CARD_W / 2;
+    const midX = (x1 + x2) / 2;
+    swapArrows = `
+      <path d="M ${x1+5} ${startY - 5} Q ${midX} ${startY - 25} ${x2-5} ${startY - 5}"
+        stroke="#C0785A" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M ${x2-12} ${startY - 10} L ${x2-5} ${startY - 5} L ${x2-14} ${startY - 2}" fill="#C0785A"/>
+      <text x="${midX}" y="${startY - 15}" text-anchor="middle"
+        font-family="${FONT}" font-size="14" font-weight="700" fill="#C0785A">swap!</text>
+    `;
+  }
+
+  const svgH = totalH + (d.swapIndices ? 25 : 0);
+  const yOffset = d.swapIndices ? 25 : 0;
+
+  return `
+    <div class="diagram-container" style="background:linear-gradient(135deg,#FFFCF7,#F5EDE0);border-radius:12px;padding:12px 8px;">
+      <svg viewBox="0 0 ${totalW} ${svgH + 5}" width="100%" style="max-width:${totalW}px;">
+        ${svgDefs()}
+        <g transform="translate(0,${yOffset})">
+          ${cards}
+          ${indices}
+          ${pointer}
+        </g>
+        ${d.swapIndices ? `<g>${swapArrows}</g>` : ''}
+      </svg>
     </div>
   `;
 }
 
 function renderCallStackDiagram(d) {
-  const frames = d.frames.map(f => {
-    let classes = 'diagram-frame';
-    if (f.isBase) classes += ' base-case';
-    if (f.resolved) classes += ' resolved';
-    return `
-      <div class="${classes}">
-        ${f.label}
-        <span class="status">${f.status}</span>
-      </div>
+  const frameH = 50;
+  const frameGap = 8;
+  const frameW = 260;
+  const n = d.frames.length;
+  const totalH = n * (frameH + frameGap) + 20;
+  const startX = 20;
+
+  let frames = '';
+  d.frames.forEach((f, i) => {
+    const y = 10 + i * (frameH + frameGap);
+    const rotation = (i % 2 === 0) ? -0.6 : 0.5;
+    const colors = ['#D6E4F0', '#F0D6D6', '#F0ECD6', '#D6F0D6', '#E8D6F0'];
+    let color = colors[i % colors.length];
+    let borderColor = '#bbb';
+    let borderStyle = '1';
+
+    if (f.isBase) {
+      color = '#D6F0D6';
+      borderColor = '#7DB87D';
+    }
+    if (f.resolved) {
+      color = '#F5EDE0';
+      borderColor = '#C0785A';
+    }
+
+    // Sticky note effect
+    const stickyX = startX + frameW + 15;
+    const sticky = f.status ? `
+      <rect x="${stickyX}" y="${y + 5}" width="80" height="36" rx="2"
+        fill="#F5E8A0" stroke="#E0D080" stroke-width="0.5"
+        transform="rotate(${2 + i}, ${stickyX + 40}, ${y + 23})"
+        filter="url(#paper-shadow)"/>
+      <text x="${stickyX + 40}" y="${y + 28}" text-anchor="middle"
+        font-family="${FONT}" font-size="12" fill="#6B5A4E"
+        transform="rotate(${2 + i}, ${stickyX + 40}, ${y + 23})">${f.status}</text>
+    ` : '';
+
+    frames += `
+      <g filter="url(#paper-shadow)" transform="rotate(${rotation}, ${startX + frameW/2}, ${y + frameH/2})">
+        <rect x="${startX}" y="${y}" width="${frameW}" height="${frameH}" rx="5"
+          fill="${color}" stroke="${borderColor}" stroke-width="2"/>
+        <rect x="${startX+2}" y="${y+2}" width="${frameW-4}" height="${frameH-4}"
+          fill="url(#paper-lines)" opacity="0.3"/>
+      </g>
+      <text x="${startX + frameW/2}" y="${y + frameH/2 + 6}" text-anchor="middle"
+        font-family="${FONT}" font-size="20" font-weight="700" fill="#2D2D2D"
+        transform="rotate(${rotation}, ${startX + frameW/2}, ${y + frameH/2})">${f.label}</text>
+      ${f.isBase ? `
+        <g transform="translate(${startX + frameW - 20}, ${y + 5})">
+          <path d="M 0 -7 L 2 -2 L 7 -2 L 3 1.5 L 5 7 L 0 3.5 L -5 7 L -3 1.5 L -7 -2 L -2 -2 Z"
+            fill="#F4C554" stroke="#2D2D2D" stroke-width="1"/>
+        </g>
+      ` : ''}
+      ${sticky}
     `;
-  }).join('');
+  });
 
   return `
-    <div class="diagram-container">
-      <div class="diagram-callstack">${frames}</div>
+    <div class="diagram-container" style="background:linear-gradient(135deg,#FFFCF7,#F5EDE0);border-radius:12px;padding:12px 8px;">
+      <svg viewBox="0 0 ${startX + frameW + 110} ${totalH}" width="100%" style="max-width:420px;">
+        ${svgDefs()}
+        ${frames}
+      </svg>
     </div>
   `;
 }
@@ -217,35 +372,80 @@ function renderSwapDiagram(d) {
 }
 
 function renderMidStackDiagram(d) {
-  const renderHalf = (cells, name) => {
-    if (cells.length === 0) {
-      return `<div class="midstack-empty">empty</div>`;
-    }
-    return cells.map(val =>
-      `<div class="diagram-cell">${val}</div>`
-    ).join('');
-  };
+  const bottomN = d.bottom.length;
+  const topN = d.top.length;
+  const dividerW = 40;
+  const totalCards = bottomN + topN;
+  const emptySlots = (bottomN === 0 ? 1 : 0) + (topN === 0 ? 1 : 0);
+  const totalW = (totalCards + emptySlots) * (CARD_W + CARD_GAP) + dividerW + 60;
+  const totalH = CARD_H + 80;
+  const startY = 30;
 
-  const bottomCells = renderHalf(d.bottom, 'bottom');
-  const topCells = renderHalf(d.top, 'top');
+  let svg = '';
+  let x = 20;
+
+  // Bottom half label
+  const bottomLabelX = x + (bottomN > 0 ? (bottomN * (CARD_W + CARD_GAP) - CARD_GAP) / 2 : 30);
+
+  // Bottom half cards
+  if (bottomN === 0) {
+    svg += `<rect x="${x}" y="${startY}" width="${CARD_W}" height="${CARD_H}" rx="4"
+      fill="#F5F0E8" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="${x + CARD_W/2}" y="${startY + CARD_H/2 + 5}" text-anchor="middle"
+      font-family="${FONT}" font-size="14" fill="#B5A898">empty</text>`;
+    x += CARD_W + CARD_GAP;
+  } else {
+    d.bottom.forEach((val, i) => {
+      svg += svgCard(x, startY, val, i, { color: CARD_COLORS[i % CARD_COLORS.length] });
+      x += CARD_W + CARD_GAP;
+    });
+  }
+
+  svg += `<text x="${bottomLabelX}" y="${startY - 10}" text-anchor="middle"
+    font-family="${FONT}" font-size="14" font-weight="700" fill="#B5A898">Bottom Half (Stack)</text>`;
+
+  // Divider
+  const divX = x + 5;
+  svg += `
+    <line x1="${divX + dividerW/2}" y1="${startY - 5}" x2="${divX + dividerW/2}" y2="${startY + CARD_H + 5}"
+      stroke="#C0785A" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <text x="${divX + dividerW/2}" y="${startY + CARD_H + 22}" text-anchor="middle"
+      font-family="${FONT}" font-size="14" font-weight="700" fill="#C0785A">middle</text>
+  `;
+  x += dividerW + 10;
+
+  // Top half label
+  const topLabelX = x + (topN > 0 ? (topN * (CARD_W + CARD_GAP) - CARD_GAP) / 2 : 30);
+
+  // Top half cards
+  if (topN === 0) {
+    svg += `<rect x="${x}" y="${startY}" width="${CARD_W}" height="${CARD_H}" rx="4"
+      fill="#F5F0E8" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="${x + CARD_W/2}" y="${startY + CARD_H/2 + 5}" text-anchor="middle"
+      font-family="${FONT}" font-size="14" fill="#B5A898">empty</text>`;
+    x += CARD_W + CARD_GAP;
+  } else {
+    d.top.forEach((val, i) => {
+      svg += svgCard(x, startY, val, i + 3, { color: CARD_COLORS[(i + 3) % CARD_COLORS.length] });
+      x += CARD_W + CARD_GAP;
+    });
+  }
+
+  svg += `<text x="${topLabelX}" y="${startY - 10}" text-anchor="middle"
+    font-family="${FONT}" font-size="14" font-weight="700" fill="#B5A898">Top Half (Deque)</text>`;
+
+  // Note
+  const noteY = startY + CARD_H + 40;
+  const note = d.label ? `<text x="${totalW/2}" y="${noteY}" text-anchor="middle"
+    font-family="${FONT}" font-size="15" fill="#6B5A4E">${d.label}</text>` : '';
 
   return `
-    <div class="diagram-container">
-      <div class="midstack-layout">
-        <div class="midstack-half">
-          <div class="midstack-label">Bottom Half (Stack)</div>
-          <div class="diagram-array">${bottomCells}</div>
-        </div>
-        <div class="midstack-divider">
-          <div class="midstack-divider-line"></div>
-          <div class="midstack-divider-label">middle</div>
-        </div>
-        <div class="midstack-half">
-          <div class="midstack-label">Top Half (Deque)</div>
-          <div class="diagram-array">${topCells}</div>
-        </div>
-      </div>
-      ${d.label ? `<div class="midstack-note">${d.label}</div>` : ''}
+    <div class="diagram-container" style="background:linear-gradient(135deg,#FFFCF7,#F5EDE0);border-radius:12px;padding:12px 8px;">
+      <svg viewBox="0 0 ${totalW} ${totalH + (d.label ? 20 : 0)}" width="100%" style="max-width:${totalW}px;">
+        ${svgDefs()}
+        ${svg}
+        ${note}
+      </svg>
     </div>
   `;
 }

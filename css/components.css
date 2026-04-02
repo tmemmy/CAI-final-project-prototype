@@ -237,122 +237,183 @@
    DIAGRAMS
    ============================================ */
 
+/* ============================================
+   DIAGRAM: COLLAGE / CRAFT STYLE
+   ============================================ */
+
 .diagram-container {
   margin: var(--spacing-md) 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-warm) 100%);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg) var(--spacing-md);
+  position: relative;
 }
 
 .diagram-array {
   display: flex;
-  gap: 0;
+  gap: 6px;
 }
 
 .diagram-cell {
-  width: 48px;
-  height: 48px;
-  border: 2px solid var(--color-primary);
+  width: 52px;
+  height: 52px;
+  border: 2px solid #bbb;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-hand);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
+  color: var(--color-text);
   background: var(--color-surface);
+  border-radius: 4px;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(-0.5deg);
+  position: relative;
+  /* Lined paper effect */
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 11px,
+    #d0dae8 11px,
+    #d0dae8 12px
+  );
+  background-size: 100% 12px;
+  background-position: 0 8px;
 }
 
-.diagram-cell:not(:last-child) {
-  border-right: none;
+.diagram-cell:nth-child(odd) {
+  transform: rotate(0.5deg);
+}
+
+.diagram-cell:nth-child(3n) {
+  background-color: var(--color-blue-light);
+}
+
+.diagram-cell:nth-child(3n+1) {
+  background-color: var(--color-surface);
+}
+
+.diagram-cell:nth-child(3n+2) {
+  background-color: var(--color-pink-light);
 }
 
 .diagram-cell.empty {
   color: var(--color-text-light);
-  background: var(--color-border-light);
+  background-color: var(--color-border-light);
+  background-image: none;
+  border-style: dashed;
+  border-color: #ccc;
+  box-shadow: none;
 }
 
 .diagram-cell.highlight {
-  background: var(--color-primary-light);
+  background-color: var(--color-yellow-light);
+  border-color: var(--color-yellow);
+  border-width: 2.5px;
+  box-shadow: 0 0 0 3px rgba(244, 197, 84, 0.2), var(--shadow-paper);
 }
 
 .diagram-cell.swap-left,
 .diagram-cell.swap-right {
-  background: var(--color-accent-light);
+  background-color: var(--color-accent-light);
   border-color: var(--color-accent);
 }
 
 .diagram-indices {
   display: flex;
-  gap: 0;
+  gap: 6px;
 }
 
 .diagram-index {
-  width: 48px;
+  width: 52px;
   text-align: center;
-  font-size: 0.7rem;
-  color: var(--color-text-light);
-  padding-top: 4px;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  padding-top: 6px;
 }
 
 .diagram-pointer {
   position: relative;
   display: flex;
-  gap: 0;
+  gap: 6px;
 }
 
 .diagram-pointer-arrow {
-  width: 48px;
+  width: 52px;
   text-align: center;
-  font-size: 0.75rem;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--color-primary);
-  padding-top: 4px;
+  padding-top: 6px;
 }
 
 .diagram-pointer-arrow::before {
   content: "\25B2";
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
+  color: var(--color-primary);
 }
 
 /* Call stack diagram */
 .diagram-callstack {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: 6px;
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
 }
 
 .diagram-frame {
   padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 600;
+  border-radius: 6px;
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  font-weight: 700;
   text-align: center;
-  border: 2px dashed var(--color-accent);
-  background: var(--color-accent-light);
-  transform: rotate(-0.5deg);
-  box-shadow: var(--shadow-sm);
+  border: 2px solid #bbb;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-paper);
+  transform: rotate(-0.8deg);
+  position: relative;
+  /* Paper texture */
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 11px,
+    #d0dae8 11px,
+    #d0dae8 12px
+  );
+  background-size: 100% 12px;
+  background-position: 0 6px;
 }
 
 .diagram-frame:nth-child(even) {
-  transform: rotate(0.5deg);
+  transform: rotate(0.6deg);
 }
 
+.diagram-frame:nth-child(1) { background-color: var(--color-blue-light); }
+.diagram-frame:nth-child(2) { background-color: var(--color-pink-light); }
+.diagram-frame:nth-child(3) { background-color: #F0ECD6; }
+.diagram-frame:nth-child(4) { background-color: #D6F0D6; }
+
 .diagram-frame.base-case {
-  border-style: solid;
-  background: var(--color-success-light);
-  border-color: var(--color-success);
+  border: 2.5px solid var(--color-success);
+  background-color: var(--color-success-light);
+  box-shadow: 0 0 0 3px rgba(125, 184, 125, 0.15), var(--shadow-paper);
 }
 
 .diagram-frame.resolved {
-  border-style: solid;
-  border-color: var(--color-primary);
-  background: var(--color-primary-light);
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-primary-light);
 }
 
 .diagram-frame .status {
-  font-size: 0.7rem;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
   font-weight: 400;
   color: var(--color-text-muted);
   display: block;
@@ -364,8 +425,10 @@
   display: flex;
   justify-content: center;
   padding: var(--spacing-xs) 0;
-  font-size: 1.2rem;
-  color: var(--color-accent);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
 }
 
 /* MidStack diagram */
@@ -385,11 +448,10 @@
 }
 
 .midstack-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-light);
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
 }
 
 .midstack-divider {
@@ -407,9 +469,10 @@
 }
 
 .midstack-divider-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--color-accent);
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary);
   margin-top: var(--spacing-xs);
 }
 
@@ -418,18 +481,18 @@
   align-items: center;
   justify-content: center;
   min-width: 60px;
-  height: 48px;
-  border: 2px dashed var(--color-border);
-  border-radius: var(--radius-sm);
+  height: 52px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
   color: var(--color-text-light);
-  font-size: 0.85rem;
-  font-style: italic;
+  font-family: var(--font-hand);
+  font-size: 1rem;
 }
 
 .midstack-note {
   text-align: center;
-  font-size: 0.8rem;
-  color: var(--color-text-light);
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--color-text-muted);
   margin-top: var(--spacing-sm);
-  font-style: italic;
 }

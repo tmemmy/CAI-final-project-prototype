@@ -10,11 +10,14 @@
     </pattern>
   </defs>
 
-  <!-- Warm desk background -->
-  <rect width="800" height="500" fill="#E8DCC8" rx="4"/>
-  <line x1="0" y1="140" x2="800" y2="143" stroke="#D6CBAE" stroke-width="1.2" opacity="0.4"/>
-  <line x1="0" y1="300" x2="800" y2="297" stroke="#D6CBAE" stroke-width="1" opacity="0.35"/>
-  <line x1="0" y1="440" x2="800" y2="442" stroke="#D6CBAE" stroke-width="1.2" opacity="0.4"/>
+  <!-- Soft warm background -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFCF7"/>
+      <stop offset="100%" stop-color="#F5EDE0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)" rx="8"/>
 
   <!-- Title pencil annotation -->
   <text x="400" y="36" text-anchor="middle" fill="#555" font-size="26" font-weight="700" font-family="Caveat, cursive" transform="rotate(-0.5, 400, 36)">Sorting: Comparing &amp; Swapping</text>
@@ -115,12 +118,12 @@
   </g>
   <rect x="658" y="303" width="40" height="14" rx="2" fill="#F5E8A0" opacity="0.5" transform="rotate(-8, 678, 310)" stroke="#E0D080" stroke-width="0.5"/>
 
-  <!-- Index markers (pencil) -->
-  <text x="158" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[0]</text>
-  <text x="288" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[1]</text>
-  <text x="418" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[2]</text>
-  <text x="548" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[3]</text>
-  <text x="678" y="418" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[4]</text>
+  <!-- Index markers above cards (pencil) -->
+  <text x="158" y="305" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[0]</text>
+  <text x="288" y="305" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[1]</text>
+  <text x="418" y="305" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[2]</text>
+  <text x="548" y="305" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[3]</text>
+  <text x="678" y="305" text-anchor="middle" fill="#555" font-size="14" font-family="Caveat, cursive" opacity="0.5">[4]</text>
 
   <!-- Small paper scrap decorations -->
   <rect x="40" y="460" width="22" height="14" rx="1" fill="#D6F0D6" opacity="0.4" transform="rotate(12, 51, 467)"/>
