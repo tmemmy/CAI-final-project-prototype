@@ -1,22 +1,45 @@
 {
   "topics": [
     {
+      "id": "foundations",
+      "title": "Foundations",
+      "icon": "foundations",
+      "description": "Understand classes and ArrayList, the building blocks for every data structure that follows.",
+      "color": "#6B9CC4",
+      "tutorials": [
+        {
+          "id": "foundations-arraylist",
+          "title": "ArrayList",
+          "difficulty": "warm-up",
+          "estimatedMinutes": 15,
+          "file": "tutorials/foundations-arraylist.json"
+        }
+      ]
+    },
+    {
       "id": "stacks",
       "title": "Stacks",
       "icon": "stacks",
-      "description": "Learn LIFO (Last In, First Out) by building a stack with paper strips and numbered pieces.",
-      "color": "#7C3AED",
+      "description": "Learn LIFO (Last In, First Out) by building a stack like a Pringles can, index 0 at the bottom.",
+      "color": "#5A8AB4",
       "tutorials": [
         {
+          "id": "stacks-intro",
+          "title": "Intro to Stacks",
+          "difficulty": "warm-up",
+          "estimatedMinutes": 10,
+          "file": "tutorials/stacks-intro.json"
+        },
+        {
           "id": "stacks-operations",
-          "title": "Stack Push & Pop: Build It With Paper",
+          "title": "ArrayStack",
           "difficulty": "warm-up",
           "estimatedMinutes": 15,
           "file": "tutorials/stacks-operations.json"
         },
         {
           "id": "stacks-midstack",
-          "title": "MidStack: Insert in the Middle in O(1)",
+          "title": "MidStack",
           "difficulty": "core-practice",
           "estimatedMinutes": 25,
           "file": "tutorials/stacks-midstack.json"
@@ -24,18 +47,48 @@
       ]
     },
     {
-      "id": "sorting",
-      "title": "Sorting",
-      "icon": "sorting",
-      "description": "See how sorting algorithms work by physically swapping cards on your desk.",
-      "color": "#F59E0B",
+      "id": "queues",
+      "title": "Queues",
+      "icon": "queues",
+      "description": "Learn FIFO (First In, First Out) by building a queue like a conveyor belt, in at the back, out at the front.",
+      "color": "#8CB89B",
       "tutorials": [
         {
-          "id": "sorting-bubble",
-          "title": "Bubble Sort: Watch Numbers Float Up",
+          "id": "queues-intro",
+          "title": "Intro to Queues",
           "difficulty": "warm-up",
+          "estimatedMinutes": 10,
+          "file": "tutorials/queues-intro.json"
+        },
+        {
+          "id": "queues-arrayqueue",
+          "title": "ArrayQueue",
+          "difficulty": "core-practice",
           "estimatedMinutes": 20,
-          "file": "tutorials/sorting-bubble.json"
+          "file": "tutorials/queues-arrayqueue.json"
+        }
+      ]
+    },
+    {
+      "id": "linked-lists",
+      "title": "Linked Lists",
+      "icon": "linked-lists",
+      "description": "Draw nodes and pointers with pencil and paper. Erase and redraw to insert and delete.",
+      "color": "#A098C4",
+      "tutorials": [
+        {
+          "id": "linked-lists-intro",
+          "title": "Intro to Singly Linked Lists",
+          "difficulty": "warm-up",
+          "estimatedMinutes": 15,
+          "file": "tutorials/linked-lists-intro.json"
+        },
+        {
+          "id": "linked-lists-doubly",
+          "title": "Intro to Doubly Linked Lists",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 20,
+          "file": "tutorials/linked-lists-doubly.json"
         }
       ]
     },
@@ -44,16 +97,79 @@
       "title": "Recursion",
       "icon": "recursion",
       "description": "Finally understand recursion by stacking bowls and watching the call stack unravel.",
-      "color": "#10B981",
+      "color": "#6B9CC4",
       "tutorials": [
         {
           "id": "recursion-intro",
-          "title": "Recursion: The Bowl Stack Method",
+          "title": "Intro to Recursion",
           "difficulty": "core-practice",
           "estimatedMinutes": 25,
           "file": "tutorials/recursion-intro.json"
         }
       ]
+    },
+    {
+      "id": "sorting",
+      "title": "Sorting",
+      "icon": "sorting",
+      "description": "See how sorting algorithms work by physically swapping cards on your desk.",
+      "color": "#C4889B",
+      "tutorials": [
+        {
+          "id": "sorting-bubble",
+          "title": "Bubble Sort",
+          "difficulty": "warm-up",
+          "estimatedMinutes": 20,
+          "file": "tutorials/sorting-bubble.json"
+        }
+      ]
+    },
+    {
+      "id": "searching",
+      "title": "Searching & Pointers",
+      "icon": "searching",
+      "description": "Find values with linear search, binary search, two pointers, sliding window, and fast/slow techniques.",
+      "color": "#D4B86A",
+      "tutorials": [
+        {
+          "id": "searching-binary",
+          "title": "Binary Search",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 20,
+          "file": "tutorials/searching-binary.json"
+        },
+        {
+          "id": "searching-two-pointers",
+          "title": "Two Pointers",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 15,
+          "file": "tutorials/searching-two-pointers.json"
+        }
+      ]
+    },
+    {
+      "id": "trees",
+      "title": "Trees",
+      "icon": "trees",
+      "description": "Draw binary trees with pencil and paper. Traverse in-order, pre-order, and post-order.",
+      "color": "#8CB89B",
+      "tutorials": [
+        {
+          "id": "trees-intro",
+          "title": "Intro to Binary Trees",
+          "difficulty": "warm-up",
+          "estimatedMinutes": 15,
+          "file": "tutorials/trees-intro.json"
+        }
+      ]
+    },
+    {
+      "id": "complexity",
+      "title": "Complexity",
+      "icon": "complexity",
+      "description": "Feel the difference between O(n) and O(n²) by counting your physical steps across algorithms.",
+      "color": "#A098C4",
+      "tutorials": []
     }
   ]
 }

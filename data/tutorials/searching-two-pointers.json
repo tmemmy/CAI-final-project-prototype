@@ -1,0 +1,178 @@
+{
+  "id": "searching-two-pointers",
+  "topic": "searching",
+  "title": "Two Pointers: Squeeze From Both Sides",
+  "subtitle": "Use two markers moving inward to find a pair of numbers that sum to a target.",
+  "encouragement": "The two-pointer technique turns a slow nested-loop problem into a single elegant pass. Once you feel the squeeze with your hands, you'll never forget it.",
+  "realWorldExample": "Imagine tuning a radio dial with two knobs: one controls the low end, one controls the high end. You adjust them toward each other until the sound is just right. Two pointers work the same way: adjust from both ends until you hit the answer.",
+  "materials": [
+    {
+      "item": "7 small paper cards",
+      "detail": "Write these numbers on them: 1, 3, 5, 7, 9, 11, 14",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "2 coins (different colors if possible)",
+      "detail": "One is your LEFT pointer, the other is your RIGHT pointer.",
+      "emoji": "\ud83e\ude99"
+    },
+    {
+      "item": "A pen",
+      "detail": "To write index numbers and sums.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    }
+  ],
+  "setup": [
+    "Lay out your 7 cards in sorted order, left to right: 1, 3, 5, 7, 9, 11, 14.",
+    "Write index numbers 0 through 6 below each card.",
+    "Place one coin at index 0. This is your LEFT pointer.",
+    "Place the other coin at index 6. This is your RIGHT pointer.",
+    "Our goal: find two numbers that add up to exactly 14."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Look at your two pointers. LEFT is at index 0 (value 1), RIGHT is at index 6 (value 14). Add these two values together.",
+      "action": "Calculate: 1 + 14 = 15. Write this sum down.",
+      "checkpoint": "Sum = 15. Our target is 14. 15 is too big.",
+      "conceptNote": "The key insight: since the array is sorted, the LEFT pointer is at the smallest available value and the RIGHT pointer is at the largest. Their sum gives us a starting point.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "3", "5", "7", "9", "11", "14"],
+        "pointer": { "index": 0, "label": "left" },
+        "highlight": [0, 6]
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "The sum (15) is <strong>too big</strong>. To make it smaller, which pointer should you move?",
+      "action": "Move RIGHT one step left, from index 6 to index 5. The right value changes from 14 to 11.",
+      "checkpoint": "LEFT at 0 (value 1), RIGHT at 5 (value 11).",
+      "conceptNote": "If the sum is too large, we need a smaller number. Since the array is sorted, moving RIGHT leftward gives us a smaller value on that side.",
+      "hint": "Moving LEFT rightward would make the sum even bigger. Moving RIGHT leftward makes it smaller.",
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "3", "5", "7", "9", "11", "14"],
+        "pointer": { "index": 5, "label": "right" },
+        "highlight": [0, 5]
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Compute the new sum. LEFT = 1, RIGHT = 11.",
+      "action": "1 + 11 = 12. That's too small. Target is 14.",
+      "checkpoint": "Sum = 12. Too small.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 4,
+      "instruction": "Sum is <strong>too small</strong>. Which pointer moves now?",
+      "action": "Move LEFT one step right, from index 0 to index 1. The left value changes from 1 to 3.",
+      "checkpoint": "LEFT at 1 (value 3), RIGHT at 5 (value 11).",
+      "conceptNote": "If the sum is too small, we need a bigger number. Moving LEFT rightward gives us a larger value on that side.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "3", "5", "7", "9", "11", "14"],
+        "pointer": { "index": 1, "label": "left" },
+        "highlight": [1, 5]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Compute: 3 + 11 = ?",
+      "action": "3 + 11 = 14. That's exactly our target!",
+      "checkpoint": "FOUND! The pair is (3, 11) at indices 1 and 5. Sum = 14.",
+      "conceptNote": "We found the answer in just 3 steps. A brute-force approach checking every pair would take up to 21 comparisons (7 choose 2). Two pointers: O(n). Brute force: O(n^2).",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "3", "5", "7", "9", "11", "14"],
+        "pointer": { "index": 1, "label": "left" },
+        "highlight": [1, 5]
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Let's try a new target. Reset pointers: LEFT at 0, RIGHT at 6. New target sum: <strong>8</strong>.",
+      "action": "Move your coins back. LEFT at index 0, RIGHT at index 6.",
+      "checkpoint": "Ready to search for a pair summing to 8.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "3", "5", "7", "9", "11", "14"],
+        "pointer": { "index": 0, "label": "left" },
+        "highlight": [0, 6]
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Walk through it. 1 + 14 = 15 (too big, move RIGHT). 1 + 11 = 12 (too big, move RIGHT). 1 + 9 = 10 (too big, move RIGHT). 1 + 7 = ?",
+      "action": "1 + 7 = 8. Found it! Pair is (1, 7) at indices 0 and 3.",
+      "checkpoint": "LEFT at 0, RIGHT at 3. Sum = 8 = target.",
+      "conceptNote": null,
+      "hint": "Notice that LEFT didn't need to move at all this time. Sometimes one pointer does most of the work.",
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "3", "5", "7", "9", "11", "14"],
+        "pointer": { "index": 0, "label": "left" },
+        "highlight": [0, 3]
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "What if the target sum is <strong>4</strong>? Reset and try. When do the pointers meet?",
+      "action": "Reset. 1+14=15 (big, R moves). 1+11=12 (big). 1+9=10 (big). 1+7=8 (big). 1+5=6 (big). 1+3=4. Found! Pair (1,3).",
+      "checkpoint": "LEFT at 0, RIGHT at 1. They're right next to each other.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["1", "3", "5", "7", "9", "11", "14"],
+        "pointer": { "index": 0, "label": "left" },
+        "highlight": [0, 1]
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "Now try target sum <strong>2</strong>. What happens?",
+      "action": "Reset. 1+14=15 (big). RIGHT keeps moving left. Eventually 1+3=4 (still big). RIGHT moves to index 0. LEFT and RIGHT are at the same index!",
+      "checkpoint": "LEFT = RIGHT. The pointers have crossed. No pair found.",
+      "conceptNote": "When the pointers meet or cross (left >= right), the search is over. If no match was found, the pair doesn't exist in the array.",
+      "hint": "A number can't pair with itself (we need TWO different cards), so left >= right means we've exhausted all possibilities.",
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "Stop and think: why does this technique require a <strong>sorted</strong> array?",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "In a sorted array, moving LEFT right increases the sum; moving RIGHT left decreases it. This gives us a predictable way to adjust. In an unsorted array, moving a pointer could increase OR decrease the sum unpredictably.",
+      "hint": "For unsorted arrays, you'd use a hash set instead. Different tool, different technique.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "When the sum is too large, which pointer moves and in which direction?",
+      "answer": "The RIGHT pointer moves left (toward smaller values) to decrease the sum."
+    },
+    {
+      "question": "When the sum is too small, which pointer moves?",
+      "answer": "The LEFT pointer moves right (toward larger values) to increase the sum."
+    },
+    {
+      "question": "How do you know no valid pair exists?",
+      "answer": "When the left pointer meets or passes the right pointer (left >= right), all pairs have been checked. No solution exists."
+    },
+    {
+      "question": "Why is two pointers O(n) instead of O(n^2)?",
+      "answer": "Each pointer moves at most n times total, and they only move inward. Combined, they visit each element at most once. The brute-force nested loop checks every pair, which is n*(n-1)/2 comparisons."
+    }
+  ],
+  "nextTutorial": "queues-arrayqueue"
+}

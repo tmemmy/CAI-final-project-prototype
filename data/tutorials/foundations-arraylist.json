@@ -1,0 +1,181 @@
+{
+  "id": "foundations-arraylist",
+  "topic": "foundations",
+  "title": "ArrayList: How Arrays Grow",
+  "subtitle": "Discover what happens under the hood when an array runs out of space and needs to grow.",
+  "encouragement": "Every dynamic list you've ever used hides this trick. Once you see it with your hands, you'll understand why appending is almost always fast but sometimes takes a beat longer.",
+  "realWorldExample": "Think of a notebook with numbered lines. You write one item per line. When you fill the last line, you grab a bigger notebook, copy everything over, and keep going. Python lists, Java ArrayLists, and JavaScript arrays all do exactly this behind the scenes.",
+  "materials": [
+    {
+      "item": "Two strips of paper",
+      "detail": "One short strip (~6 inches) and one longer strip (~12 inches). The short one is your starting array; the long one is the resized array.",
+      "emoji": "\ud83d\udccf"
+    },
+    {
+      "item": "A pen or marker",
+      "detail": "To draw index boxes and write values.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    },
+    {
+      "item": "8 small paper cards",
+      "detail": "About 1 inch each. Write these letters on them: A, B, C, D, E, F, G, H",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "Tape",
+      "detail": "To symbolically attach the new larger strip when you resize.",
+      "emoji": "\ud83e\ude79"
+    },
+    {
+      "item": "A paperclip",
+      "detail": "This marks the next available slot where a new item would go.",
+      "emoji": "\ud83d\udcce"
+    }
+  ],
+  "setup": [
+    "Take your SHORT strip and draw 4 equally-spaced boxes on it. Number them 0 through 3 underneath.",
+    "This strip represents an array of capacity 4. It can hold exactly 4 items, no more.",
+    "Place your paperclip at index 0. This is where the next item will go. The array is empty; size is 0.",
+    "Set your LONG strip and tape aside for now. You'll need them later.",
+    "Lay out your letter cards (A through H) nearby."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Append <strong>A</strong> to your ArrayList. Place the A card into the next available slot.",
+      "action": "Place \"A\" into box 0. Move your paperclip to index 1.",
+      "checkpoint": "Strip: [A][ ][ ][ ], paperclip at index 1. Size: 1, Capacity: 4.",
+      "conceptNote": "Appending when there's room is simple: drop the item in, move the pointer. This costs O(1), constant time.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["A", "", "", ""],
+        "pointer": { "index": 1, "label": "next" }
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Append <strong>B</strong> and <strong>C</strong>, one at a time.",
+      "action": "Place \"B\" in box 1 (move paperclip to 2). Then place \"C\" in box 2 (move paperclip to 3).",
+      "checkpoint": "Strip: [A][B][C][ ], paperclip at index 3. Size: 3, Capacity: 4.",
+      "conceptNote": "Still room left. Each append is O(1). Fast, no drama.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["A", "B", "C", ""],
+        "pointer": { "index": 3, "label": "next" }
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Append <strong>D</strong>. Place it in the last empty box.",
+      "action": "Place \"D\" in box 3. Move your paperclip past the end of the strip, there's nowhere for it to point.",
+      "checkpoint": "Strip: [A][B][C][D], paperclip is off the edge. Size: 4, Capacity: 4. The array is FULL.",
+      "conceptNote": "The array is now at capacity. Size equals capacity. The next append will be different.",
+      "hint": "Notice: the strip has no more room. What happens when you need to add another item?",
+      "diagram": {
+        "type": "array",
+        "cells": ["A", "B", "C", "D"],
+        "pointer": { "index": 4, "label": "next" },
+        "highlight": [0, 1, 2, 3]
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "You need to append <strong>E</strong>, but there's no room. Time to <strong>resize</strong>. Grab your LONG strip and draw <strong>8 boxes</strong> on it, numbered 0 through 7.",
+      "action": "Draw 8 boxes on the long strip. Label them 0 through 7. This is your new backing array with double the capacity.",
+      "checkpoint": "You should have a new empty strip with 8 boxes: [ ][ ][ ][ ][ ][ ][ ][ ].",
+      "conceptNote": "Most ArrayList implementations double the capacity when they resize. Going from 4 to 8, or from 100 to 200. This doubling is key to performance.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["", "", "", "", "", "", "", ""]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Now <strong>copy every item</strong> from the old strip to the new strip, one by one. Move A, B, C, D into the same positions on the new strip.",
+      "action": "Pick up A from old box 0, place it in new box 0. Repeat for B (box 1), C (box 2), D (box 3).",
+      "checkpoint": "New strip: [A][B][C][D][ ][ ][ ][ ]. Old strip is now empty.",
+      "conceptNote": "This copy costs O(n), you had to touch every single item. With 4 items, that's 4 operations. With a million items, that's a million operations.",
+      "hint": "Use tape to symbolically set the old strip aside. It's been replaced. The new strip IS your array now.",
+      "diagram": {
+        "type": "array",
+        "cells": ["A", "B", "C", "D", "", "", "", ""],
+        "highlight": [0, 1, 2, 3]
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "NOW place <strong>E</strong> into the new strip. There's room!",
+      "action": "Place \"E\" in box 4. Move your paperclip to index 5.",
+      "checkpoint": "New strip: [A][B][C][D][E][ ][ ][ ], paperclip at index 5. Size: 5, Capacity: 8.",
+      "conceptNote": "That single append of E required: allocate new array (8 slots) + copy 4 items + place E. Total work for this one append: 5 operations. Expensive!",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["A", "B", "C", "D", "E", "", "", ""],
+        "pointer": { "index": 5, "label": "next" }
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Append <strong>F</strong> and <strong>G</strong>.",
+      "action": "Place \"F\" in box 5 (move paperclip to 6). Place \"G\" in box 6 (move paperclip to 7).",
+      "checkpoint": "Strip: [A][B][C][D][E][F][G][ ], paperclip at index 7.",
+      "conceptNote": "Back to O(1) appends again. No resize needed. These are cheap.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["A", "B", "C", "D", "E", "F", "G", ""],
+        "pointer": { "index": 7, "label": "next" }
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "Let's count the total work. You appended 7 items (A through G). How many were cheap O(1) appends, and how many triggered a resize?",
+      "action": "Count: A, B, C, D were O(1). Then E triggered a resize costing 5 operations. Then F, G were O(1). That's 6 cheap appends and 1 expensive one.",
+      "checkpoint": null,
+      "conceptNote": "Total operations: 6 cheap (1 each) + 1 expensive (5 total) = 11 operations for 7 appends. Average per append: about 1.6 operations. Not bad!",
+      "hint": "As the array gets bigger, resizes happen less and less often. The cheap appends outnumber the expensive ones by a growing margin.",
+      "diagram": null
+    },
+    {
+      "id": 9,
+      "instruction": "This averaging effect has a name: <strong>amortized O(1)</strong>. Imagine spreading the cost of that one expensive resize across all the cheap appends that came before and after it.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "\"Amortized\" means \"averaged over time.\" Each individual append might cost O(1) or O(n), but averaged over many appends, each one costs O(1). The doubling strategy is what makes this work.",
+      "hint": "Think of it like paying rent. One big payment once a month, spread across 30 days of living. Each day's cost is small.",
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "Final question: what would happen if instead of doubling, you only added 1 extra box each time you resized?",
+      "action": "Imagine: capacity 4 fills up, you make a new strip of 5, copy 4 items. Then it fills, you make 6, copy 5. Then 7, copy 6. Every single append triggers a copy!",
+      "checkpoint": null,
+      "conceptNote": "Adding only 1 slot means you resize on EVERY append after the initial fill. That's O(n) every time. Doubling avoids this because each resize buys you enough room for many future appends.",
+      "hint": "This is why doubling matters. It's not arbitrary. It's the mathematical trick that makes amortized O(1) possible.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "What happens when you append to an ArrayList that's at capacity?",
+      "answer": "It allocates a new array (usually double the size), copies all existing items over, then places the new item. This is a resize operation."
+    },
+    {
+      "question": "Why does the ArrayList double its capacity instead of just adding one more slot?",
+      "answer": "Doubling ensures that resizes happen less and less frequently as the array grows. This gives amortized O(1) append performance. Adding just one slot would mean resizing on every single append."
+    },
+    {
+      "question": "What does 'amortized O(1)' mean in plain language?",
+      "answer": "Most appends are instant (O(1)), and the rare expensive resize gets spread out over all the cheap ones. On average, each append costs constant time."
+    },
+    {
+      "question": "If an ArrayList has size 100 and capacity 128, how many more appends can you do before a resize?",
+      "answer": "28 more appends. The resize happens when size reaches capacity (128). Then it would double to 256."
+    }
+  ],
+  "nextTutorial": "stacks-intro"
+}

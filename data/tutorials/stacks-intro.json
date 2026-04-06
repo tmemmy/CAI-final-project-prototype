@@ -1,0 +1,153 @@
+{
+  "id": "stacks-intro",
+  "topic": "stacks",
+  "title": "Intro to Stacks: The Pringles Can",
+  "subtitle": "Build an intuition for the most important rule in computing: Last In, First Out.",
+  "encouragement": "Stacks are everywhere in computing, from the undo button to how your computer runs functions. This tutorial is about building the mental model. Once you see it, you can't unsee it.",
+  "realWorldExample": "A Pringles can. You can only reach the chip on top. To get to the one at the bottom, you'd have to remove every chip above it first. Your browser's back button works the same way: the most recent page is always the one you go back to.",
+  "materials": [
+    {
+      "item": "5 small paper cards",
+      "detail": "Write one word on each: UNDO, BACK, CALL, RETURN, DONE. These represent actions.",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "A cup or small bowl",
+      "detail": "This is your Pringles can. Cards go IN from the top and come OUT from the top only.",
+      "emoji": "\ud83e\udd64"
+    },
+    {
+      "item": "A pen or marker",
+      "detail": "For labeling and notes.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    },
+    {
+      "item": "Sticky notes",
+      "detail": "For jotting down observations as you go.",
+      "emoji": "\ud83d\udccc"
+    }
+  ],
+  "setup": [
+    "Place the cup or bowl in front of you, open side up. This is your stack, currently empty.",
+    "Lay out your 5 word cards face-up nearby: UNDO, BACK, CALL, RETURN, DONE.",
+    "Have your sticky notes and pen ready for observations."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Look at your empty cup. A <strong>stack</strong> is a container with one strict rule: items go in and come out from the <strong>same end</strong>, the top.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "A stack has only one opening. Unlike an array where you can access any index, a stack only lets you interact with the top. This constraint is what makes it powerful.",
+      "hint": "Think: Pringles can, not a drawer. You reach in from one end only.",
+      "diagram": {
+        "type": "stack",
+        "cells": ["", "", "", "", ""],
+        "pointer": { "index": -1, "label": "" }
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Drop the <strong>CALL</strong> card into the cup. Then drop <strong>BACK</strong> on top of it. Then drop <strong>UNDO</strong> on top of that.",
+      "action": "Place cards in this order, bottom to top: CALL, then BACK, then UNDO. Each new card goes on top of the previous one.",
+      "checkpoint": "Your cup should have 3 cards stacked up. UNDO is on top, CALL is at the bottom. You can only see UNDO.",
+      "conceptNote": "The last card you put in (UNDO) is now on top. The first card (CALL) is buried at the bottom.",
+      "hint": null,
+      "diagram": {
+        "type": "stack",
+        "cells": ["CALL", "BACK", "UNDO"],
+        "pointer": { "index": 2, "label": "top" }
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Without removing any cards, try to read what's at the bottom of the cup. Can you?",
+      "action": "Look into the cup. You can see UNDO on top but you can't easily see or reach CALL at the bottom without disturbing the cards above.",
+      "checkpoint": null,
+      "conceptNote": "This is the key constraint. A stack only gives you access to the <strong>top</strong>. To reach anything deeper, you must remove everything above it first.",
+      "hint": "This isn't a flaw. It's the whole point. The restriction is what makes a stack useful.",
+      "diagram": {
+        "type": "stack",
+        "cells": ["CALL", "BACK", "UNDO"],
+        "pointer": { "index": 2, "label": "top" },
+        "highlight": [2]
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Remove the top card from the cup. Which card did you get?",
+      "action": "Take out UNDO. Set it aside. Now BACK is on top.",
+      "checkpoint": "You removed UNDO. UNDO was the LAST card put in and the FIRST card taken out.",
+      "conceptNote": "This pattern is called <strong>LIFO: Last In, First Out</strong>. The most recent item is always the first one to leave. Write \"LIFO\" on a sticky note.",
+      "hint": null,
+      "diagram": {
+        "type": "stack",
+        "cells": ["CALL", "BACK"],
+        "pointer": { "index": 1, "label": "top" }
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Think about your text editor. You type \"Hello\", then bold it, then change the font. You hit <strong>Ctrl+Z</strong> (undo). What gets undone first?",
+      "action": "The font change, because it was the most recent action. Then another Ctrl+Z undoes the bold. Then another undoes the typing. Last action in, first action undone.",
+      "checkpoint": null,
+      "conceptNote": "The undo stack stores every action you take. Ctrl+Z pops the most recent one. This is LIFO applied to editing. Every text editor, design tool, and IDE uses this.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 6,
+      "instruction": "Now think about your web browser. You visit: Google, then Wikipedia, then YouTube. You hit the <strong>Back</strong> button. Where do you go?",
+      "action": "You go to Wikipedia, the page you visited most recently before YouTube. Another Back takes you to Google. It's a stack of pages.",
+      "checkpoint": null,
+      "conceptNote": "The browser pushes each new page onto its history stack. The Back button pops the top one off. Forward works with a second stack. Two stacks working together.",
+      "hint": "Try it right now in your browser. Visit 3 pages, then hit back. You'll feel the stack.",
+      "diagram": {
+        "type": "stack",
+        "cells": ["Google", "Wiki", "YouTube"],
+        "pointer": { "index": 2, "label": "top" }
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "One more: the <strong>call stack</strong>. When your program calls function A, which calls B, which calls C, the computer needs to remember where to return. It uses a stack.",
+      "action": "Drop CALL, RETURN, and DONE into the cup in that order. DONE is on top. When C finishes, DONE pops off. Then RETURN pops. Then CALL pops. The program unwinds in reverse order.",
+      "checkpoint": "The call stack is why \"stack overflow\" errors exist. Too many function calls (like infinite recursion) fill the stack until there's no room left.",
+      "conceptNote": "The call stack is arguably the most important stack in computing. Every running program has one. When you see a stack trace in an error message, you're literally reading the call stack.",
+      "hint": null,
+      "diagram": {
+        "type": "stack",
+        "cells": ["CALL", "RETURN", "DONE"],
+        "pointer": { "index": 2, "label": "top" }
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "Summarize the 3 things a stack can do. Write them on a sticky note.",
+      "action": "Write: <strong>push</strong> (add to top), <strong>pop</strong> (remove from top), <strong>peek/top</strong> (look at top without removing). That's it. Three operations. Simple by design.",
+      "checkpoint": "Your sticky note should say: push, pop, peek. These are the only operations a stack supports.",
+      "conceptNote": "A stack is deliberately limited. No searching, no accessing the middle, no sorting. Just push, pop, and peek. These constraints make stacks fast: every operation is O(1).",
+      "hint": "In the next tutorial, you'll physically perform each of these operations with a paper strip and see how they map to code.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "In one sentence, what is LIFO?",
+      "answer": "The last item added is the first item removed, like pulling chips from a Pringles can."
+    },
+    {
+      "question": "Name three real-world examples of stacks.",
+      "answer": "Undo/redo in editors, the browser back button, and the call stack that tracks function calls in a running program."
+    },
+    {
+      "question": "Why can't you access the bottom of a stack directly?",
+      "answer": "A stack only exposes the top. To reach the bottom, you must pop everything above it. This constraint is intentional and is what makes push/pop O(1)."
+    },
+    {
+      "question": "What are the three operations a stack supports?",
+      "answer": "Push (add to top), pop (remove from top), and peek (look at top without removing)."
+    }
+  ],
+  "nextTutorial": "stacks-operations"
+}

@@ -1,0 +1,162 @@
+{
+  "id": "queues-intro",
+  "topic": "queues",
+  "title": "Intro to Queues: The Conveyor Belt",
+  "subtitle": "Learn how a queue moves data in one direction: in at the back, out at the front.",
+  "encouragement": "Queues are how the real world organizes fairness. First come, first served. Once you build one with paper, you'll spot queues everywhere, from grocery lines to printer jobs.",
+  "realWorldExample": "Think of a conveyor belt at a sushi restaurant. New plates are placed at one end and customers grab them from the other end. The first plate placed is the first plate taken. That's a queue.",
+  "materials": [
+    {
+      "item": "One long strip of paper",
+      "detail": "About 12 inches long, 2 inches wide. This is your conveyor belt.",
+      "emoji": "\ud83d\udccf"
+    },
+    {
+      "item": "A pen or marker",
+      "detail": "To draw boxes and label the front and back.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    },
+    {
+      "item": "6 small paper cards",
+      "detail": "About 1 inch each. Write these on them: J1, J2, J3, J4, J5, J6 (J for \"job\").",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "Two paperclips",
+      "detail": "One marks the FRONT (where items leave). The other marks the BACK (where items enter).",
+      "emoji": "\ud83d\udcce"
+    }
+  ],
+  "setup": [
+    "Draw 6 equally-spaced boxes on your paper strip. Number them 0 through 5 underneath.",
+    "Place one paperclip at index 0 and label it FRONT (this is where items exit).",
+    "Place the other paperclip at index 0 and label it BACK (this is where the next item will enter).",
+    "Think of the strip as an arrow pointing LEFT. Index 0 is the pointed tip (the exit). Higher indices are toward the wide end (the entrance).",
+    "Lay out your job cards (J1 through J6) nearby."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "A <strong>queue</strong> is a line. Items enter at the <strong>back</strong> and leave from the <strong>front</strong>. Think of people joining a line at a store: new arrivals go to the back, the person at the front gets served first.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "This pattern is called <strong>FIFO: First In, First Out</strong>. The first item added is the first item removed. The opposite of a stack's LIFO.",
+      "hint": "A stack is a Pringles can (one opening). A queue is a tunnel (two openings, one for entry, one for exit).",
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "", "", "", "", ""],
+        "front": 0,
+        "back": 0
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "<strong>Enqueue</strong> J1. This means \"add J1 to the back of the queue.\" Place J1 at the BACK pointer.",
+      "action": "Place J1 in box 0. Move the BACK paperclip to index 1. FRONT stays at index 0.",
+      "checkpoint": "Strip: [J1][ ][ ][ ][ ][ ]. FRONT at 0, BACK at 1. One item in the queue.",
+      "conceptNote": "\"Enqueue\" means add to the back. The back pointer always advances to show where the NEXT item will go.",
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["J1", "", "", "", "", ""],
+        "front": 0,
+        "back": 1
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Enqueue <strong>J2</strong> and <strong>J3</strong>.",
+      "action": "Place J2 in box 1 (BACK moves to 2). Place J3 in box 2 (BACK moves to 3). FRONT stays at 0.",
+      "checkpoint": "Strip: [J1][J2][J3][ ][ ][ ]. FRONT at 0, BACK at 3.",
+      "conceptNote": "Notice: FRONT hasn't moved. New items always go to the back. The front only changes when something is removed.",
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["J1", "J2", "J3", "", "", ""],
+        "front": 0,
+        "back": 3
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Now <strong>dequeue</strong>. This removes the item at the FRONT. Which item will leave the queue?",
+      "action": "Remove J1 from box 0. Move the FRONT paperclip to index 1. J1 was served first because it arrived first.",
+      "checkpoint": "Strip: [ ][J2][J3][ ][ ][ ]. FRONT at 1, BACK at 3. J1 has left the queue.",
+      "conceptNote": "\"Dequeue\" means remove from the front. The first item enqueued (J1) was the first one dequeued. That's FIFO.",
+      "hint": "Compare this to a stack: a stack would have removed J3 (the last item added). A queue removes J1 (the first item added).",
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "J2", "J3", "", "", ""],
+        "front": 1,
+        "back": 3,
+        "highlight": [1]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Enqueue <strong>J4</strong> and <strong>J5</strong>. Then dequeue once more.",
+      "action": "Place J4 in box 3 (BACK to 4). Place J5 in box 4 (BACK to 5). Then dequeue: remove J2 from box 1, move FRONT to index 2.",
+      "checkpoint": "Strip: [ ][ ][J3][J4][J5][ ]. FRONT at 2, BACK at 5.",
+      "conceptNote": "Items flow through the queue like a conveyor belt. They enter at the back, wait their turn, and exit at the front. J3 is next to be served.",
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "", "J3", "J4", "J5", ""],
+        "front": 2,
+        "back": 5
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Look at your strip. Boxes 0 and 1 are empty but wasted. The queue is marching forward and leaving empty space behind. What happens when BACK reaches the end?",
+      "action": "Think about it: BACK is at 5, only one slot left. After that, the strip runs out even though boxes 0 and 1 are empty!",
+      "checkpoint": null,
+      "conceptNote": "This is a real problem with simple array-based queues. The solution is a <strong>circular queue</strong>: when BACK reaches the end, it wraps around to index 0 and reuses the empty space. You'll build this in a future tutorial.",
+      "hint": "Imagine taping the ends of your strip together into a loop. That's a circular queue.",
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "", "J3", "J4", "J5", ""],
+        "front": 2,
+        "back": 5,
+        "highlight": [0, 1]
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Real-world queue: a <strong>print queue</strong>. You send 3 documents to the printer. Which one prints first?",
+      "action": "The first one you sent. The printer processes jobs in the order they arrive: FIFO. If you send a 50-page report, then a 1-page memo, the memo waits until the report finishes.",
+      "checkpoint": null,
+      "conceptNote": "Print queues, task schedulers, message queues between servers, buffering in streaming video, all use FIFO queues. Fairness means first come, first served.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "Summarize a queue's operations on a card. A queue has two main operations and one inspection.",
+      "action": "Write: <strong>enqueue</strong> (add to back), <strong>dequeue</strong> (remove from front), <strong>peek</strong> (look at front without removing).",
+      "checkpoint": "Your card should say: enqueue, dequeue, peek. Like a stack, all three are O(1).",
+      "conceptNote": "Stacks: LIFO, push/pop from the same end. Queues: FIFO, enqueue at the back, dequeue from the front. Two different structures for two different needs.",
+      "hint": "Ask yourself: does this problem need the most RECENT item (stack) or the OLDEST item (queue)?",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "In one sentence, what is FIFO?",
+      "answer": "The first item added is the first item removed, like a line at a store."
+    },
+    {
+      "question": "What is the difference between enqueue and dequeue?",
+      "answer": "Enqueue adds an item to the back of the queue. Dequeue removes an item from the front. They operate on opposite ends."
+    },
+    {
+      "question": "How is a queue different from a stack?",
+      "answer": "A stack is LIFO (last in, first out) and operates from one end. A queue is FIFO (first in, first out) and operates from two ends: items enter at the back and leave from the front."
+    },
+    {
+      "question": "Why does a simple array-based queue waste space, and what's the fix?",
+      "answer": "As items dequeue from the front, those slots go unused. The queue marches forward until it runs out of room. The fix is a circular queue that wraps around and reuses empty slots at the beginning."
+    }
+  ],
+  "nextTutorial": "queues-operations"
+}

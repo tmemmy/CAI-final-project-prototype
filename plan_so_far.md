@@ -1,4 +1,4 @@
-# AlgoHands Project Plan So Far
+# CutAndCode Project Plan So Far
 **Last updated: March 24, 2026**
 
 ---
@@ -17,7 +17,7 @@ An interactive web app that teaches CS 1134 (Data Structures & Algorithms at NYU
 
 ### Files Created
 ```
-AlgoHands CAI/
+CutAndCode CAI/
 ├── index.html                  (single-page app with 4 views)
 ├── css/
 │   ├── variables.css           (design tokens: colors, fonts, spacing)
@@ -38,13 +38,13 @@ AlgoHands CAI/
 │       ├── stacks-operations.json    (13 steps: push, pop, peek, LIFO)
 │       ├── sorting-bubble.json       (11 steps: compare, swap, passes, O(n²))
 │       └── recursion-intro.json      (15 steps: bowl stack method for sum_to(4))
-├── AlgoHands_learner_struggles.md    (organized learner struggles by topic, 21 sections)
+├── CutAndCode_learner_struggles.md    (organized learner struggles by topic, 21 sections)
 └── plan_so_far.md              (this file)
 ```
 
 ### How to Run It
 1. Open terminal
-2. `cd "/Users/mariafraguas/development/Claudework/AlgoHands CAI"`
+2. `cd "/Users/mariafraguas/development/Claudework/CutAndCode CAI"`
 3. `python3 -m http.server 8080`
 4. Open browser to `http://localhost:8080`
 
@@ -85,7 +85,7 @@ AlgoHands CAI/
 - [ ] **"Try it yourself" sections.** Should increase in complexity more than they currently do.
 
 ### Future
-- [ ] **Choose a project name.** Current ideas: BuildTheLogic (top pick), StackIt, AlgoBlocks, CodeCraft, PaperCode, PaperStack, ThinkWithYourHands, DeskAlgo, AlgoKit, FoldSort. Or keep AlgoHands. Decision postponed.
+- [ ] **Choose a project name.** Current ideas: BuildTheLogic (top pick), StackIt, AlgoBlocks, CodeCraft, PaperCode, PaperStack, ThinkWithYourHands, DeskAlgo, AlgoKit, FoldSort. Or keep CutAndCode. Decision postponed.
 - [ ] **Add tutorials for all remaining topics.** Mapped from the learner struggles doc (21 sections covering: Classes/OOP, Memory Maps, List Comprehension, Nested Loops, Helper Functions, Big-O, Time Complexity, Amortized Analysis, ArrayList, Searching, Pointer Techniques, Generators, Sorting algos, Linked Lists, Binary Trees, and more).
 - [ ] **Topics not yet covered in class.** From syllabus: Search Trees, Hash Tables, Priority Queues, Sorting & Selection, Graph Algorithms. Remind Maria to share materials when available.
 - [ ] **GitHub Pages deployment.** Initialize git repo, push, enable Pages.
@@ -107,7 +107,7 @@ AlgoHands CAI/
 
 ## Reference Documents
 
-- **Learner struggles:** `AlgoHands_learner_struggles.md` in this folder (21 sections of organized struggles, design ideas, and exercise mappings)
+- **Learner struggles:** `CutAndCode_learner_struggles.md` in this folder (21 sections of organized struggles, design ideas, and exercise mappings)
 - **Course materials:** `/Users/mariafraguas/Desktop/Academic/CS-UY 1134 Data Structures & Algorithms (ALEC, LAB4)/`
   - HW 1-7, Labs 1-12, sample midterms, exams, textbook, syllabus
 - **Professor's GitHub:** https://github.com/sebastianromerocruz/CS1134-data-structures-and-algorithms/tree/main

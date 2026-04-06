@@ -1,0 +1,170 @@
+{
+  "id": "trees-intro",
+  "topic": "trees",
+  "title": "Intro to Binary Trees: Draw the Family",
+  "subtitle": "Build a tree by drawing circles and lines, just like a family tree.",
+  "encouragement": "Trees are everywhere in computer science: file systems, HTML documents, decision-making. Once you draw one, you'll start seeing them in everything. Let's grow your first tree.",
+  "realWorldExample": "Your computer's file system is a tree. The root folder contains subfolders, which contain more subfolders and files. An HTML page is also a tree: the <html> tag is the root, with <head> and <body> as children, each containing their own children.",
+  "materials": [
+    {
+      "item": "Large sheet of paper",
+      "detail": "Portrait orientation works best for trees since they grow downward.",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "Pencil and eraser",
+      "detail": "For drawing nodes (circles) and labels.",
+      "emoji": "\u270f\ufe0f"
+    },
+    {
+      "item": "Blue pen",
+      "detail": "For drawing lines to LEFT children.",
+      "emoji": "\ud83d\udd35"
+    },
+    {
+      "item": "Red pen",
+      "detail": "For drawing lines to RIGHT children.",
+      "emoji": "\ud83d\udd34"
+    },
+    {
+      "item": "Small paper cards with letters",
+      "detail": "Write A, B, C, D, E, F, and G on separate small cards. These represent node values.",
+      "emoji": "\ud83c\udff7\ufe0f"
+    }
+  ],
+  "setup": [
+    "Place your large sheet of paper in portrait orientation (taller than wide).",
+    "Prepare 7 small paper cards labeled A through G. Set them aside.",
+    "Have your pencil, eraser, blue pen, and red pen ready.",
+    "Trees grow DOWNWARD on paper: the root goes at the TOP, and children go below. Leave space at the top of the page."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Draw the <strong>root</strong> node. This is the very top of your tree, like the oldest ancestor in a family tree.",
+      "action": "With your pencil, draw a circle near the top center of the paper. Place the \"A\" card inside it. Write \"root\" above it with a small arrow pointing down.",
+      "checkpoint": "You should have one circle with A inside it at the top of the page, labeled \"root\".",
+      "conceptNote": "Every tree has exactly one <code>root</code> node. It has no parent. In code, you access the tree through this root reference, similar to <code>head</code> in a linked list.",
+      "hint": "Make circles about 1.5 inches in diameter so the letter cards fit inside.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "root"}
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Give A two <strong>children</strong>. Draw B as A's <strong>left child</strong> and C as A's <strong>right child</strong>.",
+      "action": "Draw a circle below and to the LEFT of A. Place \"B\" inside. Draw a circle below and to the RIGHT of A. Place \"C\" inside.",
+      "checkpoint": "Three circles: A at top, B at bottom-left, C at bottom-right. No lines yet.",
+      "conceptNote": "In a <strong>binary</strong> tree, each node has at most 2 children: left and right. This is what makes it \"binary\".",
+      "hint": "Position B and C on the same horizontal level, evenly spaced below A.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "root", "left": {"value": "B"}, "right": {"value": "C"}},
+        "label": "A with two children"
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Connect parent to children with <strong>colored lines</strong>.",
+      "action": "With your blue pen, draw a line from A down to B (left child). With your red pen, draw a line from A down to C (right child).",
+      "checkpoint": "A has a blue line going down-left to B and a red line going down-right to C.",
+      "conceptNote": "In code, a tree node has <code>left</code> and <code>right</code> fields (like <code>next</code> and <code>prev</code> in a doubly linked list, but going downward). Blue = left, red = right.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 4,
+      "instruction": "Give B two children: D (left) and E (right). Draw and connect them.",
+      "action": "Draw circles for D and E below B. Place the cards inside. Blue line from B to D (left). Red line from B to E (right).",
+      "checkpoint": "Your tree now has: A at top, B and C below, D and E below B. C has no children yet.",
+      "conceptNote": null,
+      "hint": "Each level of the tree should be on its own horizontal line. D and E are on the third level.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "root", "left": {"value": "B", "left": {"value": "D"}, "right": {"value": "E"}}, "right": {"value": "C"}}
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Give C one child: F as its <strong>left child</strong> only. C has no right child.",
+      "action": "Draw a circle for F below and to the left of C. Place the \"F\" card inside. Blue line from C to F. C's right side has no line.",
+      "checkpoint": "Your tree: A at top, B and C on level 2, D and E under B, F under C (left side only).",
+      "conceptNote": "A node doesn't need to have both children. C has a left child but no right child. Its <code>right</code> field is <code>None</code>.",
+      "hint": null,
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "root", "left": {"value": "B", "left": {"value": "D"}, "right": {"value": "E"}}, "right": {"value": "C", "left": {"value": "F"}}}
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Now identify the <strong>leaves</strong>. A leaf is a node with NO children. Circle them with your pencil.",
+      "action": "Look at each node. D has no children: leaf. E has no children: leaf. F has no children: leaf. Draw a small extra circle around D, E, and F to mark them as leaves.",
+      "checkpoint": "Leaves are D, E, and F. All other nodes (A, B, C) have at least one child.",
+      "conceptNote": "Leaves are also called <strong>external nodes</strong>. Non-leaf nodes are called <strong>internal nodes</strong>. In code, a leaf is a node where <code>left is None and right is None</code>.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 7,
+      "instruction": "Label the <strong>relationships</strong>. Pick node B. Write in pencil: who is B's parent? Who are B's children? Does B have siblings?",
+      "action": "Write near B: \"parent: A\", \"children: D, E\", \"sibling: C\". Siblings share the same parent.",
+      "checkpoint": "B's parent is A. B's children are D and E. B's sibling is C (they both have parent A).",
+      "conceptNote": "Tree terminology mirrors family trees: parent, child, sibling, ancestor, descendant. Node A is an ancestor of every other node. D, E, F are descendants of A.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "Count the <strong>depth</strong> of each node. Depth = number of edges from the root to that node.",
+      "action": "Write the depth next to each node. A: depth 0 (it IS the root). B: depth 1 (one edge from A). C: depth 1. D: depth 2 (A->B->D, two edges). E: depth 2. F: depth 2.",
+      "checkpoint": "Depths: A=0, B=1, C=1, D=2, E=2, F=2.",
+      "conceptNote": "Depth is counted from the top down. The root always has depth 0. Each level down adds 1. In code, <code>depth(node) = depth(parent) + 1</code>.",
+      "hint": "Count the lines (edges) you cross from the root to reach each node.",
+      "diagram": null
+    },
+    {
+      "id": 9,
+      "instruction": "Now find the <strong>height</strong> of the tree. Height = the longest path from the root to any leaf.",
+      "action": "From A, the longest path goes A -> B -> D (or A -> B -> E, or A -> C -> F). All are length 2. The height of the tree is 2.",
+      "checkpoint": "The tree height is 2. The height of a single node (leaf) is 0.",
+      "conceptNote": "Height is counted from the bottom up. A leaf has height 0. A node's height = 1 + max(height of left child, height of right child). The tree's height is the root's height.",
+      "hint": "Height of the tree = depth of the deepest leaf.",
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "Final exercise: add node G as <strong>E's left child</strong>. Then recalculate the tree's height.",
+      "action": "Draw a circle for G below and to the left of E. Blue line from E to G. The longest path is now A -> B -> E -> G, which has length 3. The tree height is now 3.",
+      "checkpoint": "G is at depth 3. The tree height increased from 2 to 3. G is a new leaf, and E is no longer a leaf.",
+      "conceptNote": "Adding a node can increase the tree's height. The height determines worst-case traversal time. Keeping trees balanced (short height) is a key topic in later tutorials.",
+      "hint": "E used to be a leaf. Now it has one child (G), so it's an internal node. Update your leaf markings.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "root", "left": {"value": "B", "left": {"value": "D"}, "right": {"value": "E", "left": {"value": "G"}}}, "right": {"value": "C", "left": {"value": "F"}}},
+        "highlight": ["G"],
+        "label": "G added as E's left child. Height is now 3."
+      }
+    }
+  ],
+  "reflection": [
+    {
+      "question": "What is the maximum number of nodes a binary tree of height h can have?",
+      "answer": "2^(h+1) - 1. A tree of height 2 can have at most 7 nodes. A tree of height 3 can have at most 15."
+    },
+    {
+      "question": "How is a tree different from a linked list?",
+      "answer": "A linked list is a chain: each node has one successor. A tree branches: each node can have multiple children. A linked list is actually a special case of a tree where every node has at most one child."
+    },
+    {
+      "question": "If you wanted to find a specific value in this tree, how would you search?",
+      "answer": "You'd start at the root and visit nodes level by level or branch by branch. Without any ordering rule, you might have to check every node. Binary Search Trees add an ordering rule to make search efficient."
+    },
+    {
+      "question": "Why does tree height matter for performance?",
+      "answer": "Most tree operations (search, insert, delete) take time proportional to the height. A shorter (balanced) tree means faster operations. A tall, skinny tree performs like a linked list."
+    }
+  ],
+  "nextTutorial": "trees-traversal"
+}

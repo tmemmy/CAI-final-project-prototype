@@ -1,0 +1,205 @@
+{
+  "id": "linked-lists-doubly",
+  "topic": "linked-lists",
+  "title": "Doubly Linked List: Two-Way Streets",
+  "subtitle": "Add backward pointers so you can traverse in both directions.",
+  "encouragement": "You already know how singly linked lists work. Now you're adding a second lane to every road. It's more arrows to manage, but the payoff is huge: you can go backward. Let's build it.",
+  "realWorldExample": "Think of a music player with both \"next track\" and \"previous track\" buttons. Each song knows what comes after it AND what came before it. Browser history works the same way: forward and back.",
+  "materials": [
+    {
+      "item": "Large sheet of paper",
+      "detail": "Landscape orientation. You'll need more horizontal space than the singly linked list tutorial.",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "Pencil and eraser",
+      "detail": "For drawing and modifying nodes. You'll erase and redraw arrows frequently.",
+      "emoji": "\u270f\ufe0f"
+    },
+    {
+      "item": "Blue pen",
+      "detail": "For drawing \"next\" pointer arrows (forward direction).",
+      "emoji": "\ud83d\udd35"
+    },
+    {
+      "item": "Red pen",
+      "detail": "For drawing \"prev\" pointer arrows (backward direction).",
+      "emoji": "\ud83d\udd34"
+    },
+    {
+      "item": "Small paper cards with letters",
+      "detail": "Write A, B, C, D, and E on separate small cards.",
+      "emoji": "\ud83c\udff7\ufe0f"
+    }
+  ],
+  "setup": [
+    "Place your large sheet of paper in landscape orientation.",
+    "Prepare 5 small paper cards labeled A, B, C, D, and E. Set them aside.",
+    "Have your pencil, eraser, blue pen, and red pen ready.",
+    "Leave even more space between nodes than before. You'll have arrows going in BOTH directions."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "A doubly linked node has <strong>three</strong> sections: prev pointer, data, and next pointer. Draw your first node.",
+      "action": "With your pencil, draw a rectangle split into three sections. The left section is for \"prev\", the middle is for data, and the right is for \"next\". Place the \"A\" card in the middle section.",
+      "checkpoint": "You should have one rectangle: [prev | A | next].",
+      "conceptNote": "A doubly linked node has three fields: <code>prev</code>, <code>data</code>, and <code>next</code>. The extra pointer is what lets you go backward.",
+      "hint": "Make each rectangle about 3 inches wide so all three sections fit comfortably.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}],
+        "head": true,
+        "doubly": true,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Draw three more nodes for B, C, and D, spaced out to the right of A.",
+      "action": "Draw three more three-section rectangles. Place B, C, and D cards in the middle sections. Leave all prev and next sections empty.",
+      "checkpoint": "Four nodes in a row: [_ | A | _] [_ | B | _] [_ | C | _] [_ | D | _].",
+      "conceptNote": null,
+      "hint": "Leave about 3 inches between nodes. You need room for arrows going both ways.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "C"}, {"data": "D"}],
+        "head": true,
+        "doubly": true,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Now link them <strong>forward</strong>. Pick up your <strong>blue pen</strong> and draw \"next\" arrows.",
+      "action": "In blue, draw arrows from A's right section to B, from B's right section to C, and from C's right section to D. Draw these arrows along the TOP of the gap between nodes. In D's right section, write \"null\".",
+      "checkpoint": "Blue arrows run left-to-right along the top: A -> B -> C -> D -> null.",
+      "conceptNote": "These blue arrows are identical to a singly linked list. They are the <code>next</code> pointers.",
+      "hint": "Draw the blue (next) arrows along the TOP and the red (prev) arrows along the BOTTOM. This keeps them from overlapping.",
+      "diagram": null
+    },
+    {
+      "id": 4,
+      "instruction": "Now link them <strong>backward</strong>. Pick up your <strong>red pen</strong> and draw \"prev\" arrows.",
+      "action": "In red, draw arrows from D's left section back to C, from C's left section back to B, and from B's left section back to A. Draw these arrows along the BOTTOM of the gap. In A's left section, write \"null\".",
+      "checkpoint": "Red arrows run right-to-left along the bottom: null <- A <- B <- C <- D. You now have arrows going BOTH ways between every pair of neighbors.",
+      "conceptNote": "Each node now knows both its successor (blue/next) and its predecessor (red/prev). This is what makes it \"doubly\" linked.",
+      "hint": null,
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "C"}, {"data": "D"}],
+        "head": true,
+        "doubly": true,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Write <strong>\"head\"</strong> above node A and <strong>\"tail\"</strong> above node D.",
+      "action": "In pencil, write \"head\" with a downward arrow above A, and \"tail\" with a downward arrow above D.",
+      "checkpoint": "Head points to A (the first node), tail points to D (the last node).",
+      "conceptNote": "A doubly linked list typically stores both <code>head</code> and <code>tail</code> references. This lets you start traversal from either end.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 6,
+      "instruction": "Traverse <strong>forward</strong> using blue arrows. Put your finger on head (A) and follow only the blue arrows.",
+      "action": "Touch A, say \"A\". Follow blue to B, say \"B\". Follow blue to C, say \"C\". Follow blue to D, say \"D\". Blue says null, stop.",
+      "checkpoint": "You said: A, B, C, D. Forward traversal is identical to a singly linked list.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 7,
+      "instruction": "Now traverse <strong>backward</strong> using red arrows. Put your finger on tail (D) and follow only the red arrows.",
+      "action": "Touch D, say \"D\". Follow red to C, say \"C\". Follow red to B, say \"B\". Follow red to A, say \"A\". Red says null, stop.",
+      "checkpoint": "You said: D, C, B, A. You just traversed the list in reverse. This is impossible with a singly linked list.",
+      "conceptNote": "Backward traversal uses <code>current = tail</code>, then <code>current = current.prev</code> in a loop. This is the main advantage of a doubly linked list.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "Let's <strong>insert E between B and C</strong>. Draw a new three-section node for E below the gap between B and C.",
+      "action": "Draw a new three-section rectangle below and between B and C. Place the \"E\" card in the middle section.",
+      "checkpoint": "Node E is floating below the main chain, not yet connected.",
+      "conceptNote": "Insertion in a doubly linked list requires updating <strong>four</strong> pointers, not two. Each neighbor must update both its next and prev.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 9,
+      "instruction": "Rewire for insertion. This takes 4 pointer changes. First, <strong>erase</strong> the blue arrow from B to C and the red arrow from C to B.",
+      "action": "Erase the blue arrow (top) from B to C. Erase the red arrow (bottom) from C to B. The chain is now broken between B and C.",
+      "checkpoint": "B and C are disconnected from each other. E is still floating below.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "Now draw <strong>four new arrows</strong> to wire E into the chain.",
+      "action": "Blue pen: draw an arrow from B's next to E, and from E's next to C. Red pen: draw an arrow from C's prev to E, and from E's prev to B.",
+      "checkpoint": "The chain should read: A -> B -> E -> C -> D (blue, forward) and D -> C -> E -> B -> A (red, backward). Verify by traversing both directions with your finger.",
+      "conceptNote": "Four pointer updates: <code>B.next = E</code>, <code>E.prev = B</code>, <code>E.next = C</code>, <code>C.prev = E</code>. Order matters in code to avoid losing references.",
+      "hint": "Traverse forward (blue) and backward (red) with your finger to confirm both directions work.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "E"}, {"data": "C"}, {"data": "D"}],
+        "head": true,
+        "doubly": true,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "Now <strong>delete node C</strong>. Find C by traversing from head, then rewire its neighbors.",
+      "action": "Erase the blue arrow from E to C and from C to D. Erase the red arrow from D to C and from C to E. Draw a new blue arrow from E to D. Draw a new red arrow from D to E. Remove the C card and erase its rectangle.",
+      "checkpoint": "The chain should read: A -> B -> E -> D (blue) and D -> E -> B -> A (red). Traverse both ways to verify.",
+      "conceptNote": "Deletion reconnects the two neighbors directly: <code>E.next = D</code> and <code>D.prev = E</code>. Node C is garbage collected.",
+      "hint": "Deletion in a doubly linked list is actually easier than in a singly linked list because the node to delete already knows its predecessor via <code>prev</code>.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "E"}, {"data": "D"}],
+        "head": true,
+        "doubly": true,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 12,
+      "instruction": "Think about <strong>sentinel nodes</strong>. Some implementations add a dummy \"header\" before A and a dummy \"trailer\" after D. These never hold real data; they just simplify edge cases.",
+      "action": "Draw a small rectangle labeled \"H\" to the left of A and one labeled \"T\" to the right of D. Connect H to A (blue forward, red backward) and D to T (blue forward, red backward). Move \"head\" to point at H and \"tail\" to point at T.",
+      "checkpoint": "Your list now looks like: H <-> A <-> B <-> E <-> D <-> T. H and T are sentinels with no real data.",
+      "conceptNote": "Sentinels eliminate special cases. You never insert before null or after null. Every real node always has a non-null prev and next, which makes the code simpler and less error-prone.",
+      "hint": "With sentinels, an empty list is just H <-> T. There are no special checks for empty lists in any operation.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "How many pointer changes does insertion require in a doubly linked list vs. a singly linked list?",
+      "answer": "Doubly linked: 4 pointers (prev and next for both the new node and its neighbors). Singly linked: 2 pointers (the new node's next and the previous node's next)."
+    },
+    {
+      "question": "What is the advantage of being able to traverse backward?",
+      "answer": "You can delete a node without needing to traverse from head to find its predecessor. You can also implement features like browser back/forward buttons or undo/redo."
+    },
+    {
+      "question": "What is the trade-off of a doubly linked list compared to a singly linked list?",
+      "answer": "Extra memory for the prev pointer in every node, and more pointers to update on every insertion or deletion. You trade space and complexity for the ability to go backward."
+    },
+    {
+      "question": "Why do sentinel nodes simplify the code?",
+      "answer": "Without sentinels, you need special cases for inserting at the front (no predecessor) or back (no successor), and for deleting the first or last node. Sentinels ensure every real node always has neighbors."
+    }
+  ],
+  "nextTutorial": "trees-intro"
+}

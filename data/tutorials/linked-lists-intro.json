@@ -1,0 +1,189 @@
+{
+  "id": "linked-lists-intro",
+  "topic": "linked-lists",
+  "title": "Intro to Linked Lists: Draw Your Data",
+  "subtitle": "Learn how linked lists work by drawing nodes and arrows on paper.",
+  "encouragement": "Linked lists are one of the most elegant data structures. Each piece of data knows where the next one lives. Once you draw it, the logic clicks. Let's go.",
+  "realWorldExample": "Think of a scavenger hunt: each clue tells you where the next clue is. You can't skip ahead; you follow the chain. Music playlists work the same way: each song points to the next one to play.",
+  "materials": [
+    {
+      "item": "Large sheet of paper",
+      "detail": "Landscape orientation. This is your workspace where you'll draw the linked list.",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "Pencil and eraser",
+      "detail": "You'll draw nodes in pencil so you can erase and redraw when inserting or deleting.",
+      "emoji": "\u270f\ufe0f"
+    },
+    {
+      "item": "Blue pen",
+      "detail": "For drawing the \"next\" pointer arrows between nodes.",
+      "emoji": "\ud83d\udd35"
+    },
+    {
+      "item": "Small paper cards with letters",
+      "detail": "Write A, B, C, D, and E on separate small cards. These represent your data values.",
+      "emoji": "\ud83c\udff7\ufe0f"
+    }
+  ],
+  "setup": [
+    "Place your large sheet of paper in landscape orientation in front of you.",
+    "Prepare 5 small paper cards labeled A, B, C, D, and E. Set them aside for now.",
+    "Have your pencil, eraser, and blue pen ready.",
+    "Leave plenty of space between where you'll draw nodes. You'll need room to insert new ones later."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Draw your first <strong>node</strong>. A node is a rectangle split into two halves: the left half holds <strong>data</strong>, the right half holds a <strong>next pointer</strong>.",
+      "action": "With your pencil, draw a rectangle near the left side of the paper. Draw a vertical line in the middle to split it into two sections. Place the \"A\" card in the left section. Leave the right section empty for now.",
+      "checkpoint": "You should have one rectangle with two sections: [A | ].",
+      "conceptNote": "In code, a node is an object with two fields: <code>data</code> and <code>next</code>. Right now, <code>next</code> is <code>None</code> because this node doesn't point anywhere yet.",
+      "hint": "Make each rectangle about 2 inches wide so you have room for the card and the arrow.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}],
+        "head": true,
+        "doubly": false,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Draw three more nodes to the right of the first one: B, C, and D. Space them out evenly.",
+      "action": "Draw three more split rectangles to the right. Place B, C, and D cards in the left halves. Leave the right halves empty.",
+      "checkpoint": "You should have four separate rectangles in a row: [A | ] [B | ] [C | ] [D | ].",
+      "conceptNote": null,
+      "hint": "Leave about 2 inches of space between each node. You'll draw arrows in this gap.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "C"}, {"data": "D"}],
+        "head": true,
+        "doubly": false,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Now <strong>link</strong> them together. Pick up your <strong>blue pen</strong>. Draw an arrow from A's right section to B's left edge.",
+      "action": "In blue, draw an arrow starting from the right half of A's box, pointing to B. Then draw an arrow from B to C, and from C to D. In D's right half, draw a small slash or write \"null\" to show it points nowhere.",
+      "checkpoint": "You should see: [A | ->] -> [B | ->] -> [C | ->] -> [D | null]. All arrows are in blue.",
+      "conceptNote": "Each blue arrow is the <code>next</code> pointer. Node A's <code>next</code> points to B. Node D's <code>next</code> is <code>None</code>, marking the end of the list.",
+      "hint": null,
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "C"}, {"data": "D"}],
+        "head": true,
+        "doubly": false,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Write <strong>\"head\"</strong> above node A with a small downward arrow. This is the entry point to the list.",
+      "action": "In pencil, write \"head\" above node A with an arrow pointing down to it.",
+      "checkpoint": "The word \"head\" should be above node A. This is the only way into the list.",
+      "conceptNote": "A linked list stores a reference called <code>head</code> that points to the first node. Without it, you can't access any node in the list.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 5,
+      "instruction": "Let's <strong>traverse</strong>. Put your finger on the head node (A). Now follow each blue arrow to the next node. Say each letter out loud as you touch it.",
+      "action": "Touch A, say \"A\". Follow the blue arrow to B, say \"B\". Follow to C, say \"C\". Follow to D, say \"D\". D's next is null, so you stop.",
+      "checkpoint": "You should have said: A, B, C, D. You visited every node by following arrows, one at a time.",
+      "conceptNote": "Traversal visits each node exactly once by following <code>next</code> pointers. In code: <code>current = head</code>, then <code>current = current.next</code> in a loop until <code>current</code> is <code>None</code>.",
+      "hint": "Notice you can't jump directly to C. You MUST start at head and follow the chain. This is different from an array where you can access any index directly.",
+      "diagram": null
+    },
+    {
+      "id": 6,
+      "instruction": "Time to <strong>insert</strong> a new node. We'll add E <strong>between B and C</strong>. First, draw a new node for E below the gap between B and C.",
+      "action": "Draw a new split rectangle below and between B and C. Place the \"E\" card in the left half.",
+      "checkpoint": "You should have a new node [E | ] floating below the main chain, between B and C.",
+      "conceptNote": null,
+      "hint": "Drawing it below first helps you see the rewiring before you move it into place.",
+      "diagram": null
+    },
+    {
+      "id": 7,
+      "instruction": "Now rewire. <strong>Erase</strong> the blue arrow from B to C.",
+      "action": "Use your eraser to remove the blue arrow that goes from B's right half to C. B's right half is now empty.",
+      "checkpoint": "The chain is broken: A -> B [no arrow] ... C -> D. Node E is still floating below, unconnected.",
+      "conceptNote": "This is the key insight: inserting into a linked list means <strong>changing pointers</strong>, not moving data around. In an array, you'd have to shift C and D to make room.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "Draw two new blue arrows: one from <strong>B to E</strong>, and one from <strong>E to C</strong>.",
+      "action": "With your blue pen, draw an arrow from B's right half to E. Then draw an arrow from E's right half to C.",
+      "checkpoint": "The chain should now read: A -> B -> E -> C -> D. Traverse with your finger to verify.",
+      "conceptNote": "Insertion took only 2 pointer changes, no matter how long the list is. This is O(1) once you have a reference to the node before the insertion point.",
+      "hint": "Traverse the whole list with your finger to confirm: A, B, E, C, D.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "E"}, {"data": "C"}, {"data": "D"}],
+        "head": true,
+        "doubly": false,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "Now let's <strong>delete</strong> node C from the list. First, find C by traversing from head.",
+      "action": "Put your finger on A. Follow arrows: A -> B -> E -> C. Found it. Now erase the blue arrow from E to C. Erase the blue arrow from C to D. Draw a new blue arrow from E directly to D.",
+      "checkpoint": "The chain should now read: A -> B -> E -> D. Node C is disconnected and can be removed from the paper.",
+      "conceptNote": "Deletion also requires only pointer changes. We redirected E's <code>next</code> to skip over C and point to D. In code: <code>previous.next = current.next</code>.",
+      "hint": "Remove the C card and erase its rectangle. In a program, the garbage collector reclaims this memory.",
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "E"}, {"data": "D"}],
+        "head": true,
+        "doubly": false,
+        "highlight": [],
+        "label": "head"
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "Final check. Traverse your finished list one more time. How many pointer changes did insertion take? How many did deletion take?",
+      "action": "Traverse: A -> B -> E -> D -> null. Insertion changed 2 pointers (B's next and E's next). Deletion changed 1 pointer (E's next to skip C).",
+      "checkpoint": "Your final list is A -> B -> E -> D with head pointing to A.",
+      "conceptNote": "Linked lists excel at insertion and deletion because they only rewire pointers. Arrays excel at random access. Each structure has its strengths.",
+      "hint": null,
+      "diagram": {
+        "type": "linkedlist",
+        "nodes": [{"data": "A"}, {"data": "B"}, {"data": "E"}, {"data": "D"}],
+        "head": true,
+        "doubly": false,
+        "highlight": [],
+        "label": "head"
+      }
+    }
+  ],
+  "reflection": [
+    {
+      "question": "What is the difference between accessing element C in an array vs. in a linked list?",
+      "answer": "In an array, you jump directly to index 2. In a linked list, you must start at head and follow arrows one by one until you reach C. Arrays give O(1) access; linked lists give O(n)."
+    },
+    {
+      "question": "Why is inserting in the middle faster for a linked list than an array?",
+      "answer": "A linked list just redraws 2 arrows (pointer changes). An array must shift every element after the insertion point to make room."
+    },
+    {
+      "question": "What happens if you lose the head pointer?",
+      "answer": "You lose access to the entire list. Head is the only entry point. Without it, there's no way to reach any node."
+    },
+    {
+      "question": "Could you traverse the list backward from D to A?",
+      "answer": "No. Each node only has a \"next\" pointer going forward. To go backward, you'd need a doubly linked list with \"prev\" pointers as well."
+    }
+  ],
+  "nextTutorial": "linked-lists-doubly"
+}

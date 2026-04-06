@@ -42,7 +42,7 @@
       "conceptNote": "In Python, this operation is <code>stack.push(3)</code>. The stack places the value at the next available slot and updates the top pointer.",
       "hint": null,
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "", "", "", "", ""],
         "pointer": { "index": 0, "label": "top" }
       }
@@ -55,7 +55,7 @@
       "conceptNote": "Each <code>push</code> always goes to the NEXT empty box. The top pointer tells us where the top is.",
       "hint": "Notice the top pointer always moves RIGHT by one on a push.",
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "7", "", "", "", ""],
         "pointer": { "index": 1, "label": "top" }
       }
@@ -68,7 +68,7 @@
       "conceptNote": null,
       "hint": null,
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "7", "1", "", "", ""],
         "pointer": { "index": 2, "label": "top" }
       }
@@ -81,7 +81,7 @@
       "conceptNote": null,
       "hint": null,
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "7", "1", "9", "", ""],
         "pointer": { "index": 3, "label": "top" }
       }
@@ -94,7 +94,7 @@
       "conceptNote": "In Python: <code>val = stack.pop()</code>. It returns 9 and the top moves back. The value at position 3 is gone.",
       "hint": "Pop ALWAYS removes from the top. You never remove from the middle or bottom of a stack.",
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "7", "1", "", "", ""],
         "pointer": { "index": 2, "label": "top" }
       }
@@ -107,7 +107,7 @@
       "conceptNote": null,
       "hint": null,
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "7", "", "", "", ""],
         "pointer": { "index": 1, "label": "top" }
       }
@@ -129,7 +129,7 @@
       "conceptNote": "In Python: <code>stack.top()</code> returns 7 without modifying the stack. The top pointer doesn't move.",
       "hint": null,
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "7", "", "", "", ""],
         "pointer": { "index": 1, "label": "top" },
         "highlight": [1]
@@ -143,7 +143,7 @@
       "conceptNote": null,
       "hint": null,
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["3", "7", "4", "2", "", ""],
         "pointer": { "index": 3, "label": "top" }
       }
@@ -174,7 +174,7 @@
       "conceptNote": "Notice the order: 2, 4, 7, 3. That's the exact reverse of how they were pushed. This is LIFO in action.",
       "hint": null,
       "diagram": {
-        "type": "array",
+        "type": "stack",
         "cells": ["", "", "", "", "", ""],
         "pointer": { "index": -1, "label": "" }
       }

@@ -1,0 +1,232 @@
+{
+  "id": "queues-arrayqueue",
+  "topic": "queues",
+  "title": "ArrayQueue: Build It With Paper",
+  "subtitle": "See how a circular array queue works by physically moving front and back pointers.",
+  "encouragement": "Queues are everywhere: print jobs, web server requests, breadth-first search. Once you see the circular trick with your own hands, implementing one in code becomes straightforward.",
+  "realWorldExample": "Think of a line at a coffee shop. New customers join at the back. The person at the front gets served next. That's a queue: First In, First Out. The circular part? Imagine the line wraps around a round counter so the back of the line can reuse space freed by people who already left.",
+  "materials": [
+    {
+      "item": "A paper strip with 6 boxes",
+      "detail": "Draw 6 equally-spaced boxes in a row. Make them big enough to fit small cards inside.",
+      "emoji": "\ud83d\udccf"
+    },
+    {
+      "item": "A pen",
+      "detail": "To draw boxes, write index numbers, and label pointers.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    },
+    {
+      "item": "6 small paper cards",
+      "detail": "Write these letters on them: A, B, C, D, E, F",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "2 paperclips",
+      "detail": "One marks \"front\" (where we dequeue from), the other marks \"back\" (where the next enqueue goes). Label them if you can.",
+      "emoji": "\ud83d\udcce"
+    }
+  ],
+  "setup": [
+    "Draw 6 boxes on your paper strip. Number them 0 through 5 underneath.",
+    "Place the FRONT paperclip at index 0.",
+    "Place the BACK paperclip at index 0.",
+    "Both pointers at the same spot means the queue is empty. Lay your letter cards (A-F) nearby.",
+    "Remember: FRONT is where we remove from. BACK is where the next item will be placed."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Let's <strong>enqueue</strong> the letter <strong>A</strong>. Pick up the A card.",
+      "action": "Place A into the box where BACK is pointing (index 0). Then move BACK one step right to index 1.",
+      "checkpoint": "Strip: [A][ ][ ][ ][ ][ ]. FRONT at 0, BACK at 1.",
+      "conceptNote": "Enqueue places the item at the back pointer's position, then advances back. The front pointer doesn't move.",
+      "hint": "BACK always points to the NEXT EMPTY slot, not the last filled slot.",
+      "diagram": {
+        "type": "queue",
+        "cells": ["A", "", "", "", "", ""],
+        "front": 0,
+        "back": 1,
+        "highlight": [0]
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Enqueue <strong>B</strong>.",
+      "action": "Place B at index 1 (where BACK is). Move BACK to index 2.",
+      "checkpoint": "Strip: [A][B][ ][ ][ ][ ]. FRONT at 0, BACK at 2.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["A", "B", "", "", "", ""],
+        "front": 0,
+        "back": 2,
+        "highlight": [0, 1]
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Enqueue <strong>C</strong>.",
+      "action": "Place C at index 2. Move BACK to index 3.",
+      "checkpoint": "Strip: [A][B][C][ ][ ][ ]. FRONT at 0, BACK at 3. Three items in the queue.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["A", "B", "C", "", "", ""],
+        "front": 0,
+        "back": 3,
+        "highlight": [0, 1, 2]
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Now let's <strong>dequeue</strong>. Which item gets removed? Look at where FRONT is pointing.",
+      "action": "Remove the A card from index 0. Move FRONT one step right to index 1.",
+      "checkpoint": "Strip: [ ][B][C][ ][ ][ ]. FRONT at 1, BACK at 3. A is gone.",
+      "conceptNote": "FIFO: First In, First Out. A was enqueued first, so A is dequeued first. This is the opposite of a stack.",
+      "hint": "Notice index 0 is now empty. That space will be reused later; that's the circular trick.",
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "B", "C", "", "", ""],
+        "front": 1,
+        "back": 3,
+        "highlight": [1, 2]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Enqueue <strong>D</strong>, then <strong>E</strong>, then <strong>F</strong>.",
+      "action": "Place D at index 3 (BACK moves to 4). Place E at index 4 (BACK moves to 5). Place F at index 5 (BACK moves to... where?).",
+      "checkpoint": "Strip: [ ][B][C][D][E][F]. FRONT at 1, BACK needs to go past index 5.",
+      "conceptNote": null,
+      "hint": "BACK was at 5 and needs to advance. But there's no index 6. What happens next?",
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "B", "C", "D", "E", "F"],
+        "front": 1,
+        "back": 6,
+        "highlight": [1, 2, 3, 4, 5]
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "BACK needs to go past the end. In a circular queue, it <strong>wraps around</strong> to the beginning. Move BACK to index 0.",
+      "action": "Move your BACK paperclip to index 0. It loops around!",
+      "checkpoint": "Strip: [ ][B][C][D][E][F]. FRONT at 1, BACK at 0. The empty slot at index 0 is right where BACK is pointing.",
+      "conceptNote": "The wrap-around formula is: <code>back = (back + 1) % capacity</code>. With capacity 6: (5 + 1) % 6 = 0. The modulo operator creates the circular behavior.",
+      "hint": "Imagine bending your paper strip into a ring so index 5 connects to index 0. That's the mental model.",
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "B", "C", "D", "E", "F"],
+        "front": 1,
+        "back": 0,
+        "highlight": [1, 2, 3, 4, 5]
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Dequeue again. Who's at the front?",
+      "action": "Remove B from index 1. Move FRONT to index 2.",
+      "checkpoint": "Strip: [ ][ ][C][D][E][F]. FRONT at 2, BACK at 0. Two empty slots at indices 0 and 1.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "", "C", "D", "E", "F"],
+        "front": 2,
+        "back": 0,
+        "highlight": [2, 3, 4, 5]
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "Now enqueue a new letter. Write <strong>G</strong> on a spare piece of paper. Where does it go?",
+      "action": "Place G at index 0 (where BACK is pointing). Move BACK to index 1.",
+      "checkpoint": "Strip: [G][ ][C][D][E][F]. FRONT at 2, BACK at 1. The queue now wraps around!",
+      "conceptNote": "The queue contents are now: C, D, E, F, G. They span from index 2 through 5 and then wrap to index 0. The data isn't contiguous, but the front/back pointers keep track.",
+      "hint": "This is why it's called a CIRCULAR queue. The data wraps around the end of the array.",
+      "diagram": {
+        "type": "queue",
+        "cells": ["G", "", "C", "D", "E", "F"],
+        "front": 2,
+        "back": 1,
+        "highlight": [0, 2, 3, 4, 5]
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "How many items are in the queue? Count them. Can you figure it out from just the pointers?",
+      "action": "Count: C, D, E, F, G = 5 items. Formula: (back - front + capacity) % capacity = (1 - 2 + 6) % 6 = 5.",
+      "checkpoint": null,
+      "conceptNote": "The size formula <code>(back - front + capacity) % capacity</code> handles the wrap-around. When back < front, adding capacity before the modulo gives the correct count.",
+      "hint": "Without the circular formula, back (1) minus front (2) gives -1, which is wrong. The modulo trick fixes it.",
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "Dequeue three more times. Say each letter as you remove it.",
+      "action": "Dequeue C (FRONT moves to 3). Dequeue D (FRONT moves to 4). Dequeue E (FRONT moves to 5).",
+      "checkpoint": "Strip: [G][ ][ ][ ][ ][F]. Wait, F is still at index 5. FRONT is at 5. Only F and G remain.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["G", "", "", "", "", "F"],
+        "front": 5,
+        "back": 1,
+        "highlight": [0, 5]
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "Dequeue F. Where does FRONT go?",
+      "action": "Remove F from index 5. FRONT wraps around to index 0. (5 + 1) % 6 = 0.",
+      "checkpoint": "Strip: [G][ ][ ][ ][ ][ ]. FRONT at 0, BACK at 1. One item left: G.",
+      "conceptNote": "FRONT wraps around too! Both pointers use the same modulo logic to circle back to the beginning.",
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["G", "", "", "", "", ""],
+        "front": 0,
+        "back": 1,
+        "highlight": [0]
+      }
+    },
+    {
+      "id": 12,
+      "instruction": "Dequeue G. What does the queue look like now?",
+      "action": "Remove G from index 0. Move FRONT to index 1. FRONT and BACK are both at index 1.",
+      "checkpoint": "Strip: [ ][ ][ ][ ][ ][ ]. FRONT = BACK = 1. Queue is empty again.",
+      "conceptNote": "When FRONT equals BACK, the queue is empty. This is the same condition we started with (both at 0), just at a different position. The circular nature means \"empty\" can happen at any index, not just 0.",
+      "hint": "This is why some implementations keep a separate size counter: to distinguish between \"completely empty\" and \"completely full\" (both have front == back).",
+      "diagram": {
+        "type": "queue",
+        "cells": ["", "", "", "", "", ""],
+        "front": 1,
+        "back": 1,
+        "highlight": []
+      }
+    }
+  ],
+  "reflection": [
+    {
+      "question": "How is a queue different from a stack?",
+      "answer": "A stack is LIFO (Last In, First Out), a queue is FIFO (First In, First Out). In a stack, you add and remove from the same end. In a queue, you add at the back and remove from the front."
+    },
+    {
+      "question": "Why use a circular array instead of shifting all elements forward on each dequeue?",
+      "answer": "Shifting every element costs O(n) per dequeue. With a circular array, dequeue just moves the front pointer: O(1). No data moves at all."
+    },
+    {
+      "question": "When front equals back, is the queue empty or full?",
+      "answer": "It could be either! This is an ambiguity in circular queues. Common solutions: keep a size counter, waste one slot (full when back is one behind front), or use a boolean flag."
+    },
+    {
+      "question": "What's the wrap-around formula for advancing a pointer?",
+      "answer": "new_index = (current_index + 1) % capacity. The modulo operator wraps the index back to 0 when it reaches the end of the array."
+    }
+  ],
+  "nextTutorial": null
+}

@@ -1,7 +1,8 @@
-import { loadTopics, loadTutorial, findTopic, findTutorialMeta } from './data.js';
+import { loadTopics, loadTutorial, findTopic, findTutorialMeta, invalidateTopicsCache } from './data.js';
 import { showView, setBreadcrumb, scrollToTop } from './ui.js';
 import { renderTopicCard, renderTutorialListItem } from './components.js';
 import { startTutorial } from './tutorial.js';
+import { renderInstructorMode, bindInstructorEvents } from './instructor.js';
 
 // Global toggle functions (called from onclick in rendered HTML)
 window.toggleConceptNote = function(id, toggleEl) {
@@ -30,6 +31,8 @@ async function handleRoute() {
     await renderTutorialList(parts[1]);
   } else if (parts[0] === 'tutorial' && parts[1] && parts[2]) {
     await renderTutorialActivity(parts[1], parts[2]);
+  } else if (parts[0] === 'instructor') {
+    renderInstructor();
   } else {
     renderWelcome();
   }
@@ -66,7 +69,7 @@ async function renderTutorialList(topicId) {
 
   const header = document.getElementById('tutorial-list-header');
   header.innerHTML = `
-    <h2 class="section-title">${topic.emoji} ${topic.title}</h2>
+    <h2 class="section-title">${topic.title}</h2>
     <p class="section-subtitle">${topic.description}</p>
   `;
 
@@ -92,6 +95,18 @@ async function renderTutorialActivity(topicId, tutorialId) {
   const tutorial = await loadTutorial(meta.file);
   const container = document.getElementById('activity-content');
   startTutorial(tutorial, container, topicId);
+}
+
+function renderInstructor() {
+  showView('view-instructor');
+  setBreadcrumb([{ label: 'Instructor Mode' }]);
+
+  // Invalidate cache so generated tutorials are fresh
+  invalidateTopicsCache();
+
+  const container = document.getElementById('instructor-content');
+  container.innerHTML = renderInstructorMode();
+  bindInstructorEvents();
 }
 
 // Initialize

@@ -1,0 +1,206 @@
+{
+  "id": "searching-binary",
+  "topic": "searching",
+  "title": "Binary Search: Cut the Deck in Half",
+  "subtitle": "Find any value in a sorted collection by eliminating half the possibilities each time.",
+  "encouragement": "Binary search is one of the most elegant ideas in computer science. With your hands, you'll feel how fast it narrows down the search. Each step cuts your work in half. Let's go.",
+  "realWorldExample": "Think of looking up a word in a physical dictionary. You don't start at page 1. You open to the middle, see if your word comes before or after, then flip to the middle of the remaining half. That's binary search.",
+  "materials": [
+    {
+      "item": "8 small paper cards",
+      "detail": "Write these numbers on them: 2, 5, 8, 11, 15, 18, 22, 30",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "2 coins or paperclips",
+      "detail": "One marks the \"low\" pointer, the other marks the \"high\" pointer. Use different colors if you can.",
+      "emoji": "\ud83d\udcce"
+    },
+    {
+      "item": "A pen",
+      "detail": "To write index numbers and notes.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    }
+  ],
+  "setup": [
+    "Lay out your 8 cards in a row, left to right, in sorted order: 2, 5, 8, 11, 15, 18, 22, 30.",
+    "Write index numbers 0 through 7 on the table below each card.",
+    "Place one coin below index 0. This is your LOW pointer.",
+    "Place the other coin below index 7. This is your HIGH pointer.",
+    "Our target: find the number 15."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Look at your two pointers. LOW is at index 0, HIGH is at index 7. Everything between them (inclusive) is the <strong>search space</strong>. How many cards are you searching through?",
+      "action": "Count: all 8 cards are in play. The entire array is your search space.",
+      "checkpoint": "Cards: [2][5][8][11][15][18][22][30]. LOW at 0, HIGH at 7.",
+      "conceptNote": "Binary search requires the array to be <strong>sorted</strong>. If it weren't sorted, cutting in half wouldn't tell us anything useful.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 0, "label": "low" },
+        "highlight": [0, 1, 2, 3, 4, 5, 6, 7]
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Calculate the <strong>middle index</strong>. Formula: mid = (low + high) / 2, round down. What do you get?",
+      "action": "mid = (0 + 7) / 2 = 3 (rounded down). Point your finger at index 3.",
+      "checkpoint": "Mid is index 3, which holds the value 11.",
+      "conceptNote": "Finding the midpoint is the heart of binary search. We check this one value to decide which half to keep.",
+      "hint": "(0 + 7) = 7. Divide by 2 = 3.5. Round down = 3.",
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 3, "label": "mid" },
+        "highlight": [3]
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Look at the card at index 3. It's <strong>11</strong>. Our target is <strong>15</strong>. Is 15 equal to 11? Greater? Less?",
+      "action": "15 is greater than 11. The target must be to the RIGHT of mid. We can eliminate the entire left half.",
+      "checkpoint": null,
+      "conceptNote": "Because the array is sorted, if the target is bigger than the middle value, it CANNOT be anywhere to the left. Half the cards are eliminated in one comparison.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 4,
+      "instruction": "Move your LOW pointer. Since the target is to the right of mid, set low = mid + 1.",
+      "action": "Move your LOW coin from index 0 to index 4.",
+      "checkpoint": "LOW at index 4, HIGH at index 7. Search space: [15][18][22][30]. Only 4 cards remain!",
+      "conceptNote": "We went from 8 cards to 4 in a single step. That's the power of halving.",
+      "hint": "We set low = mid + 1 (not mid) because we already checked mid and it wasn't the target.",
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 4, "label": "low" },
+        "highlight": [4, 5, 6, 7]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Calculate the new mid. low = 4, high = 7.",
+      "action": "mid = (4 + 7) / 2 = 5 (rounded down). Point at index 5.",
+      "checkpoint": "Mid is index 5, which holds the value 18.",
+      "conceptNote": null,
+      "hint": "(4 + 7) = 11. Divide by 2 = 5.5. Round down = 5.",
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 5, "label": "mid" },
+        "highlight": [4, 5, 6, 7]
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Index 5 holds <strong>18</strong>. Target is <strong>15</strong>. Compare them.",
+      "action": "15 is less than 18. The target must be to the LEFT of mid. Move HIGH to mid - 1.",
+      "checkpoint": "Move HIGH coin from index 7 to index 4.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 7,
+      "instruction": "Update your pointers. LOW is at 4, HIGH is now at 4. How many cards are left?",
+      "action": "Only ONE card remains: index 4. The search space has been squeezed to a single card.",
+      "checkpoint": "LOW at 4, HIGH at 4. Search space: [15]. Just one card.",
+      "conceptNote": "We went from 8 cards to 4 to 1. Three comparisons to narrow down 8 items. That's O(log n).",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 4, "label": "low/high" },
+        "highlight": [4]
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "Calculate mid one more time. low = 4, high = 4.",
+      "action": "mid = (4 + 4) / 2 = 4. Look at index 4.",
+      "checkpoint": "Index 4 holds 15. That's our target!",
+      "conceptNote": "When <code>arr[mid] == target</code>, we return mid. Found it in just 3 comparisons out of 8 elements.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 4, "label": "FOUND" },
+        "highlight": [4]
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "Now let's see what happens when the target is NOT in the array. Reset: LOW back to 0, HIGH back to 7. New target: <strong>10</strong>.",
+      "action": "Move your coins back to their starting positions. LOW at 0, HIGH at 7.",
+      "checkpoint": "Full search space restored. All 8 cards in play.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 0, "label": "low" },
+        "highlight": [0, 1, 2, 3, 4, 5, 6, 7]
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "Search for 10. mid = (0+7)/2 = 3. Index 3 = 11. Is 10 greater or less than 11?",
+      "action": "10 < 11. Move HIGH to mid - 1 = 2. Search space: indices 0-2 → [2][5][8].",
+      "checkpoint": "LOW at 0, HIGH at 2.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 2, "label": "high" },
+        "highlight": [0, 1, 2]
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "Continue. mid = (0+2)/2 = 1. Index 1 = 5. Compare with target 10.",
+      "action": "10 > 5. Move LOW to mid + 1 = 2. Now mid = (2+2)/2 = 2. Index 2 = 8. 10 > 8. Move LOW to 3.",
+      "checkpoint": "LOW = 3, HIGH = 2. LOW has crossed past HIGH!",
+      "conceptNote": "When LOW > HIGH, the search space is empty. The target doesn't exist in the array. Return -1 or \"not found\".",
+      "hint": "The pointers crossing is how binary search knows to stop. It has exhausted every possibility.",
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "5", "8", "11", "15", "18", "22", "30"],
+        "pointer": { "index": 3, "label": "low (crossed!)" },
+        "highlight": []
+      }
+    },
+    {
+      "id": 12,
+      "instruction": "Reflect on what just happened. To search 8 items, we never needed more than <strong>3 comparisons</strong>. What about 1,000,000 items?",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "log2(8) = 3. log2(1,000,000) is about 20. Binary search on a million items takes at most 20 steps. Linear search could take 1,000,000. That's the difference between O(log n) and O(n).",
+      "hint": "Every time the data doubles, binary search needs just ONE more step. That's logarithmic growth.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "What must be true about the array for binary search to work?",
+      "answer": "The array must be sorted. Without sorted order, checking the middle value tells you nothing about which half contains the target."
+    },
+    {
+      "question": "What are the three possible outcomes when you check the middle element?",
+      "answer": "1) arr[mid] equals target: found it. 2) arr[mid] is less than target: move low to mid + 1. 3) arr[mid] is greater than target: move high to mid - 1."
+    },
+    {
+      "question": "How do you know the target isn't in the array?",
+      "answer": "When low crosses past high (low > high), the search space is empty. The target doesn't exist in the array."
+    },
+    {
+      "question": "If you had 1024 sorted cards, what's the maximum number of comparisons binary search would need?",
+      "answer": "log2(1024) = 10. At most 10 comparisons to search 1024 items."
+    }
+  ],
+  "nextTutorial": "searching-two-pointers"
+}

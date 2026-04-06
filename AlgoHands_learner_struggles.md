@@ -1,7 +1,7 @@
-# AlgoHands — Learner Struggles & Design Notes
+# CutAndCode — Learner Struggles & Design Notes
 ## Organized from Maria's Stream of Consciousness
 
-This document captures every learning struggle and design idea Maria described, organized by topic. These insights will drive the design of every physical simulation tutorial in the AlgoHands project.
+This document captures every learning struggle and design idea Maria described, organized by topic. These insights will drive the design of every physical simulation tutorial in the CutAndCode project.
 
 ---
 

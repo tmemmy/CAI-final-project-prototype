@@ -1,4 +1,4 @@
-# AlgoHands CAI: Project Plan Presentation
+# CutAndCode CAI: Project Plan Presentation
 ## Slide-by-Slide Content Outline
 ### Creative AI Class, Due April 1, 2026
 ### ~5 minutes, 12 slides
@@ -7,14 +7,14 @@
 
 ## Slide 1: Title Slide
 
-**Title:** AlgoHands CAI (name TBD)
+**Title:** CutAndCode CAI (name TBD)
 **Subtitle:** Learning Data Structures with Your Hands
 **Bottom line:** Maria Fraguas | Creative AI | April 2026
 
 **Visual:** App logo/wordmark placeholder. Clean, minimal.
 
 **Speaker notes:**
-"Hey everyone, I'm Maria. My project is called AlgoHands, at least for now. It's a web app that teaches data structures and algorithms through physical, hands-on simulations. You use stuff you already have at home: paper, scissors, bowls, tape. No fancy equipment. I'll walk you through how it works, how I used AI to build it, and where it's going."
+"Hey everyone, I'm Maria. My project is called CutAndCode, at least for now. It's a web app that teaches data structures and algorithms through physical, hands-on simulations. You use stuff you already have at home: paper, scissors, bowls, tape. No fancy equipment. I'll walk you through how it works, how I used AI to build it, and where it's going."
 
 ---
 
