@@ -5,6 +5,7 @@
   "subtitle": "Build an intuition for the most important rule in computing: Last In, First Out.",
   "encouragement": "Stacks are everywhere in computing, from the undo button to how your computer runs functions. This tutorial is about building the mental model. Once you see it, you can't unsee it.",
   "realWorldExample": "A Pringles can. You can only reach the chip on top. To get to the one at the bottom, you'd have to remove every chip above it first. Your browser's back button works the same way: the most recent page is always the one you go back to.",
+  "heroAnimation": "stack-pringles",
   "materials": [
     {
       "item": "5 small paper cards",
@@ -49,15 +50,17 @@
     {
       "id": 2,
       "instruction": "Drop the <strong>CALL</strong> card into the cup. Then drop <strong>BACK</strong> on top of it. Then drop <strong>UNDO</strong> on top of that.",
-      "action": "Place cards in this order, bottom to top: CALL, then BACK, then UNDO. Each new card goes on top of the previous one.",
+      "action": "Drag each card into the stack in the correct order. Watch how each new card lands on top of the previous one.",
       "checkpoint": "Your cup should have 3 cards stacked up. UNDO is on top, CALL is at the bottom. You can only see UNDO.",
       "conceptNote": "The last card you put in (UNDO) is now on top. The first card (CALL) is buried at the bottom.",
       "hint": null,
-      "diagram": {
-        "type": "stack",
-        "cells": ["CALL", "BACK", "UNDO"],
-        "pointer": { "index": 2, "label": "top" }
-      }
+      "interaction": {
+        "type": "stack-push-multi",
+        "cards": ["CALL", "BACK", "UNDO"],
+        "stackContents": [],
+        "capacity": 5
+      },
+      "diagram": null
     },
     {
       "id": 3,
@@ -76,15 +79,17 @@
     {
       "id": 4,
       "instruction": "Remove the top card from the cup. Which card did you get?",
-      "action": "Take out UNDO. Set it aside. Now BACK is on top.",
+      "action": "Drag the top card out of the stack and drop it in the discard area.",
       "checkpoint": "You removed UNDO. UNDO was the LAST card put in and the FIRST card taken out.",
       "conceptNote": "This pattern is called <strong>LIFO: Last In, First Out</strong>. The most recent item is always the first one to leave. Write \"LIFO\" on a sticky note.",
       "hint": null,
-      "diagram": {
-        "type": "stack",
-        "cells": ["CALL", "BACK"],
-        "pointer": { "index": 1, "label": "top" }
-      }
+      "interaction": {
+        "type": "stack-pop",
+        "stackContents": ["CALL", "BACK", "UNDO"],
+        "expectedPop": "UNDO",
+        "capacity": 5
+      },
+      "diagram": null
     },
     {
       "id": 5,
@@ -111,15 +116,17 @@
     {
       "id": 7,
       "instruction": "One more: the <strong>call stack</strong>. When your program calls function A, which calls B, which calls C, the computer needs to remember where to return. It uses a stack.",
-      "action": "Drop CALL, RETURN, and DONE into the cup in that order. DONE is on top. When C finishes, DONE pops off. Then RETURN pops. Then CALL pops. The program unwinds in reverse order.",
+      "action": "Drag CALL, RETURN, and DONE into the stack in that order. Then think: when C finishes, DONE pops off first. Then RETURN. Then CALL. The program unwinds in reverse order.",
       "checkpoint": "The call stack is why \"stack overflow\" errors exist. Too many function calls (like infinite recursion) fill the stack until there's no room left.",
       "conceptNote": "The call stack is arguably the most important stack in computing. Every running program has one. When you see a stack trace in an error message, you're literally reading the call stack.",
       "hint": null,
-      "diagram": {
-        "type": "stack",
-        "cells": ["CALL", "RETURN", "DONE"],
-        "pointer": { "index": 2, "label": "top" }
-      }
+      "interaction": {
+        "type": "stack-push-multi",
+        "cards": ["CALL", "RETURN", "DONE"],
+        "stackContents": [],
+        "capacity": 5
+      },
+      "diagram": null
     },
     {
       "id": 8,

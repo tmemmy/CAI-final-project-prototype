@@ -1,0 +1,195 @@
+{
+  "id": "trees-traversal",
+  "topic": "trees",
+  "title": "Tree Traversals: The Outline Trick",
+  "subtitle": "Walk around your tree with a pencil and discover preorder, inorder, and postorder in one drawing.",
+  "encouragement": "Tree traversals look intimidating in code because they're recursive. But there's a beautiful trick: if you draw an outline around the tree, you can read off all three traversal orders from ONE picture. Once you see it, traversals stop being mysterious.",
+  "realWorldExample": "Traversals show up everywhere. A file explorer lists folders in a tree order. An HTML parser reads nested tags in a traversal order. A calculator evaluating (3 + 5) * 2 uses postorder traversal on the expression tree. Each traversal order answers a different question about the same tree.",
+  "materials": [
+    {
+      "item": "Large sheet of paper",
+      "detail": "Portrait orientation. You need the tree from the intro tutorial, or you'll draw a fresh one.",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "Pencil and eraser",
+      "detail": "For drawing the tree and the outline path.",
+      "emoji": "\u270f\ufe0f"
+    },
+    {
+      "item": "Blue pen",
+      "detail": "For marking PREORDER visits (left-side dots).",
+      "emoji": "\ud83d\udd35"
+    },
+    {
+      "item": "Red pen",
+      "detail": "For marking INORDER visits (bottom-side dots).",
+      "emoji": "\ud83d\udd34"
+    },
+    {
+      "item": "Green pen or pencil",
+      "detail": "For marking POSTORDER visits (right-side dots). Any third color works.",
+      "emoji": "\ud83d\udfe2"
+    }
+  ],
+  "setup": [
+    "Draw this binary tree on your paper. Put A at the top (root), B as A's left child, C as A's right child, D as B's left child, E as B's right child, F as C's left child. C has no right child.",
+    "Make the circles about 1.5 inches across with plenty of space between them.",
+    "Draw lines connecting parents to children (blue for left, red for right, like the intro tutorial).",
+    "Your tree should look like this: A at top, B and C on level 2, D and E under B, F under C."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Before we learn the trick, let's understand what a <strong>traversal</strong> is. It means: <strong>visit every node in the tree exactly once, in a specific order.</strong> There are three classic orders, and they all use recursion.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "All three traversals follow the same recursive structure. The only difference is <strong>WHEN you visit the current node</strong> relative to its children:<br><br>\u2022 <strong>Preorder:</strong> visit the node FIRST, then left subtree, then right subtree.<br>\u2022 <strong>Inorder:</strong> left subtree first, then visit the node, then right subtree.<br>\u2022 <strong>Postorder:</strong> left subtree, then right subtree, then visit the node LAST.",
+      "hint": "Pre = before children. In = in between children. Post = after children. The prefix tells you WHEN the node itself gets visited.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "root", "left": {"value": "B", "left": {"value": "D"}, "right": {"value": "E"}}, "right": {"value": "C", "left": {"value": "F"}}}
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "<strong>The Outline Trick.</strong> Here's the magic: draw a <strong>continuous outline</strong> around the entire tree, starting from the left side of the root, going counterclockwise (down the left, across the bottom, up the right), hugging every node closely.",
+      "action": "Starting just above-left of A, draw a continuous curved line that:<br>\u2022 Goes down the LEFT side of A<br>\u2022 Down to B, down B's LEFT side<br>\u2022 Down to D, goes all the way AROUND D (it's a leaf, so the outline loops under it)<br>\u2022 Back up between D and E<br>\u2022 Down around E (another leaf)<br>\u2022 Back up the RIGHT side of B<br>\u2022 Across to C, down C's LEFT side<br>\u2022 Down around F (leaf)<br>\u2022 Back up the RIGHT side of C<br>\u2022 Back up the RIGHT side of A<br><br>The line should form a closed loop that hugs every node.",
+      "checkpoint": "You should have a single continuous pencil line that wraps around the entire tree, visiting every node. It looks like the outline of the tree's silhouette.",
+      "conceptNote": "This outline is sometimes called the \"Euler tour\" of the tree. It visits every node three times: once on the left side (going down), once at the bottom (crossing under), and once on the right side (coming back up).",
+      "hint": "The outline should never cross any edge. It hugs the outside of the tree shape. Think of it like tracing the border of a country on a map.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "root", "left": {"value": "B", "left": {"value": "D"}, "right": {"value": "E"}}, "right": {"value": "C", "left": {"value": "F"}}}
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "<strong>Mark the three sides of each node.</strong> Every node has three moments where the outline passes it:<br><br>\u2022 <strong>Left side</strong> (outline passes going DOWN): mark with a <strong>blue dot</strong><br>\u2022 <strong>Bottom</strong> (outline passes UNDERNEATH): mark with a <strong>red dot</strong><br>\u2022 <strong>Right side</strong> (outline passes going UP): mark with a <strong>green dot</strong>",
+      "action": "Go to each of the 6 nodes and place three colored dots:<br><br>On the <strong>left side</strong> of each circle: blue dot.<br>On the <strong>bottom</strong> of each circle: red dot.<br>On the <strong>right side</strong> of each circle: green dot.<br><br>You should have 18 dots total (3 per node, 6 nodes).",
+      "checkpoint": "Every node has a blue dot (left), red dot (bottom), and green dot (right). 18 dots total.",
+      "conceptNote": "For leaf nodes, the outline hits all three sides in quick succession (left, bottom, right) since there are no children to visit. For internal nodes, there's a gap between the three visits while the outline explores the children.",
+      "hint": "For leaves (D, E, F), the three dots will be very close together since the outline loops tightly around them.",
+      "diagram": null
+    },
+    {
+      "id": 4,
+      "instruction": "<strong>PREORDER: Read the blue dots.</strong><br><br>Follow the outline from start to finish. Every time you pass a <strong>blue dot</strong> (left side of a node), write down that node's letter. That's the preorder traversal.",
+      "action": "Trace the outline with your finger. Write down each node as you hit its blue dot:<br><br>\u2022 Hit A's blue dot (left side going down): write <strong>A</strong><br>\u2022 Hit B's blue dot: write <strong>B</strong><br>\u2022 Hit D's blue dot: write <strong>D</strong><br>\u2022 (D is a leaf, outline loops around it, passes red and green dots)<br>\u2022 Hit E's blue dot: write <strong>E</strong><br>\u2022 (E loops, back up past B's red and green)<br>\u2022 Hit C's blue dot: write <strong>C</strong><br>\u2022 Hit F's blue dot: write <strong>F</strong>",
+      "checkpoint": "<strong>Preorder: A, B, D, E, C, F</strong>. You visit the node BEFORE going to its children.",
+      "conceptNote": "Preorder visits the root first, then recursively visits the left subtree, then the right subtree. It's like reading a book's table of contents: you see the chapter title before any section titles.<br><br>In code:<br><code>def preorder(node):</code><br><code>&nbsp;&nbsp;if node is None: return</code><br><code>&nbsp;&nbsp;visit(node)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# FIRST</code><br><code>&nbsp;&nbsp;preorder(node.left)</code><br><code>&nbsp;&nbsp;preorder(node.right)</code>",
+      "hint": "Pre = before. You process the node BEFORE its children.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "1st", "left": {"value": "B", "label": "2nd", "left": {"value": "D", "label": "3rd"}, "right": {"value": "E", "label": "4th"}}, "right": {"value": "C", "label": "5th", "left": {"value": "F", "label": "6th"}}},
+        "highlight": ["A"],
+        "label": "Preorder: A B D E C F"
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "<strong>INORDER: Read the red dots.</strong><br><br>Same outline, same path. But this time, only write down a node when you pass its <strong>red dot</strong> (bottom of the node).",
+      "action": "Trace the outline again. Write down each node as you hit its red dot:<br><br>\u2022 Pass A's blue dot (skip, not red)<br>\u2022 Pass B's blue dot (skip)<br>\u2022 Pass D's blue dot, then hit D's <strong>red dot</strong>: write <strong>D</strong><br>\u2022 Pass D's green dot, back up to B's <strong>red dot</strong>: write <strong>B</strong><br>\u2022 Go down to E, hit E's <strong>red dot</strong>: write <strong>E</strong><br>\u2022 Back up past B's green, up to A's <strong>red dot</strong>: write <strong>A</strong><br>\u2022 Down to C's blue, down to F's <strong>red dot</strong>: write <strong>F</strong><br>\u2022 Back up to C's <strong>red dot</strong>: write <strong>C</strong>",
+      "checkpoint": "<strong>Inorder: D, B, E, A, F, C</strong>. You visit the node IN BETWEEN its left and right children.",
+      "conceptNote": "Inorder visits the entire left subtree first, then the node itself, then the entire right subtree. For a Binary Search Tree (where left < parent < right), inorder gives you the values in sorted order.<br><br>In code:<br><code>def inorder(node):</code><br><code>&nbsp;&nbsp;if node is None: return</code><br><code>&nbsp;&nbsp;inorder(node.left)</code><br><code>&nbsp;&nbsp;visit(node)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# MIDDLE</code><br><code>&nbsp;&nbsp;inorder(node.right)</code>",
+      "hint": "In = in between. The node gets visited AFTER its entire left subtree but BEFORE its right subtree.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "4th", "left": {"value": "B", "label": "2nd", "left": {"value": "D", "label": "1st"}, "right": {"value": "E", "label": "3rd"}}, "right": {"value": "C", "label": "6th", "left": {"value": "F", "label": "5th"}}},
+        "highlight": ["A"],
+        "label": "Inorder: D B E A F C"
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "<strong>POSTORDER: Read the green dots.</strong><br><br>Same outline, one last time. Write down a node only when you pass its <strong>green dot</strong> (right side, going up).",
+      "action": "Trace the outline. Write down each node as you hit its green dot:<br><br>\u2022 Pass A's blue, B's blue, D's blue, D's red...<br>\u2022 Hit D's <strong>green dot</strong>: write <strong>D</strong><br>\u2022 E's blue, E's red, E's <strong>green</strong>: write <strong>E</strong><br>\u2022 B's red, B's <strong>green</strong>: write <strong>B</strong><br>\u2022 C's blue, F's blue, F's red, F's <strong>green</strong>: write <strong>F</strong><br>\u2022 C's red, C's <strong>green</strong>: write <strong>C</strong><br>\u2022 A's red, A's <strong>green</strong>: write <strong>A</strong>",
+      "checkpoint": "<strong>Postorder: D, E, B, F, C, A</strong>. You visit the node AFTER both its children are done.",
+      "conceptNote": "Postorder visits both subtrees before the node itself. It's used to evaluate expression trees and to safely delete trees (you delete children before the parent).<br><br>In code:<br><code>def postorder(node):</code><br><code>&nbsp;&nbsp;if node is None: return</code><br><code>&nbsp;&nbsp;postorder(node.left)</code><br><code>&nbsp;&nbsp;postorder(node.right)</code><br><code>&nbsp;&nbsp;visit(node)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# LAST</code>",
+      "hint": "Post = after. The node gets visited only AFTER both its children are fully explored.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "A", "label": "6th", "left": {"value": "B", "label": "3rd", "left": {"value": "D", "label": "1st"}, "right": {"value": "E", "label": "2nd"}}, "right": {"value": "C", "label": "5th", "left": {"value": "F", "label": "4th"}}},
+        "highlight": ["A"],
+        "label": "Postorder: D E B F C A"
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Let's see all three side by side. Same tree, same outline, three different reading rules:<br><br>\u2022 <strong>Preorder</strong> (blue/left): <strong>A, B, D, E, C, F</strong><br>\u2022 <strong>Inorder</strong> (red/bottom): <strong>D, B, E, A, F, C</strong><br>\u2022 <strong>Postorder</strong> (green/right): <strong>D, E, B, F, C, A</strong>",
+      "action": "Write all three sequences on your paper next to the tree. Highlight: the root (A) is <strong>first</strong> in preorder, in the <strong>middle</strong> in inorder, and <strong>last</strong> in postorder.",
+      "checkpoint": "You have all three traversal orders written down. Notice: leaves (D, E, F) tend to cluster at the beginning, and the root shifts position across the three orders.",
+      "conceptNote": "One outline, three traversals. That's the power of this trick. The outline visits every node exactly three times (left, bottom, right). Each traversal picks one of those three moments.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "Now let's connect the trick back to <strong>recursion</strong>. Remember the three parts?<br><br>1. <strong>Base case:</strong> if the node is None, stop.<br>2. <strong>Recursive assumption:</strong> trust that traversing the left/right subtree works correctly.<br>3. <strong>Work done by this call:</strong> visit (print) the current node.<br><br>The ONLY difference between the three traversals is <strong>when step 3 happens</strong>.",
+      "action": "Look at the outline on your paper. When the outline enters a node from the left side, that's the start of the recursive call. When it exits from the right side, the call is returning. The blue/red/green dots mark where the \"visit\" line sits in the code.",
+      "checkpoint": null,
+      "conceptNote": "Preorder: visit happens at the START of the call (before recursing into children).<br>Inorder: visit happens in the MIDDLE (after left child returns, before right child starts).<br>Postorder: visit happens at the END (after both children return).",
+      "hint": "If you did the recursion bowl-stack tutorial, think of it this way: preorder writes on the bowl going DOWN the stack. Postorder writes on the bowl coming BACK UP. Inorder writes in between the left-child call returning and the right-child call starting.",
+      "diagram": null
+    },
+    {
+      "id": 9,
+      "instruction": "<strong>Practice: trace preorder step by step using the recursive call stack.</strong><br><br>Preorder on our tree means: <code>visit A</code>, then recurse left into B's subtree, then recurse right into C's subtree.",
+      "action": "Use your finger to walk through:<br><br>1. <strong>visit(A)</strong>, then go left to B<br>2. <strong>visit(B)</strong>, then go left to D<br>3. <strong>visit(D)</strong>, D has no children, return to B<br>4. B already visited, go right to E<br>5. <strong>visit(E)</strong>, E has no children, return to B, return to A<br>6. A already visited, go right to C<br>7. <strong>visit(C)</strong>, go left to F<br>8. <strong>visit(F)</strong>, F has no children, return to C, return to A. Done!",
+      "checkpoint": "Finger walk gave you: A, B, D, E, C, F. Same as reading the blue dots! The two methods are equivalent.",
+      "conceptNote": "The outline trick and the recursive trace give the same answer because they ARE the same thing. The outline is just a visual shortcut for the recursive execution path.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "<strong>Practice: new tree.</strong> Draw a fresh tree with these nodes:<br><br>\u2022 Root: <strong>1</strong><br>\u2022 1's left child: <strong>2</strong>, 1's right child: <strong>3</strong><br>\u2022 2's left child: <strong>4</strong>, 2's right child: <strong>5</strong><br>\u2022 3's right child: <strong>6</strong> (3 has no left child)",
+      "action": "Draw the tree first. Then draw the counterclockwise outline. Place blue, red, and green dots on each node. Read off all three traversals.",
+      "checkpoint": "Your answers should be:<br><strong>Preorder:</strong> 1, 2, 4, 5, 3, 6<br><strong>Inorder:</strong> 4, 2, 5, 1, 3, 6<br><strong>Postorder:</strong> 4, 5, 2, 6, 3, 1",
+      "conceptNote": null,
+      "hint": "Node 3 has no left child. The outline goes from 3's blue dot (left side) directly to 3's red dot (bottom) without visiting any left child. Then it goes right to 6.",
+      "diagram": {
+        "type": "tree",
+        "root": {"value": "1", "label": "root", "left": {"value": "2", "left": {"value": "4"}, "right": {"value": "5"}}, "right": {"value": "3", "right": {"value": "6"}}},
+        "label": "Practice tree: try all 3 traversals"
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "<strong>The reverse challenge:</strong> Given a preorder sequence and an inorder sequence, can you reconstruct the tree?<br><br>Preorder: <strong>F, B, A, D, C, E</strong><br>Inorder: <strong>A, B, C, D, E, F</strong><br><br>Here's the trick: the <strong>first element of preorder is always the root</strong>. Then find that element in the inorder sequence: everything to its LEFT is the left subtree, everything to its RIGHT is the right subtree.",
+      "action": "1. Preorder starts with <strong>F</strong>, so F is the root.<br>2. In inorder, F is at the very end: <strong>A, B, C, D, E</strong> | <strong>F</strong>. So the entire left subtree has A, B, C, D, E, and the right subtree is empty.<br>3. Next in preorder is <strong>B</strong>, so B is the root of the left subtree. In inorder: <strong>A</strong> | <strong>B</strong> | <strong>C, D, E</strong>. So A is B's left child, and C, D, E form B's right subtree.<br>4. Continue this pattern to build the full tree.",
+      "checkpoint": "If you can reconstruct the tree from two traversal sequences, you deeply understand what each traversal captures.",
+      "conceptNote": "You need TWO traversal sequences to uniquely reconstruct a tree. Preorder + inorder works. Postorder + inorder also works. But preorder + postorder alone is NOT enough (it can be ambiguous for nodes with only one child).",
+      "hint": "Preorder tells you the root of each subtree (it's always the first element). Inorder tells you what's to the left and right of each root.",
+      "diagram": null
+    },
+    {
+      "id": 12,
+      "instruction": "Quick summary of when each traversal is useful:<br><br>\u2022 <strong>Preorder:</strong> copying or serializing a tree (you need the root first to rebuild it). Also: printing a directory structure with indentation.<br>\u2022 <strong>Inorder:</strong> getting sorted order from a Binary Search Tree. Also: printing an expression with correct parentheses.<br>\u2022 <strong>Postorder:</strong> calculating the size/height of subtrees (you need children's answers first). Also: safely deleting a tree (delete children before parent). Also: evaluating expression trees.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "The use case depends on whether you need to process the node BEFORE, BETWEEN, or AFTER its children. That's the entire decision.",
+      "hint": null,
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "In preorder, the root is always the FIRST node visited. In postorder, it's always the LAST. Why?",
+      "answer": "Preorder visits the node before its children, so the root (which is visited first in the outermost call) appears first. Postorder visits the node after its children, so the root appears last since it waits for all descendants to finish. The root's position in the sequence tells you which traversal it is."
+    },
+    {
+      "question": "If you do an inorder traversal of a Binary Search Tree (where left < parent < right), what do you get?",
+      "answer": "You get the values in sorted (ascending) order! Because inorder visits left subtree first (all smaller values), then the node, then right subtree (all larger values). This is one of the most important properties of BSTs."
+    },
+    {
+      "question": "Can you determine the exact tree from just ONE traversal sequence? Why or why not?",
+      "answer": "No. Different trees can produce the same traversal sequence. For example, preorder 'A, B' could be A with left child B, or A with right child B. You need TWO different traversal sequences (like preorder + inorder) to uniquely reconstruct the tree."
+    },
+    {
+      "question": "In the outline trick, a leaf node gets all three dots (blue, red, green) visited in quick succession with no gap. What does this mean in terms of recursion?",
+      "answer": "For a leaf, the recursive call immediately hits the base case for both left and right children (they're None). So the 'visit' happens almost instantly regardless of when it's placed: before children (preorder), between (inorder), or after (postorder). All three happen back-to-back with no recursive work in between."
+    }
+  ],
+  "nextTutorial": null
+}

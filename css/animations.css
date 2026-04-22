@@ -1,13 +1,6 @@
-@keyframes stepReveal {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* ============================================
+   BASE KEYFRAMES
+   ============================================ */
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -25,10 +18,390 @@
   }
 }
 
+/* ============================================
+   STEP BUBBLE ENTRANCE
+   ============================================ */
+
+@keyframes stepSlideIn {
+  0% { opacity: 0; transform: translateX(30px); }
+  70% { transform: translateX(-3px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================
+   DIAGRAM CONTAINER ENTRANCE
+   ============================================ */
+
+@keyframes diagramReveal {
+  from { opacity: 0; transform: scale(0.93); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.diagram-container {
+  animation: diagramReveal 0.35s ease-out forwards;
+}
+
+/* ============================================
+   NEXT BUTTON PULSE
+   ============================================ */
+
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(107, 156, 196, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(107, 156, 196, 0); }
+}
+
+#next-btn {
+  animation: gentlePulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   WELCOME PAGE STAGGERED ENTRANCE
+   ============================================ */
+
+/* Welcome stagger is now handled by individual hero animations in layout.css */
+
+/* ============================================
+   CHECKPOINT BOX ENTRANCE
+   ============================================ */
+
+.checkpoint-box {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* ============================================
+   TOPIC CARD HOVER LIFT
+   ============================================ */
+
+.topic-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.topic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* ============================================
+   HERO / LANDING PAGE ANIMATIONS
+   ============================================ */
+
+@keyframes heroFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.7) rotate(-10deg);
+  }
+  to {
+    opacity: 0.7;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes heroBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(2deg); }
+  75% { transform: translateY(6px) rotate(-1.5deg); }
+}
+
+@keyframes heroSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes heroCharacterIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroCTAIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+  }
+  70% {
+    transform: translateY(-3px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Vary bob timing per item so they don't all move in sync */
+.hero-float-scissors { animation-duration: 0.8s, 3.8s; }
+.hero-float-tape { animation-duration: 0.8s, 4.4s; }
+.hero-float-pencils { animation-duration: 0.8s, 5s; }
+.hero-float-sticky { animation-duration: 0.8s, 3.5s; }
+.hero-float-bulb { animation-duration: 0.8s, 4.8s; }
+.hero-float-clips { animation-duration: 0.8s, 4.2s; }
+.hero-float-markers { animation-duration: 0.8s, 3.6s; }
+.hero-float-coin { animation-duration: 0.8s, 5.2s; }
+
+/* ============================================
+   HERO TUTORIAL ANIMATIONS (Pringles character)
+   ============================================ */
+
+.hero-animation {
+  text-align: center;
+  margin: var(--spacing-md) 0 var(--spacing-lg);
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Chip floating from can to mouth — looping arc path */
+@keyframes chipFloat {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  30% { transform: translate(-40px, -50px) scale(1.1); opacity: 1; }
+  60% { transform: translate(-70px, -20px) scale(0.9); opacity: 1; }
+  80% { transform: translate(-80px, 0px) scale(0.6); opacity: 0.7; }
+  90% { transform: translate(-80px, 5px) scale(0.3); opacity: 0; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0; }
+}
+
+.hero-chip-float {
+  animation: chipFloat 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+/* Arm reaching toward can */
+@keyframes armReach {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(12px, -8px) rotate(5deg); }
+  50% { transform: translate(18px, -12px) rotate(8deg); }
+  70% { transform: translate(8px, -4px) rotate(3deg); }
+}
+
+.hero-arm-reach {
+  animation: armReach 3s ease-in-out infinite;
+  transform-origin: 90px 120px;
+}
+
+/* Sparkle twinkle */
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+.hero-sparkle {
+  animation: sparkleTwinkle 2s ease-in-out infinite;
+}
+.hero-sparkle-2 {
+  animation-delay: 0.7s;
+  animation-duration: 2.5s;
+}
+.hero-sparkle-3 {
+  animation-delay: 1.4s;
+  animation-duration: 1.8s;
+}
+
+/* ============================================
+   LINKED LIST REVERSE DIAGRAM ANIMATIONS
+   ============================================ */
+
+/* Current node: pulsing yellow highlight */
+@keyframes dllRevPulse {
+  0%, 100% { opacity: 0.3; stroke-width: 2.5px; }
+  50% { opacity: 0.7; stroke-width: 3.5px; }
+}
+
+.dll-rev-pulse {
+  animation: dllRevPulse 1.2s ease-in-out infinite;
+}
+
+/* New reversed arrows: draw in from arrowhead */
+@keyframes dllRevArrowIn {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+  }
+  40% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+  }
+}
+
+.dll-rev-arrow-in {
+  animation: dllRevArrowIn 0.8s ease-out 0.2s both;
+}
+
+/* Arrowhead triangles: pop in */
+@keyframes dllRevHeadPop {
+  0% { opacity: 0; transform: scale(0); }
+  60% { opacity: 1; transform: scale(1.3); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+polygon.dll-rev-arrow-in {
+  animation: dllRevHeadPop 0.4s ease-out 0.7s both;
+}
+
+/* Being-erased arrows: shrink away with flicker */
+@keyframes dllRevArrowErase {
+  0% { opacity: 0.35; stroke-dashoffset: 0; }
+  30% { opacity: 0.15; }
+  60% { opacity: 0.3; }
+  100% { opacity: 0.1; stroke-dashoffset: 20; }
+}
+
+.dll-rev-arrow-erasing {
+  animation: dllRevArrowErase 1.5s ease-in-out infinite alternate;
+}
+
+/* X mark on erasing arrows: pulse */
+@keyframes dllRevXPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 0.7; transform: scale(1.15); }
+}
+
+.dll-rev-x-mark {
+  animation: dllRevXPulse 1s ease-in-out infinite;
+}
+
+/* ============================================
+   SNAKE OUROBOROS HERO ANIMATION
+   ============================================ */
+
+.snake-hero {
+  text-align: center;
+  margin: var(--spacing-md) 0 var(--spacing-lg);
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes snakeSlither {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -40; }
+}
+
+@keyframes snakeEat {
+  0%, 30% { stroke-dasharray: 200 60; }
+  50% { stroke-dasharray: 140 120; }
+  70% { stroke-dasharray: 100 160; }
+  85% { stroke-dasharray: 60 200; }
+  95% { stroke-dasharray: 30 230; }
+  100% { stroke-dasharray: 200 60; }
+}
+
+@keyframes snakeEyeBlink {
+  0%, 90%, 100% { r: 3; }
+  95% { r: 1; }
+}
+
+@keyframes snakeTongue {
+  0%, 70%, 100% { opacity: 0; transform: scaleX(1); }
+  75%, 95% { opacity: 1; transform: scaleX(1); }
+  85% { opacity: 1; transform: scaleX(1.3); }
+}
+
+/* ============================================
+   GROWTH CURVES ANIMATIONS
+   ============================================ */
+
+@keyframes gcCurveIn {
+  from { stroke-dasharray: 800; stroke-dashoffset: 800; }
+  to { stroke-dasharray: 800; stroke-dashoffset: 0; }
+}
+
+.gc-curve-in {
+  animation: gcCurveIn 1.2s ease-out forwards;
+}
+
+/* ============================================
+   STACK PUSH/POP ANIMATIONS
+   ============================================ */
+
+@keyframes stackPushIn {
+  0% { opacity: 0; transform: translateY(-30px) scale(0.8); }
+  60% { opacity: 1; transform: translateY(4px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes stackPopOut {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  40% { transform: translateY(-8px) scale(1.05); }
+  100% { opacity: 0; transform: translateY(-40px) scale(0.7); }
+}
+
+.stack-chip-push {
+  animation: stackPushIn 0.35s ease-out forwards;
+}
+
+.stack-chip-pop {
+  animation: stackPopOut 0.35s ease-in forwards;
+}
+
+/* ============================================
+   SORTING SWAP ANIMATION
+   ============================================ */
+
+@keyframes swapBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.1); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.ss-swapped {
+  animation: swapBounce 0.3s ease forwards;
+}
+
+/* ============================================
+   QUEUE ENQUEUE/DEQUEUE ANIMATIONS
+   ============================================ */
+
+@keyframes queueSlideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes queueSlideOut {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-20px); }
+}
+
+.q-cell.q-just-filled {
+  animation: queueSlideIn 0.3s ease-out forwards;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
 .fade-in {
   animation: fadeIn 0.3s ease forwards;
 }
 
 .slide-up {
   animation: slideUp 0.5s ease forwards;
+}
+
+/* ============================================
+   REDUCED MOTION ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

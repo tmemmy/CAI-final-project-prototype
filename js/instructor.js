@@ -1,22 +1,35 @@
 // js/instructor.js — Instructor Mode UI
 
-import { generateTutorial } from './generator.js';
+import { generateTutorial, refineTutorial } from './generator.js';
 import { saveGeneratedTutorial, getGeneratedTutorials, deleteGeneratedTutorial } from './data.js';
 
+// Try to load a hardcoded key from config.js (gitignored).
+// If the file doesn't exist, falls back to manual entry.
+let configKey = null;
+try {
+  const config = await import('./config.js');
+  if (config.API_KEY && config.API_KEY !== 'PASTE_YOUR_KEY_HERE') {
+    configKey = config.API_KEY;
+    // Auto-save to localStorage so the rest of the app can use it
+    localStorage.setItem('cutandcode-api-key', configKey);
+  }
+} catch (_) {
+  // config.js doesn't exist (e.g., on public GitHub Pages) — that's fine
+}
+
+const DOODLE_PATH = 'images for graphics/doodles';
 const MATERIAL_KIT = [
-  { name: 'Paper strips (lined or blank)', emoji: '📄' },
-  { name: 'Scissors', emoji: '✂️' },
-  { name: 'Pen or marker', emoji: '🖊️' },
-  { name: 'Small paper squares/cards', emoji: '📝' },
-  { name: 'Tape (any kind)', emoji: '🪩' },
-  { name: 'Bowls or cups (4-5)', emoji: '🥣' },
-  { name: 'Sticky notes', emoji: '🟨' },
-  { name: 'String or yarn (2 colors)', emoji: '🧶' },
-  { name: 'Paperclips', emoji: '📎' },
-  { name: 'Coins or small tokens', emoji: '🪙' }
+  { name: 'Paper', img: `${DOODLE_PATH}/Humaaans - Paperwork.png` },
+  { name: 'Colored pencils/pens', img: `${DOODLE_PATH}/The Little Things - Markers.png` },
+  { name: 'Tape', img: `${DOODLE_PATH}/tape.jpeg` },
+  { name: 'Sticky notes/squares', img: `${DOODLE_PATH}/Dayflow - Sticky Notes.png` },
+  { name: 'Paperclips', img: `${DOODLE_PATH}/paper clips.jpeg` },
+  { name: 'Coin/token', img: `${DOODLE_PATH}/Hands - Coin.png` },
+  { name: 'Bowls/cups', img: `${DOODLE_PATH}/The Munchies - Bowl.png` }
 ];
 
 let currentPreview = null;
+let revisionCount = 0;
 
 export function renderInstructorMode() {
   const apiKey = localStorage.getItem('cutandcode-api-key');
@@ -34,7 +47,7 @@ export function renderInstructorMode() {
         <h3 class="instructor-card-title">API Key</h3>
         ${apiKey
           ? `<div class="api-key-saved">
-               <span class="api-key-status">API key saved (****${apiKey.slice(-4)})</span>
+               <span class="api-key-status">API key saved</span>
                <button class="btn btn-ghost btn-sm" id="change-key-btn">Change</button>
              </div>`
           : `<div class="api-key-form">
@@ -85,10 +98,26 @@ export function renderInstructorMode() {
           <p class="preview-subtitle" id="preview-subtitle"></p>
           <div class="preview-meta" id="preview-meta"></div>
           <div class="preview-details" id="preview-details"></div>
+          <!-- Refinement Section -->
+          <div class="refinement-section">
+            <label class="instructor-label" for="refinement-input">Suggest changes</label>
+            <textarea class="instructor-textarea" id="refinement-input"
+              placeholder="e.g., Replace string with rubber bands, simplify step 5, add a checkpoint after step 3, make the reflection questions harder..."
+              rows="3"></textarea>
+            <button class="btn btn-accent btn-sm" id="revise-btn">Revise Tutorial</button>
+          </div>
+
+          <!-- Revising Loading State -->
+          <div class="generator-loading hidden" id="revise-loading">
+            <div class="spinner"></div>
+            <p class="loading-message">Revising your tutorial...</p>
+          </div>
+
           <div class="preview-actions">
             <button class="btn btn-primary" id="publish-btn">Publish Tutorial</button>
             <button class="btn btn-ghost" id="discard-btn">Discard</button>
           </div>
+          <p class="revision-count hidden" id="revision-count"></p>
         </div>
       </div>
 
@@ -106,11 +135,11 @@ export function renderInstructorMode() {
       <!-- Material Kit Reference -->
       <div class="instructor-card">
         <h3 class="instructor-card-title">Standard Material Kit</h3>
-        <p class="instructor-hint">All generated tutorials are constrained to these 10 everyday items.</p>
+        <p class="instructor-hint">All generated tutorials are constrained to these 7 everyday items.</p>
         <div class="material-kit-grid">
           ${MATERIAL_KIT.map(m => `
             <div class="material-kit-item">
-              <span class="material-kit-emoji">${m.emoji}</span>
+              <img class="material-kit-img" src="${m.img}" alt="${m.name}" />
               <span class="material-kit-name">${m.name}</span>
             </div>
           `).join('')}
@@ -206,6 +235,12 @@ export function bindInstructorEvents() {
     });
   }
 
+  // Revise
+  const reviseBtn = document.getElementById('revise-btn');
+  if (reviseBtn) {
+    reviseBtn.addEventListener('click', handleRevise);
+  }
+
   // Publish
   const publishBtn = document.getElementById('publish-btn');
   if (publishBtn) {
@@ -217,6 +252,7 @@ export function bindInstructorEvents() {
   if (discardBtn) {
     discardBtn.addEventListener('click', () => {
       currentPreview = null;
+      revisionCount = 0;
       document.getElementById('tutorial-preview').classList.add('hidden');
     });
   }
@@ -311,7 +347,7 @@ function showPreview(tutorial) {
     </div>
     <div class="preview-section">
       <strong>Materials:</strong>
-      <ul>${(tutorial.materials || []).map(m => `<li>${m.emoji} ${m.item} — ${m.detail}</li>`).join('')}</ul>
+      <ul>${(tutorial.materials || []).map(m => `<li>${m.item} — ${m.detail}</li>`).join('')}</ul>
     </div>
     <div class="preview-section">
       <strong>Steps preview:</strong>
@@ -325,13 +361,113 @@ function showPreview(tutorial) {
   preview.classList.remove('hidden');
 }
 
+async function handleRevise() {
+  const feedback = document.getElementById('refinement-input').value.trim();
+  const apiKey = localStorage.getItem('cutandcode-api-key');
+
+  if (!feedback) {
+    showError('Please describe what changes you want.');
+    return;
+  }
+  if (!currentPreview) {
+    showError('No tutorial to revise. Generate one first.');
+    return;
+  }
+
+  const reviseBtn = document.getElementById('revise-btn');
+  const reviseLoading = document.getElementById('revise-loading');
+  const error = document.getElementById('generator-error');
+
+  reviseBtn.disabled = true;
+  reviseLoading.classList.remove('hidden');
+  error.classList.add('hidden');
+
+  try {
+    const revised = await refineTutorial(currentPreview, feedback, apiKey);
+    // Keep metadata from the original
+    revised._generatedAt = currentPreview._generatedAt;
+    revised._difficulty = currentPreview._difficulty;
+    currentPreview = revised;
+    revisionCount++;
+    showPreview(revised);
+    // Clear the feedback box and show revision count
+    document.getElementById('refinement-input').value = '';
+    const countEl = document.getElementById('revision-count');
+    countEl.textContent = `Revision ${revisionCount} applied`;
+    countEl.classList.remove('hidden');
+  } catch (err) {
+    showError(`Revision failed: ${err.message}`);
+  } finally {
+    reviseBtn.disabled = false;
+    reviseLoading.classList.add('hidden');
+  }
+}
+
 function handlePublish() {
   if (!currentPreview) return;
 
-  saveGeneratedTutorial(currentPreview);
-  currentPreview = null;
-  // Re-render to update the list
-  location.hash = '#/instructor';
+  const publishBtn = document.getElementById('publish-btn');
+  const discardBtn = document.getElementById('discard-btn');
+  const preview = document.getElementById('tutorial-preview');
+
+  // Disable buttons and show publishing state
+  publishBtn.disabled = true;
+  publishBtn.innerHTML = '<span class="publish-spinner"></span> Publishing...';
+  discardBtn.disabled = true;
+
+  // Brief delay so the user sees the publishing state
+  setTimeout(() => {
+    const title = currentPreview.title;
+    const topic = currentPreview.topic || 'general';
+
+    saveGeneratedTutorial(currentPreview);
+    currentPreview = null;
+    revisionCount = 0;
+
+    // Show success banner instead of immediately re-rendering
+    preview.innerHTML = `
+      <div class="publish-success">
+        <div class="publish-success-icon">&#10003;</div>
+        <h4 class="publish-success-title">Published!</h4>
+        <p class="publish-success-text"><strong>${title}</strong> has been added to the <strong>${topic}</strong> section.</p>
+        <a class="btn btn-primary btn-sm" href="#/topics">View in Topics</a>
+      </div>
+    `;
+    preview.classList.remove('hidden');
+
+    // Also refresh the generated tutorials list below
+    const listSection = document.getElementById('generated-tutorials-list');
+    if (listSection) {
+      const tutorials = getGeneratedTutorials();
+      listSection.innerHTML = tutorials.length === 0
+        ? '<p class="instructor-empty">No tutorials generated yet.</p>'
+        : tutorials.map(t => renderGeneratedTutorialItem(t)).join('');
+      // Rebind view/delete buttons
+      rebindTutorialListEvents();
+    }
+  }, 800);
+}
+
+function rebindTutorialListEvents() {
+  document.querySelectorAll('.view-tutorial-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = e.target.dataset.id;
+      const tutorials = getGeneratedTutorials();
+      const tutorial = tutorials.find(t => t.id === id);
+      if (tutorial) {
+        location.hash = `#/tutorial/${tutorial.topic}/${tutorial.id}`;
+      }
+    });
+  });
+  document.querySelectorAll('.delete-tutorial-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = e.target.dataset.id;
+      if (confirm('Delete this generated tutorial? This cannot be undone.')) {
+        deleteGeneratedTutorial(id);
+        location.hash = '#/instructor';
+      }
+    });
+  });
 }
 
 function showError(message) {

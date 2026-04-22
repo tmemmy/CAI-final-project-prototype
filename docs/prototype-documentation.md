@@ -8,7 +8,7 @@
 
 ## What is CutAndCode?
 
-CutAndCode is a web app that teaches Data Structures and Algorithms through physical, hands-on simulations using household items. Instead of staring at code on a screen, students grab paper, scissors, bowls, and tape, and physically run the algorithms at their desk. The app guides them step by step, and at the end, the code writes itself because they actually understand what's happening.
+CutAndCode is a web app that teaches Data Structures and Algorithms through physical, hands-on simulations using household items. Instead of staring at code on a screen, students grab paper, colored pens, bowls, and tape, and physically run the algorithms at their desk. The app guides them step by step, and at the end, the code writes itself because they actually understand what's happening.
 
 I built this because I'm taking CS 1134 (Data Structures & Algorithms at NYU), and the material is genuinely hard. One of my TAs suggested cutting out pieces of paper to simulate algorithms, and that changed everything for me. I started using paper strips for stacks, bowls for recursion, card swaps for sorting. I documented every single struggle I had and how I visualized each concept. That document became the foundation for CutAndCode.
 
@@ -81,7 +81,7 @@ The font system across all three: **Nunito** for all UI text (friendly, rounded,
 1. **Design collaborator (offline):** I used Claude Code (Anthropic's CLI tool) as my technical collaborator throughout the entire build. I came up with the ideas, the physical metaphors, and the pedagogical structure. Claude implemented the code, suggested improvements, and filled in technical details from my direction. I was the project manager and ideas person. Claude was the developer.
 
 2. **Tutorial generator (runtime):** In Instructor Mode, Claude generates new tutorials on-the-fly from a concept input. The generation is constrained by a carefully crafted system prompt that includes:
-   - The 10-material kit constraint
+   - The 7-material kit constraint
    - The tutorial JSON format
    - Rules like "never show complete code solutions" and "use physical metaphors"
    - The selected difficulty level
@@ -91,7 +91,7 @@ The font system across all three: **Nunito** for all UI text (friendly, rounded,
 The system prompt for tutorial generation includes a complete example tutorial (the stacks push/pop tutorial) as a format reference. This is a form of few-shot prompting: by showing Claude exactly what a good tutorial looks like, the generated output follows the same structure consistently.
 
 Key constraints in the prompt:
-- Materials must come from the 10-item standard kit (paper strips, scissors, pen, small cards, tape, bowls/cups, sticky notes, string/yarn, paperclips, coins)
+- Materials must come from the 7-item standard kit (paper, colored pencils/pens, tape, sticky notes/squares, paperclips, coins/tokens, bowls/cups)
 - Steps must include physical actions, not just descriptions
 - Diagrams must use the supported types (array, callstack, midstack)
 - Reflection questions must be flashcard-format with answers
@@ -131,7 +131,7 @@ All pre-built tutorials are static JSON files. Generated tutorials are stored in
 
 ### Physical Simulations in Action
 
-These are photos of me actually running the algorithms with paper, scissors, and bowls. This is what CutAndCode teaches students to do.
+These are photos of me actually running the algorithms with paper, colored pens, and bowls. This is what CutAndCode teaches students to do.
 
 [INSERT PHOTO: Bowl stack with "sum_to(1) = 1 DONE!" sticky note]
 [INSERT PHOTO: Paper cards A and B being held/stacked]

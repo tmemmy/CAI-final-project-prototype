@@ -1,0 +1,144 @@
+{
+  "id": "complexity-growth-curves",
+  "topic": "complexity",
+  "title": "Growth Curves: Feel the Difference",
+  "subtitle": "Draw each Big-O curve by hand and watch how dramatically they diverge as input grows.",
+  "encouragement": "Big-O notation tells you how fast an algorithm's work grows as the input gets bigger. The difference between O(n) and O(n\u00b2) doesn't feel like much at n=5, but at n=1000 it's the difference between 1 second and 15 minutes. Once you draw these curves, you'll feel it in your hand.",
+  "realWorldExample": "Imagine you're washing dishes. O(1) means it takes the same time no matter how many dishes there are (like turning on the faucet). O(n) means one dish at a time (twice the dishes = twice the work). O(n\u00b2) means comparing every dish to every other dish (twice the dishes = four times the work). O(2\u207f) means the work doubles with each new dish added. These growth rates are why algorithm choice matters.",
+  "materials": [
+    {
+      "item": "Large sheet of paper",
+      "detail": "Draw a big coordinate graph: x-axis for input size (n), y-axis for number of operations.",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "Colored pencils or pens (9 colors)",
+      "detail": "One color per growth rate. Mint, sage, gold, dark gold, orange, pink, coral, purple, and red work well.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    }
+  ],
+  "setup": [
+    "Draw a large coordinate graph on your paper. Label the x-axis \"n (input size)\" from 0 to 15.",
+    "Label the y-axis \"operations\" from 0 to about 55.",
+    "Draw gridlines every 3 units on x and every 11 units on y.",
+    "Keep all 9 colored pencils ready. We'll add one curve at a time."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "<strong style=\"color:#82CFC6\">O(1): Constant time.</strong> No matter how big the input is, the work stays the same. Accessing an array element by index, checking if a number is even, returning the first item in a list.",
+      "action": "In <strong>mint</strong>, draw a perfectly flat horizontal line across your graph at y = 1. It never goes up.",
+      "checkpoint": "A flat line at the bottom. n = 1 or n = 1000, the work is the same.",
+      "conceptNote": "Examples: <code>lst[5]</code>, <code>len(lst)</code>, <code>stack.push()</code>, <code>stack.pop()</code>. These all take the same time regardless of how many elements are in the data structure.",
+      "hint": null,
+      "diagram": { "type": "growth-curves", "show": [0], "highlight": 0 }
+    },
+    {
+      "id": 2,
+      "instruction": "<strong style=\"color:#94C4B8\">O(log n): Logarithmic.</strong> The work grows, but very slowly. Each time the input doubles, the work only increases by 1. This is what happens when you cut the problem in half at each step.",
+      "action": "In <strong>sage</strong>, draw a curve that rises quickly at first then flattens out. At n=2 it's about 1, at n=8 it's 3, at n=15 it's about 4.",
+      "checkpoint": "The curve climbs but levels off. It barely gets above y = 4 even at n = 15.",
+      "conceptNote": "The classic example: <strong>binary search</strong>. With 1000 items, you only need ~10 steps. With 1,000,000 items, only ~20. Halving the search space each time is logarithmic.",
+      "hint": "The curve is concave down: it bends toward the x-axis. Each unit of growth costs more input than the last.",
+      "diagram": { "type": "growth-curves", "show": [0, 1], "highlight": 1 }
+    },
+    {
+      "id": 3,
+      "instruction": "<strong style=\"color:#F4CC6A\">O(\u221an): Square root.</strong> Grows faster than log but slower than linear. The curve is concave down like log n, but sits visibly higher.",
+      "action": "In <strong>gold</strong>, draw a curve above the log n curve. Also concave down, but it doesn't flatten as quickly.",
+      "checkpoint": "The \u221an curve sits clearly above the log n curve. Both are sublinear and concave down.",
+      "conceptNote": "You see \u221an in algorithms like jump search, where you skip \u221an elements at a time then do a linear scan of at most \u221an elements.",
+      "hint": "To tell log n and \u221an apart: \u221an grows noticeably faster. At n=100: log\u2082(100) \u2248 7, but \u221a100 = 10.",
+      "diagram": { "type": "growth-curves", "show": [0, 1, 2], "highlight": 2 }
+    },
+    {
+      "id": 4,
+      "instruction": "<strong style=\"color:#D4B86A\">O(\u221an \u00b7 log n): Square root times log.</strong> Sits between \u221an and n. It's sublinear but grows faster than either \u221an or log n alone. You get this when an algorithm does log n work at each of \u221an steps.",
+      "action": "In <strong>dark gold</strong>, draw a curve above \u221an but below the diagonal n line. It's still concave down but higher than \u221an.",
+      "checkpoint": "The dark gold curve fills the gap between \u221an (gold) and n (orange). Still sublinear, still concave down.",
+      "conceptNote": "This appears in some advanced search and query algorithms. At n=100: \u221a100 \u00b7 log\u2082(100) \u2248 10 \u00d7 6.6 \u2248 66.",
+      "hint": null,
+      "diagram": { "type": "growth-curves", "show": [0, 1, 2, 3], "highlight": 3 }
+    },
+    {
+      "id": 5,
+      "instruction": "<strong style=\"color:#E88060\">O(n): Linear.</strong> The work grows in direct proportion to the input. Twice the input = twice the work. This is a straight diagonal line.",
+      "action": "In <strong>orange</strong>, draw a straight line from the origin to (15, 15). No curving.",
+      "checkpoint": "A straight diagonal. At n=5 the work is 5, at n=10 it's 10, at n=15 it's 15.",
+      "conceptNote": "Examples: linear search (check every element once), printing every item, computing a sum. One pass through the data = O(n).",
+      "hint": "O(n) is the dividing line between sublinear (below it) and superlinear (above it). Everything below it is fast; everything above it gets expensive.",
+      "diagram": { "type": "growth-curves", "show": [0, 1, 2, 3, 4], "highlight": 4 }
+    },
+    {
+      "id": 6,
+      "instruction": "<strong style=\"color:#E8A0B0\">O(n log n): Linearithmic.</strong> Slightly worse than linear. This is the sweet spot for efficient sorting algorithms. The curve looks almost like a straight line but bends slightly upward.",
+      "action": "In <strong>pink</strong>, draw a curve that starts near the O(n) line but pulls above it at larger n. At n=15, it should be around 58 (near the top of your graph).",
+      "checkpoint": "The pink curve is close to the orange line at small n but diverges upward by n=15.",
+      "conceptNote": "This is <strong>merge sort</strong> and other efficient sorts. You felt this: n elements \u00d7 log\u2082(n) levels of recursion. At n=1000, this is ~10,000 operations vs. bubble sort's ~500,000.",
+      "hint": null,
+      "diagram": { "type": "growth-curves", "show": [0, 1, 2, 3, 4, 5], "highlight": 5 }
+    },
+    {
+      "id": 7,
+      "instruction": "<strong style=\"color:#F0947E\">O(n\u00b2): Quadratic.</strong> The work grows as the square of the input. Double the input = four times the work. This curve takes off sharply.",
+      "action": "In <strong>coral</strong>, draw a curve that starts gently but sweeps upward aggressively. At n=7 it's already at 49, and it goes off your chart by n=8.",
+      "checkpoint": "The coral curve blows past everything else. At n=15 it would be 225, far off the top of your graph.",
+      "conceptNote": "Examples: <strong>bubble sort</strong>, selection sort, checking every pair (nested loops). This is why we prefer O(n log n) sorts: at n=1000, n\u00b2 = 1,000,000 but n log n \u2248 10,000.",
+      "hint": "The curve is concave UP: it bends away from the x-axis. Each additional element costs more than the last.",
+      "diagram": { "type": "growth-curves", "show": [0, 1, 2, 3, 4, 5, 6], "highlight": 6 }
+    },
+    {
+      "id": 8,
+      "instruction": "<strong style=\"color:#C07ACC\">O(2\u207f): Exponential.</strong> The work DOUBLES with every single new element. This grows so fast it's off the chart almost immediately.",
+      "action": "In <strong>purple</strong>, draw a curve that stays near zero for n=1 through about n=5, then rockets straight up off the graph.",
+      "checkpoint": "The purple curve is essentially invisible for small n, then shoots off the top around n=6.",
+      "conceptNote": "Exponential algorithms are generally impractical for large inputs. Examples: brute-force checking all subsets, some recursive solutions without memoization. At n=30, 2\u00b3\u2070 > 1 billion operations.",
+      "hint": "The defining feature: it stays flat then explodes. If O(n\u00b2) is a steep hill, O(2\u207f) is a cliff.",
+      "diagram": { "type": "growth-curves", "show": [0, 1, 2, 3, 4, 5, 6, 7], "highlight": 7 }
+    },
+    {
+      "id": 9,
+      "instruction": "<strong style=\"color:#E05070\">O(n!): Factorial.</strong> Even worse than exponential. The work at n=10 is 3,628,800. At n=15 it's over a trillion. This is the growth rate of brute-force permutation problems.",
+      "action": "In <strong>red/hot pink</strong>, try to draw this curve. It goes off the chart even faster than 2\u207f. At n=3 it's 6, at n=5 it's 120.",
+      "checkpoint": "n! makes 2\u207f look tame. Both go off the chart, but n! does it even sooner.",
+      "conceptNote": "Examples: generating all permutations, the traveling salesman problem (brute force). At n=20, 20! \u2248 2.4 \u00d7 10\u00b9\u2078. That's more operations than atoms in the universe.",
+      "hint": null,
+      "diagram": { "type": "growth-curves", "show": [0, 1, 2, 3, 4, 5, 6, 7, 8], "highlight": 8 }
+    },
+    {
+      "id": 10,
+      "instruction": "<strong>Now test yourself!</strong> Draw each growth curve from memory on a fresh graph. The curves appear in random order. Draw freehand across the graph, then check your answer. Correct curves accumulate so you can see them all together.",
+      "action": "Click and drag on the graph to draw. Hit \"Check my curve\" when you're done. If you get it wrong, try again. The graph builds up as you go.",
+      "checkpoint": null,
+      "conceptNote": null,
+      "hint": "Think about the shape: Is it flat? A straight line? Concave down (sublinear)? Concave up (superlinear)? Does it explode off the chart? That narrows it down fast.",
+      "diagram": null,
+      "interaction": {
+        "type": "draw-curve"
+      }
+    }
+  ],
+  "reflection": [
+    {
+      "question": "Which growth rates are sublinear (below the O(n) line)?",
+      "answer": "O(1), O(log n), O(\u221an), and O(\u221an \u00b7 log n). They all grow slower than linear. O(1) is flat, and the others are concave down (bending toward the x-axis)."
+    },
+    {
+      "question": "Why is O(n log n) so important in practice?",
+      "answer": "It's the fastest possible runtime for comparison-based sorting. Merge sort, heap sort, and Python's Timsort all achieve this. It's only slightly worse than linear, making it practical even for millions of elements."
+    },
+    {
+      "question": "If you double the input size, how does the work change for each growth rate?",
+      "answer": "O(1): stays the same. O(log n): increases by 1. O(\u221an): increases by ~41%. O(n): doubles. O(n log n): slightly more than doubles. O(n\u00b2): quadruples. O(2\u207f): squares (exponentially more). O(n!): astronomically more."
+    },
+    {
+      "question": "How can you tell if a curve is concave up or concave down?",
+      "answer": "Concave down (sublinear): bends toward the x-axis, like a bowl flipped upside down. Each step costs less. Concave up (superlinear): bends away from the x-axis, like a bowl right-side up. Each step costs more."
+    },
+    {
+      "question": "At what point does O(n\u00b2) become impractical compared to O(n log n)?",
+      "answer": "Roughly around n = 1000-10,000. At n = 10,000: n\u00b2 = 100 million operations, but n log n \u2248 130,000. That's 770x slower. By n = 1,000,000 the difference is a factor of 50,000."
+    }
+  ],
+  "nextTutorial": null
+}

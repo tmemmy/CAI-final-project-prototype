@@ -174,5 +174,5 @@
       "answer": "Each pointer moves at most n times total, and they only move inward. Combined, they visit each element at most once. The brute-force nested loop checks every pair, which is n*(n-1)/2 comparisons."
     }
   ],
-  "nextTutorial": "queues-arrayqueue"
+  "nextTutorial": "searching-sliding-window"
 }

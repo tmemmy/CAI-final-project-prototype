@@ -1,0 +1,210 @@
+{
+  "id": "linked-lists-move-node",
+  "topic": "linked-lists",
+  "title": "Manually Moving Nodes in DLLs",
+  "subtitle": "Extract a train car from the middle and re-couple it at the end using only pointer surgery.",
+  "encouragement": "You already know how to insert and delete in a DLL from the earlier tutorials. This operation combines both into one smooth sequence: extract a car, seal the gap between its old neighbors, and couple it at its new home. Five steps, all O(1). Once you see it on the train, you'll never forget the pattern.",
+  "realWorldExample": "Imagine a train. A car in the middle needs to move to the back (just before the caboose). You uncouple it from its neighbors, the neighbors couple directly to each other to close the gap, and then the car is coupled between the last data car and the caboose. No other cars move. That's move_to_end.",
+  "materials": [
+    {
+      "item": "Large sheet of paper",
+      "detail": "Landscape orientation. You'll draw a train with 6 cars: engine (H), four data cars (A, B, C, D), and caboose (T).",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "Pencil and eraser",
+      "detail": "Essential. You'll erase and redraw multiple couplings. An erasable pen works too.",
+      "emoji": "\u270f\ufe0f"
+    },
+    {
+      "item": "Blue pen or pencil",
+      "detail": "For \"next\" couplings (forward direction, drawn along the top).",
+      "emoji": "\ud83d\udd35"
+    },
+    {
+      "item": "Red pen or pencil",
+      "detail": "For \"prev\" couplings (backward direction, drawn along the bottom).",
+      "emoji": "\ud83d\udd34"
+    }
+  ],
+  "setup": [
+    "Draw a train with 6 cars in a row: <strong>H</strong> (engine/header), <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, <strong>D</strong>, <strong>T</strong> (caboose/trailer). H and T are sentinels with no real data.",
+    "In <strong>blue</strong> along the top, draw forward couplings (next): H \u2192 A \u2192 B \u2192 C \u2192 D \u2192 T.",
+    "In <strong>red</strong> along the bottom, draw backward couplings (prev): H \u2190 A \u2190 B \u2190 C \u2190 D \u2190 T.",
+    "Your starting train: <strong>H \u2194 A \u2194 B \u2194 C \u2194 D \u2194 T</strong>. Verify by tracing both directions with your finger.",
+    "Our mission: move car <strong>B</strong> to the end of the train (just before the caboose T). After the operation, the train should read: H \u2194 A \u2194 C \u2194 D \u2194 <strong>B</strong> \u2194 T."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Here's the full method we're implementing:<br><br><code>def move_to_end(self, node):</code><br><br>It takes a node that's <strong>already in the list</strong> and physically relocates it to the very end (just before the trailer). No built-in methods. Pure pointer manipulation. <strong>O(1) time.</strong>",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "This is really two operations fused into one: <strong>extract</strong> the car from its current position (a deletion), then <strong>insert</strong> it at the end. But we do it in 5 clean steps without ever calling delete or insert as separate methods.",
+      "hint": "The 5 steps: (1) Save old neighbors. (2) Seal the gap. (3) Find new destination neighbors. (4) Connect node to destination. (5) Connect destination to node.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 2,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "We're moving car B to the end"
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "<strong>Step 1: Save old neighbors.</strong><br><br>Before we touch any couplings, we need to remember who B's current neighbors are. Look at your drawing. Who is B's prev? Who is B's next?<br><br><code>old_prev = node.prev&nbsp;&nbsp;# A</code><br><code>old_next = node.next&nbsp;&nbsp;# C</code>",
+      "action": "On your paper, write <strong>\"old_prev = A\"</strong> and <strong>\"old_next = C\"</strong> in a corner. These are our saved references. Circle car B to mark it as the car we're moving.",
+      "checkpoint": "You have two saved references written down: old_prev = A, old_next = C. B is circled.",
+      "conceptNote": "Why save these first? Because once we start rewiring couplings, we might lose access to these neighbors. Always save before you cut.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 2,
+        "highlight": [1, 3],
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "nodeLabels": { "1": "old_prev", "2": "node", "3": "old_next" }
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "<strong>Step 2: Seal the gap (The Extraction).</strong><br><br>Now physically disconnect B from its neighbors and couple A directly to C.<br><br><code>old_prev.next = old_next&nbsp;&nbsp;# A.next = C</code><br><code>old_next.prev = old_prev&nbsp;&nbsp;# C.prev = A</code>",
+      "action": "<strong>Erase</strong> the blue coupling from A to B (top) and the blue coupling from B to C (top).<br><strong>Erase</strong> the red coupling from C to B (bottom) and the red coupling from B to A (bottom).<br><br>Now draw a <strong>new blue coupling</strong> from A directly to C (top), and a <strong>new red coupling</strong> from C directly to A (bottom).",
+      "checkpoint": "B is now floating alone, decoupled. The main train reads: H \u2194 A \u2194 C \u2194 D \u2194 T. The gap where B used to be is sealed.",
+      "conceptNote": "This is exactly a node deletion. Two pointer updates and the gap is closed. B is now a detached car floating off the track.",
+      "hint": "If you look at the train now, it's as if B was never there. That's the beauty of pointer surgery: no shifting, no copying.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "C", "D", "T"],
+        "current": -1,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "B is extracted. Gap sealed: A couples directly to C"
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "<strong>Step 3: Find new destination neighbors (The Insertion Plan).</strong><br><br>Where is B going? Just before the caboose. So:<br>- B's new neighbor before it = the current last real car = <strong>D</strong><br>- B's new neighbor after it = the caboose = <strong>T</strong><br><br><code>new_prev = self.trailer.prev&nbsp;&nbsp;# D</code><br><code>new_next = self.trailer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# T</code>",
+      "action": "Write <strong>\"new_prev = D\"</strong> and <strong>\"new_next = T\"</strong> next to your earlier notes. Now you have all four references you need.",
+      "checkpoint": "Your notes: old_prev=A, old_next=C, new_prev=D, new_next=T. B is still floating.",
+      "conceptNote": "We save these BEFORE we start rewiring, just like Step 1. Since we already saved them, the order of the next 4 coupling changes doesn't matter. That's the power of saving references upfront.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "C", "D", "T"],
+        "current": -1,
+        "highlight": [3, 4],
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "nodeLabels": { "3": "new_prev", "4": "new_next" },
+        "label": "B's destination: between D and T"
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "<strong>Steps 4 & 5: Connect node to destination AND destination to node.</strong><br><br>Now we couple B into its new home. Four pointer updates:<br><br><code>node.prev = new_prev&nbsp;&nbsp;&nbsp;&nbsp;# B.prev = D</code><br><code>node.next = new_next&nbsp;&nbsp;&nbsp;&nbsp;# B.next = T</code><br><code>new_prev.next = node&nbsp;&nbsp;&nbsp;&nbsp;# D.next = B</code><br><code>new_next.prev = node&nbsp;&nbsp;&nbsp;&nbsp;# T.prev = B</code>",
+      "action": "First, <strong>erase</strong> the blue coupling from D to T (top) and the red coupling from T to D (bottom).<br><br>Now draw B as a car between D and T. Then:<br>\u2022 Blue coupling from D to B (top)<br>\u2022 Blue coupling from B to T (top)<br>\u2022 Red coupling from T to B (bottom)<br>\u2022 Red coupling from B to D (bottom)",
+      "checkpoint": "The final train: <strong>H \u2194 A \u2194 C \u2194 D \u2194 B \u2194 T</strong>. Trace forward (blue) and backward (red) with your finger to verify both directions work.",
+      "conceptNote": "This is exactly a node insertion between D and T. Four pointer updates. Combined with the extraction (2 updates), the whole operation is <strong>6 coupling changes total, all O(1)</strong>.",
+      "hint": "Since we saved new_prev and new_next in Step 3, the order of these 4 lines doesn't matter. You can't corrupt anything because you're reading from saved variables, not from couplings you're currently overwriting.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "C", "D", "B", "T"],
+        "current": 4,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "nodeLabels": { "4": "moved!" },
+        "label": "Done! B is now coupled just before the caboose"
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Let's see the full code together:<br><br><code>def move_to_end(self, node):</code><br><code>&nbsp;&nbsp;# Step 1: Save old neighbors</code><br><code>&nbsp;&nbsp;old_prev = node.prev</code><br><code>&nbsp;&nbsp;old_next = node.next</code><br><br><code>&nbsp;&nbsp;# Step 2: Seal the gap</code><br><code>&nbsp;&nbsp;old_prev.next = old_next</code><br><code>&nbsp;&nbsp;old_next.prev = old_prev</code><br><br><code>&nbsp;&nbsp;# Step 3: Find new destination</code><br><code>&nbsp;&nbsp;new_prev = self.trailer.prev</code><br><code>&nbsp;&nbsp;new_next = self.trailer</code><br><br><code>&nbsp;&nbsp;# Steps 4 & 5: Wire in</code><br><code>&nbsp;&nbsp;node.prev = new_prev</code><br><code>&nbsp;&nbsp;node.next = new_next</code><br><code>&nbsp;&nbsp;new_prev.next = node</code><br><code>&nbsp;&nbsp;new_next.prev = node</code>",
+      "action": "Read through the code while looking at your paper. Match each line to a coupling you erased or drew. Every single line of code corresponds to exactly one physical coupling change.",
+      "checkpoint": "You should be able to point to each of the 6 coupling changes on your paper and say which line of code caused it.",
+      "conceptNote": "No loops. No traversal. No searching. We already HAVE the node, so we just read its prev/next to find neighbors instantly. That's why this is <strong>O(1)</strong>.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 7,
+      "instruction": "Let's trace the 5-step pattern one more time. Fresh start: redraw the original train <strong>H \u2194 A \u2194 B \u2194 C \u2194 D \u2194 T</strong>. This time, move car <strong>D</strong> to the end.",
+      "action": "Wait. D is already the last real car (right before the caboose). What happens if we run move_to_end on a car that's already at the end?",
+      "checkpoint": null,
+      "conceptNote": "Step 1: old_prev = C, old_next = T.<br>Step 2: C.next = T, T.prev = C. (Gap sealed, D floating.)<br>Step 3: new_prev = self.trailer.prev = <strong>C</strong> (since D was removed, C is now last), new_next = T.<br>Steps 4-5: Wire D between C and T.<br><br>Result: H \u2194 A \u2194 B \u2194 C \u2194 D \u2194 T. <strong>Same as before!</strong> The code works correctly even in this edge case.",
+      "hint": "This is a great edge case to understand. The algorithm extracts and re-inserts, so it works even when the car is already in the correct position. No special case needed.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 4,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "D is already at the end. move_to_end still works!"
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "Now let's trace a trickier case. Redraw: <strong>H \u2194 A \u2194 B \u2194 C \u2194 D \u2194 T</strong>. Move car <strong>A</strong> (the first real car) to the end.",
+      "action": "Go through all 5 steps on your paper:<br><br><strong>Step 1:</strong> old_prev = H, old_next = B.<br><strong>Step 2:</strong> Erase H\u2194A and A\u2194B. Draw H\u2194B. (Now: H \u2194 B \u2194 C \u2194 D \u2194 T.)<br><strong>Step 3:</strong> new_prev = D, new_next = T.<br><strong>Steps 4-5:</strong> Erase D\u2194T. Wire D\u2194A\u2194T.",
+      "checkpoint": "Final train: <strong>H \u2194 B \u2194 C \u2194 D \u2194 A \u2194 T</strong>. Trace both directions to verify. The engine (H) absorbs the edge case of moving the first car.",
+      "conceptNote": "Without sentinels, moving the first node would require special-case code to update the head pointer. With sentinels, old_prev is just H (the engine), and the algorithm works identically. This is why sentinels exist.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "B", "C", "D", "A", "T"],
+        "current": 4,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "nodeLabels": { "4": "moved!" },
+        "label": "A moved from front to end. Engine absorbed the edge case."
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "Let's name the pattern. Every \"move a car somewhere\" operation in a DLL is the same two-phase structure:<br><br><strong>Phase 1: EXTRACT</strong> (Steps 1-2)<br>\u2022 Save old neighbors<br>\u2022 Couple them to each other<br><br><strong>Phase 2: INSERT</strong> (Steps 3-5)<br>\u2022 Identify new neighbors<br>\u2022 Couple the car in between them<br><br>The only thing that changes between move_to_end, move_to_front, or move_after(target) is <strong>Step 3</strong>: where you define the new destination.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "This extract-then-insert pattern appears everywhere: LRU caches, playlist reordering, task priority queues. Master these 5 steps and you can move any node anywhere in O(1).",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "<strong>Challenge: implement move_to_front.</strong><br><br>Whenever you are ready, use the exact same 5-step logic to solve the reverse scenario. <code>move_to_front(self, node)</code> should move a node to the very front of the list (just after the engine/header sentinel).<br><br>Only <strong>Step 3</strong> changes. What should new_prev and new_next be?",
+      "action": "Redraw the original train: H \u2194 A \u2194 B \u2194 C \u2194 D \u2194 T. Try moving car <strong>C</strong> to the front using the 5-step pattern. Write the code yourself before checking the hint.",
+      "checkpoint": "If you got <strong>H \u2194 C \u2194 A \u2194 B \u2194 D \u2194 T</strong>, you nailed it!",
+      "conceptNote": "The answer for Step 3:<br><code>new_prev = self.header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# H</code><br><code>new_next = self.header.next&nbsp;# first real node</code><br><br>Everything else (Steps 1, 2, 4, 5) is identical to move_to_end. The full code:<br><br><code>def move_to_front(self, node):</code><br><code>&nbsp;&nbsp;old_prev = node.prev</code><br><code>&nbsp;&nbsp;old_next = node.next</code><br><code>&nbsp;&nbsp;old_prev.next = old_next</code><br><code>&nbsp;&nbsp;old_next.prev = old_prev</code><br><code>&nbsp;&nbsp;new_prev = self.header</code><br><code>&nbsp;&nbsp;new_next = self.header.next</code><br><code>&nbsp;&nbsp;node.prev = new_prev</code><br><code>&nbsp;&nbsp;node.next = new_next</code><br><code>&nbsp;&nbsp;new_prev.next = node</code><br><code>&nbsp;&nbsp;new_next.prev = node</code>",
+      "hint": "Think: where is the \"front\" of the train? It's the position right after the engine (header sentinel). So new_prev = header, new_next = header.next.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "C", "A", "B", "D", "T"],
+        "current": 1,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "nodeLabels": { "1": "moved!" },
+        "label": "C moved to front, right after the engine"
+      }
+    }
+  ],
+  "reflection": [
+    {
+      "question": "Why do we save old_prev and old_next BEFORE making any changes? What would go wrong if we didn't?",
+      "answer": "If we sealed the gap first (old_prev.next = old_next) without saving old_next, we'd lose access to node.next. The pointer we need would already be overwritten. Saving first means we always have clean references, and the order of later operations doesn't matter."
+    },
+    {
+      "question": "Why is this O(1) instead of O(n)?",
+      "answer": "Because we already HAVE the node. We don't search for it. We just read node.prev and node.next to find its neighbors (O(1)), and we know the destination is self.trailer.prev and self.trailer (also O(1)). No loops, no traversal. Just 6 pointer assignments."
+    },
+    {
+      "question": "What would go wrong if the list didn't have sentinel nodes (header and trailer)?",
+      "answer": "You'd need special cases: moving the first node means updating the head pointer. Moving to the end means checking if tail is null. Moving the only node means both. Sentinels absorb all these edge cases because every real node always has a non-null prev (at minimum, the header) and a non-null next (at minimum, the trailer)."
+    },
+    {
+      "question": "The code says the order of the 4 lines in Steps 4 & 5 doesn't matter. Why not?",
+      "answer": "Because we saved new_prev and new_next in Step 3. We're reading from saved variables, not from pointers we're currently overwriting. If we read self.trailer.prev DURING the rewiring (instead of saving it first), the order would matter and could cause bugs."
+    }
+  ],
+  "nextTutorial": null
+}

@@ -2,13 +2,13 @@
   "id": "queues-arrayqueue",
   "topic": "queues",
   "title": "ArrayQueue: Build It With Paper",
-  "subtitle": "See how a circular array queue works by physically moving front and back pointers.",
-  "encouragement": "Queues are everywhere: print jobs, web server requests, breadth-first search. Once you see the circular trick with your own hands, implementing one in code becomes straightforward.",
+  "subtitle": "See how a circular array queue works by physically moving the front pointer and tracking size, then watch it resize.",
+  "encouragement": "Queues are everywhere: print jobs, web server requests, breadth-first search. Once you see the circular trick and the resize with your own hands, implementing one in code becomes straightforward.",
   "realWorldExample": "Think of a line at a coffee shop. New customers join at the back. The person at the front gets served next. That's a queue: First In, First Out. The circular part? Imagine the line wraps around a round counter so the back of the line can reuse space freed by people who already left.",
   "materials": [
     {
-      "item": "A paper strip with 6 boxes",
-      "detail": "Draw 6 equally-spaced boxes in a row. Make them big enough to fit small cards inside.",
+      "item": "Two paper strips",
+      "detail": "First strip: draw 4 equally-spaced boxes. Second strip: draw 8 boxes. The second strip is for the resize step later.",
       "emoji": "\ud83d\udccf"
     },
     {
@@ -22,192 +22,178 @@
       "emoji": "\ud83d\udcdd"
     },
     {
-      "item": "2 paperclips",
-      "detail": "One marks \"front\" (where we dequeue from), the other marks \"back\" (where the next enqueue goes). Label them if you can.",
+      "item": "1 paperclip or coin",
+      "detail": "This marks \"front\" (where we dequeue from). We track the size with a number on paper, not a second pointer.",
       "emoji": "\ud83d\udcce"
     }
   ],
   "setup": [
-    "Draw 6 boxes on your paper strip. Number them 0 through 5 underneath.",
+    "Draw 4 boxes on your first paper strip. Number them 0 through 3 underneath.",
     "Place the FRONT paperclip at index 0.",
-    "Place the BACK paperclip at index 0.",
-    "Both pointers at the same spot means the queue is empty. Lay your letter cards (A-F) nearby.",
-    "Remember: FRONT is where we remove from. BACK is where the next item will be placed."
+    "Write <strong>\"size = 0\"</strong> on a corner of your paper. This is the only other thing we track.",
+    "The queue doesn't store a \"back\" pointer. Instead, the back position is always computed: <strong>back = (front + size) % capacity</strong>. We'll calculate it each time.",
+    "Keep the second strip (8 boxes) aside for now. You'll need it when the queue runs out of space."
   ],
   "steps": [
     {
       "id": 1,
-      "instruction": "Let's <strong>enqueue</strong> the letter <strong>A</strong>. Pick up the A card.",
-      "action": "Place A into the box where BACK is pointing (index 0). Then move BACK one step right to index 1.",
-      "checkpoint": "Strip: [A][ ][ ][ ][ ][ ]. FRONT at 0, BACK at 1.",
-      "conceptNote": "Enqueue places the item at the back pointer's position, then advances back. The front pointer doesn't move.",
-      "hint": "BACK always points to the NEXT EMPTY slot, not the last filled slot.",
+      "instruction": "Let's <strong>enqueue</strong> the letter <strong>A</strong>. Where does it go? Compute the back position: <code>(front + size) % capacity = (0 + 0) % 4 = 0</code>.",
+      "action": "Place A into box 0. Update your size: cross out 0 and write <strong>size = 1</strong>.",
+      "checkpoint": "Strip: [A][ ][ ][ ]. front: 0, size: 1.",
+      "conceptNote": "Enqueue computes where the back is using <code>(front + size) % capacity</code>, places the item there, then increments size. No \"back\" pointer is stored; it's always derived.",
+      "hint": "The back position is just a calculation, not a stored value. This saves us from having to maintain two pointers.",
       "diagram": {
         "type": "queue",
-        "cells": ["A", "", "", "", "", ""],
-        "front": 0,
-        "back": 1,
-        "highlight": [0]
+        "cells": ["A", "", "", ""],
+        "front": 0
       }
     },
     {
       "id": 2,
-      "instruction": "Enqueue <strong>B</strong>.",
-      "action": "Place B at index 1 (where BACK is). Move BACK to index 2.",
-      "checkpoint": "Strip: [A][B][ ][ ][ ][ ]. FRONT at 0, BACK at 2.",
+      "instruction": "Enqueue <strong>B</strong>, then <strong>C</strong>.<br><br>For B: back = (0 + 1) % 4 = 1. Place B at index 1. size = 2.<br>For C: back = (0 + 2) % 4 = 2. Place C at index 2. size = 3.",
+      "action": "Place B at index 1, C at index 2. Update size to 3.",
+      "checkpoint": "Strip: [A][B][C][ ]. front: 0, size: 3. One empty slot left.",
       "conceptNote": null,
       "hint": null,
       "diagram": {
         "type": "queue",
-        "cells": ["A", "B", "", "", "", ""],
+        "cells": ["A", "B", "C", ""],
+        "front": 0
+      },
+      "interaction": {
+        "type": "queue-enqueue",
+        "cells": ["A", "", "", ""],
+        "cards": ["B", "C"],
         "front": 0,
-        "back": 2,
-        "highlight": [0, 1]
+        "size": 1,
+        "capacity": 4
       }
     },
     {
       "id": 3,
-      "instruction": "Enqueue <strong>C</strong>.",
-      "action": "Place C at index 2. Move BACK to index 3.",
-      "checkpoint": "Strip: [A][B][C][ ][ ][ ]. FRONT at 0, BACK at 3. Three items in the queue.",
-      "conceptNote": null,
-      "hint": null,
+      "instruction": "Now let's <strong>dequeue</strong>. Which item gets removed? Look at where FRONT is pointing.",
+      "action": "Remove the A card from index 0. Advance FRONT: <code>front = (0 + 1) % 4 = 1</code>. Decrement size: <strong>size = 2</strong>.",
+      "checkpoint": "Strip: [ ][B][C][ ]. front: 1, size: 2. A is gone.",
+      "conceptNote": "FIFO: First In, First Out. A was enqueued first, so A is dequeued first. Dequeue advances front with the modulo formula and decrements size.",
+      "hint": "Notice index 0 is now empty. That space will be reused when the queue wraps around; that's the circular trick.",
       "diagram": {
         "type": "queue",
-        "cells": ["A", "B", "C", "", "", ""],
+        "cells": ["", "B", "C", ""],
+        "front": 1
+      },
+      "interaction": {
+        "type": "queue-dequeue",
+        "cells": ["A", "B", "C", ""],
         "front": 0,
-        "back": 3,
-        "highlight": [0, 1, 2]
+        "size": 3,
+        "expectedDequeue": "A",
+        "capacity": 4
       }
     },
     {
       "id": 4,
-      "instruction": "Now let's <strong>dequeue</strong>. Which item gets removed? Look at where FRONT is pointing.",
-      "action": "Remove the A card from index 0. Move FRONT one step right to index 1.",
-      "checkpoint": "Strip: [ ][B][C][ ][ ][ ]. FRONT at 1, BACK at 3. A is gone.",
-      "conceptNote": "FIFO: First In, First Out. A was enqueued first, so A is dequeued first. This is the opposite of a stack.",
-      "hint": "Notice index 0 is now empty. That space will be reused later; that's the circular trick.",
+      "instruction": "Enqueue <strong>D</strong>. Compute the back: <code>(front + size) % capacity = (1 + 2) % 4 = 3</code>. Place D at index 3. size = 3.",
+      "action": "Place D at index 3. Update size to 3.",
+      "checkpoint": "Strip: [ ][B][C][D]. front: 1, size: 3.",
+      "conceptNote": null,
+      "hint": null,
       "diagram": {
         "type": "queue",
-        "cells": ["", "B", "C", "", "", ""],
-        "front": 1,
-        "back": 3,
-        "highlight": [1, 2]
+        "cells": ["", "B", "C", "D"],
+        "front": 1
       }
     },
     {
       "id": 5,
-      "instruction": "Enqueue <strong>D</strong>, then <strong>E</strong>, then <strong>F</strong>.",
-      "action": "Place D at index 3 (BACK moves to 4). Place E at index 4 (BACK moves to 5). Place F at index 5 (BACK moves to... where?).",
-      "checkpoint": "Strip: [ ][B][C][D][E][F]. FRONT at 1, BACK needs to go past index 5.",
-      "conceptNote": null,
-      "hint": "BACK was at 5 and needs to advance. But there's no index 6. What happens next?",
+      "instruction": "Enqueue <strong>E</strong>. Compute the back: <code>(1 + 3) % 4 = 0</code>. The back <strong>wraps around</strong> to index 0!",
+      "action": "Place E at index 0. Update size to 4. The array is now <strong>FULL</strong> (size == capacity).",
+      "checkpoint": "Strip: [E][B][C][D]. front: 1, size: 4. Every slot is occupied.",
+      "conceptNote": "The modulo is what makes it circular. (1 + 3) % 4 = 0 wraps back to the beginning. The slot freed when A was dequeued is now reused by E.",
+      "hint": "Imagine bending your paper strip into a ring so index 3 connects to index 0. That's the mental model.",
       "diagram": {
         "type": "queue",
-        "cells": ["", "B", "C", "D", "E", "F"],
-        "front": 1,
-        "back": 6,
-        "highlight": [1, 2, 3, 4, 5]
+        "cells": ["E", "B", "C", "D"],
+        "front": 1
       }
     },
     {
       "id": 6,
-      "instruction": "BACK needs to go past the end. In a circular queue, it <strong>wraps around</strong> to the beginning. Move BACK to index 0.",
-      "action": "Move your BACK paperclip to index 0. It loops around!",
-      "checkpoint": "Strip: [ ][B][C][D][E][F]. FRONT at 1, BACK at 0. The empty slot at index 0 is right where BACK is pointing.",
-      "conceptNote": "The wrap-around formula is: <code>back = (back + 1) % capacity</code>. With capacity 6: (5 + 1) % 6 = 0. The modulo operator creates the circular behavior.",
-      "hint": "Imagine bending your paper strip into a ring so index 5 connects to index 0. That's the mental model.",
-      "diagram": {
-        "type": "queue",
-        "cells": ["", "B", "C", "D", "E", "F"],
-        "front": 1,
-        "back": 0,
-        "highlight": [1, 2, 3, 4, 5]
-      }
+      "instruction": "Now we want to enqueue <strong>F</strong>. But <strong>size == capacity</strong> (4 == 4). The queue is full. There's nowhere to put F!<br><br>We need to <strong>resize</strong> before we can enqueue F.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "The enqueue method checks <code>if size == capacity: resize()</code> BEFORE placing the new item. So the resize happens first, then F gets placed in the bigger array.",
+      "hint": "This is the same idea as ArrayList: when you run out of room, double the capacity, copy everything over, then continue.",
+      "diagram": null
     },
     {
       "id": 7,
-      "instruction": "Dequeue again. Who's at the front?",
-      "action": "Remove B from index 1. Move FRONT to index 2.",
-      "checkpoint": "Strip: [ ][ ][C][D][E][F]. FRONT at 2, BACK at 0. Two empty slots at indices 0 and 1.",
-      "conceptNote": null,
-      "hint": null,
-      "diagram": {
-        "type": "queue",
-        "cells": ["", "", "C", "D", "E", "F"],
-        "front": 2,
-        "back": 0,
-        "highlight": [2, 3, 4, 5]
-      }
+      "instruction": "<strong>RESIZE:</strong> Double the capacity from 4 to 8. Grab your second paper strip (the one with 8 boxes). Number them 0 through 7.",
+      "action": "Place the new strip below the old one. Now we copy elements <strong>in queue order</strong> (starting from front), NOT in array order. Queue order is: B, C, D, E.",
+      "checkpoint": "You have two strips: the old one (4 boxes, full) and the new one (8 boxes, empty).",
+      "conceptNote": "We don't copy array positions blindly. We copy starting from FRONT, going in queue order. This \"straightens out\" the circular wrap so the data starts at index 0 in the new array.",
+      "hint": "The old array has E at index 0, B at 1, C at 2, D at 3. But queue order is B, C, D, E (starting from front = 1, wrapping around).",
+      "diagram": null
     },
     {
       "id": 8,
-      "instruction": "Now enqueue a new letter. Write <strong>G</strong> on a spare piece of paper. Where does it go?",
-      "action": "Place G at index 0 (where BACK is pointing). Move BACK to index 1.",
-      "checkpoint": "Strip: [G][ ][C][D][E][F]. FRONT at 2, BACK at 1. The queue now wraps around!",
-      "conceptNote": "The queue contents are now: C, D, E, F, G. They span from index 2 through 5 and then wrap to index 0. The data isn't contiguous, but the front/back pointers keep track.",
-      "hint": "This is why it's called a CIRCULAR queue. The data wraps around the end of the array.",
+      "instruction": "<strong>Copy elements in queue order.</strong> Start from the old front (index 1) and walk forward, wrapping around.",
+      "action": "From the old strip, pick up cards in queue order and place them in the new strip starting at index 0:<br><br>1. Old index 1 (B) \u2192 New index 0<br>2. Old index 2 (C) \u2192 New index 1<br>3. Old index 3 (D) \u2192 New index 2<br>4. Old index 0 (E) \u2192 New index 3<br><br>Set front = 0. Size is still 4. Capacity is now 8.",
+      "checkpoint": "New strip: [B][C][D][E][ ][ ][ ][ ]. front: 0, size: 4, capacity: 8.",
+      "conceptNote": "In code, the copy loop uses modulo:<br><code>for i in range(size):</code><br><code>&nbsp;&nbsp;new_arr[i] = old_arr[(front + i) % old_cap]</code><br><code>front = 0</code><br><br>Size stays the same. Only front and capacity change. The resize is <strong>O(n)</strong> but happens rarely, so the <strong>amortized cost</strong> of enqueue is still O(1).",
+      "hint": "Push the old strip aside. You won't need it anymore. The new strip is your queue now.",
       "diagram": {
         "type": "queue",
-        "cells": ["G", "", "C", "D", "E", "F"],
-        "front": 2,
-        "back": 1,
-        "highlight": [0, 2, 3, 4, 5]
+        "cells": ["B", "C", "D", "E", "", "", "", ""],
+        "front": 0
       }
     },
     {
       "id": 9,
-      "instruction": "How many items are in the queue? Count them. Can you figure it out from just the pointers?",
-      "action": "Count: C, D, E, F, G = 5 items. Formula: (back - front + capacity) % capacity = (1 - 2 + 6) % 6 = 5.",
-      "checkpoint": null,
-      "conceptNote": "The size formula <code>(back - front + capacity) % capacity</code> handles the wrap-around. When back < front, adding capacity before the modulo gives the correct count.",
-      "hint": "Without the circular formula, back (1) minus front (2) gives -1, which is wrong. The modulo trick fixes it.",
-      "diagram": null
+      "instruction": "Now we have room! <strong>Enqueue F</strong> (the item that triggered the resize). Compute back: <code>(0 + 4) % 8 = 4</code>.",
+      "action": "Place F at index 4. Update size to 5.",
+      "checkpoint": "Strip: [B][C][D][E][F][ ][ ][ ]. front: 0, size: 5. Plenty of room.",
+      "conceptNote": "After the resize, everything works the same. The circular behavior, enqueue, dequeue, the modulo formula are all identical. The only difference is more capacity.",
+      "hint": null,
+      "diagram": {
+        "type": "queue",
+        "cells": ["B", "C", "D", "E", "F", "", "", ""],
+        "front": 0
+      }
     },
     {
       "id": 10,
-      "instruction": "Dequeue three more times. Say each letter as you remove it.",
-      "action": "Dequeue C (FRONT moves to 3). Dequeue D (FRONT moves to 4). Dequeue E (FRONT moves to 5).",
-      "checkpoint": "Strip: [G][ ][ ][ ][ ][F]. Wait, F is still at index 5. FRONT is at 5. Only F and G remain.",
+      "instruction": "Let's dequeue a few to see the new array in action. Dequeue twice.",
+      "action": "Dequeue B (front advances to 1, size = 4). Dequeue C (front advances to 2, size = 3).",
+      "checkpoint": "Strip: [ ][ ][D][E][F][ ][ ][ ]. front: 2, size: 3.",
       "conceptNote": null,
       "hint": null,
       "diagram": {
         "type": "queue",
-        "cells": ["G", "", "", "", "", "F"],
-        "front": 5,
-        "back": 1,
-        "highlight": [0, 5]
+        "cells": ["", "", "D", "E", "F", "", "", ""],
+        "front": 2
       }
     },
     {
       "id": 11,
-      "instruction": "Dequeue F. Where does FRONT go?",
-      "action": "Remove F from index 5. FRONT wraps around to index 0. (5 + 1) % 6 = 0.",
-      "checkpoint": "Strip: [G][ ][ ][ ][ ][ ]. FRONT at 0, BACK at 1. One item left: G.",
-      "conceptNote": "FRONT wraps around too! Both pointers use the same modulo logic to circle back to the beginning.",
+      "instruction": "Enqueue a few more to see the wrap-around happen in the larger array. Write <strong>G</strong>, <strong>H</strong>, <strong>I</strong>, <strong>J</strong> on scraps of paper.",
+      "action": "Enqueue G: back = (2+3)%8 = 5. Enqueue H: back = (2+4)%8 = 6. Enqueue I: back = (2+5)%8 = 7. Enqueue J: back = (2+6)%8 = 0. Wrap! Size = 7.",
+      "checkpoint": "Strip: [J][ ][D][E][F][G][H][I]. front: 2, size: 7.",
+      "conceptNote": "The wrap-around works the same in the bigger array: (2 + 6) % 8 = 0. Same modulo formula, bigger capacity. Notice we never need to store \"back\" anywhere; it's always just <code>(front + size) % capacity</code>.",
       "hint": null,
       "diagram": {
         "type": "queue",
-        "cells": ["G", "", "", "", "", ""],
-        "front": 0,
-        "back": 1,
-        "highlight": [0]
+        "cells": ["J", "", "D", "E", "F", "G", "H", "I"],
+        "front": 2
       }
     },
     {
       "id": 12,
-      "instruction": "Dequeue G. What does the queue look like now?",
-      "action": "Remove G from index 0. Move FRONT to index 1. FRONT and BACK are both at index 1.",
-      "checkpoint": "Strip: [ ][ ][ ][ ][ ][ ]. FRONT = BACK = 1. Queue is empty again.",
-      "conceptNote": "When FRONT equals BACK, the queue is empty. This is the same condition we started with (both at 0), just at a different position. The circular nature means \"empty\" can happen at any index, not just 0.",
-      "hint": "This is why some implementations keep a separate size counter: to distinguish between \"completely empty\" and \"completely full\" (both have front == back).",
-      "diagram": {
-        "type": "queue",
-        "cells": ["", "", "", "", "", ""],
-        "front": 1,
-        "back": 1,
-        "highlight": []
-      }
+      "instruction": "Let's summarize what you just saw:<br><br>\u2022 <strong>Enqueue:</strong> compute <code>(front + size) % capacity</code> to find where to place the item. Increment size. <strong>O(1)</strong>.<br>\u2022 <strong>Dequeue:</strong> remove from front, advance <code>front = (front + 1) % capacity</code>. Decrement size. <strong>O(1)</strong>.<br>\u2022 <strong>Wrap-around:</strong> the <code>% capacity</code> makes the array circular.<br>\u2022 <strong>Resize:</strong> when size == capacity and we need to enqueue, double the capacity and copy in queue order. <strong>O(n)</strong> but rare, so amortized O(1).<br>\u2022 <strong>No \"back\" pointer:</strong> the class only stores <code>front</code> and <code>size</code>. Back is always derived.",
+      "action": "Look at both paper strips side by side. The old one (4 boxes) was full. The new one (8 boxes) has the same data but more room. The elements were copied in queue order, not array order.",
+      "checkpoint": null,
+      "conceptNote": "This is the same resize strategy used by ArrayList: double the capacity when full. The amortized analysis is similar. On average, each enqueue does O(1) work even though occasional resizes cost O(n).",
+      "hint": null,
+      "diagram": null
     }
   ],
   "reflection": [
@@ -220,12 +206,16 @@
       "answer": "Shifting every element costs O(n) per dequeue. With a circular array, dequeue just moves the front pointer: O(1). No data moves at all."
     },
     {
-      "question": "When front equals back, is the queue empty or full?",
-      "answer": "It could be either! This is an ambiguity in circular queues. Common solutions: keep a size counter, waste one slot (full when back is one behind front), or use a boolean flag."
+      "question": "During resize, why do we copy elements in queue order (front to back) instead of array order (0 to capacity-1)?",
+      "answer": "Because the data may wrap around. In the example, the queue order was B, C, D, E but they were stored as E(0), B(1), C(2), D(3). Copying in array order would scramble the queue. Copying in queue order straightens it out so front resets to 0."
     },
     {
-      "question": "What's the wrap-around formula for advancing a pointer?",
-      "answer": "new_index = (current_index + 1) % capacity. The modulo operator wraps the index back to 0 when it reaches the end of the array."
+      "question": "Why doesn't ArrayQueue store a \"back\" pointer?",
+      "answer": "Because back can always be computed: (front + size) % capacity. Storing it would be redundant. Keeping only front and size is cleaner and avoids the ambiguity of front == back meaning either empty or full."
+    },
+    {
+      "question": "What's the wrap-around formula for the enqueue position?",
+      "answer": "back = (front + size) % capacity. The modulo operator wraps the index back to 0 when it reaches the end of the array."
     }
   ],
   "nextTutorial": null

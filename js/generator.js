@@ -1,16 +1,13 @@
 // js/generator.js — Handles Claude API calls for tutorial generation
 
 const MATERIAL_KIT = [
-  'Paper strips (lined or blank)',
-  'Scissors',
-  'Pen or marker',
-  'Small paper squares/cards',
+  'Paper (strips, sheets, or squares)',
+  'Colored pencils or pens',
   'Tape (any kind)',
-  'Bowls or cups (4-5)',
-  'Sticky notes',
-  'String or yarn (2 colors)',
+  'Sticky notes or small paper squares',
   'Paperclips',
-  'Coins or small tokens'
+  'Coins or small tokens',
+  'Bowls or cups'
 ];
 
 const EXAMPLE_TUTORIAL_STRUCTURE = `{
@@ -90,8 +87,8 @@ ${EXAMPLE_TUTORIAL_STRUCTURE}`;
       'anthropic-dangerous-direct-browser-access': 'true'
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 4096,
+      model: 'claude-sonnet-4-6',
+      max_tokens: 8192,
       system: systemPrompt,
       messages: [
         { role: 'user', content: userMessage }
@@ -117,11 +114,89 @@ ${EXAMPLE_TUTORIAL_STRUCTURE}`;
     jsonStr = jsonStr.replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '');
   }
 
+  // Fix common LLM JSON issues: trailing commas before ] or }
+  jsonStr = jsonStr.replace(/,\s*([}\]])/g, '$1');
+
   const tutorial = JSON.parse(jsonStr);
 
   // Ensure required fields exist
   if (!tutorial.id || !tutorial.title || !tutorial.steps) {
     throw new Error('Generated tutorial is missing required fields (id, title, or steps)');
+  }
+
+  return tutorial;
+}
+
+export async function refineTutorial(currentTutorial, feedback, apiKey) {
+  const systemPrompt = `You are a tutorial designer for CutAndCode. You previously generated a hands-on tutorial and the instructor has tested it and wants changes.
+
+IMPORTANT CONSTRAINTS:
+- NEVER show complete code solutions. Only small code snippets in conceptNote fields using <code> tags.
+- Use physical metaphors throughout.
+- Keep instructions concise and action-oriented.
+- The standard material kit is:
+${MATERIAL_KIT.map((m, i) => `  ${i + 1}. ${m}`).join('\n')}
+
+The instructor may ask to:
+- Swap materials (e.g., "replace string with rubber bands")
+- Add, remove, or reorder steps
+- Change difficulty or step count
+- Adjust explanations or concept notes
+- Change diagram types for specific steps
+
+Apply the instructor's feedback to revise the tutorial. Keep everything the instructor didn't mention the same. Return ONLY valid JSON (no markdown, no code fences) matching the same structure as the original.`;
+
+  const userMessage = `Here is the current tutorial:
+
+${JSON.stringify(currentTutorial, null, 2)}
+
+The instructor's feedback:
+${feedback}
+
+Please revise the tutorial based on this feedback and return the updated JSON.`;
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 8192,
+      system: systemPrompt,
+      messages: [
+        { role: 'user', content: userMessage }
+      ]
+    })
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`API error (${response.status}): ${errorBody}`);
+  }
+
+  const data = await response.json();
+  const textContent = data.content.find(c => c.type === 'text');
+
+  if (!textContent) {
+    throw new Error('No text content in API response');
+  }
+
+  let jsonStr = textContent.text.trim();
+  if (jsonStr.startsWith('```')) {
+    jsonStr = jsonStr.replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '');
+  }
+
+  // Fix common LLM JSON issues: trailing commas before ] or }
+  jsonStr = jsonStr.replace(/,\s*([}\]])/g, '$1');
+
+  const tutorial = JSON.parse(jsonStr);
+
+  if (!tutorial.id || !tutorial.title || !tutorial.steps) {
+    throw new Error('Revised tutorial is missing required fields (id, title, or steps)');
   }
 
   return tutorial;

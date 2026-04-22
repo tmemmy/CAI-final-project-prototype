@@ -1,0 +1,248 @@
+{
+  "id": "linked-lists-reverse",
+  "topic": "linked-lists",
+  "title": "Reversing Doubly Linked List by Node",
+  "subtitle": "Unhook and re-hook every coupling on a train to make it run backward.",
+  "encouragement": "Reversing a doubly linked list looks intimidating in code, but it's one clean idea applied to every node: swap prev and next. When you erase and redraw the arrows on paper, the pattern becomes obvious. We'll use a train to see it.",
+  "realWorldExample": "Think of a train on a track. Each car knows which car is ahead (next) and which is behind (prev). To reverse the train, you don't physically move the cars: you unhook the couplings and re-hook them facing the other way. Then you move the engine label to the other end. That's exactly what this algorithm does.",
+  "heroAnimation": "snake-ouroboros",
+  "materials": [
+    {
+      "item": "Large sheet of paper",
+      "detail": "Landscape orientation. You'll draw 6 rectangles in a row: the engine (header), 4 data cars, and the caboose (trailer).",
+      "emoji": "\ud83d\udcc4"
+    },
+    {
+      "item": "Pencil and eraser",
+      "detail": "Essential. You'll erase couplings and redraw them pointing the opposite direction. This is the core of the exercise.",
+      "emoji": "\u270f\ufe0f"
+    },
+    {
+      "item": "Blue colored pencil",
+      "detail": "For \"next\" couplings (forward direction, drawn along the top). Erasable is ideal.",
+      "emoji": "\ud83d\udd35"
+    },
+    {
+      "item": "Red colored pencil",
+      "detail": "For \"prev\" couplings (backward direction, drawn along the bottom).",
+      "emoji": "\ud83d\udd34"
+    }
+  ],
+  "setup": [
+    "Draw 6 rectangles in a row across your paper. Label them from left to right: H (header), A, B, C, D, T (trailer).",
+    "H and T are sentinel nodes: they hold no real data. Write \"None\" inside each. H is the engine of the train, T is the caboose.",
+    "In blue along the top, draw forward couplings (next arrows): H \u2192 A \u2192 B \u2192 C \u2192 D \u2192 T.",
+    "In red along the bottom, draw backward couplings (prev arrows): H \u2190 A \u2190 B \u2190 C \u2190 D \u2190 T.",
+    "Write \"head\" above H. Your train is complete: engine \u2194 A \u2194 B \u2194 C \u2194 D \u2194 caboose."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Here's your train. The <strong>engine (H)</strong> and <strong>caboose (T)</strong> are sentinel nodes: they don't carry data. They just mark the boundaries. The real data cars are A, B, C, D between them. Blue couplings on top are <strong>next</strong> pointers. Red couplings on the bottom are <strong>prev</strong> pointers.",
+      "action": "Verify your drawing: follow the blue arrows from H all the way to T. Then follow the red arrows back from T to H. Both directions should work.",
+      "checkpoint": "Forward: H \u2192 A \u2192 B \u2192 C \u2192 D \u2192 T. Backward: T \u2192 D \u2192 C \u2192 B \u2192 A \u2192 H.",
+      "conceptNote": "Sentinel nodes eliminate special cases. With sentinels, every real data node always has a non-null prev and next, which makes insertion, deletion, and reversal simpler.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": -1,
+        "swappedUpTo": -1,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "The goal: reverse the data cars so the train reads H \u2194 D \u2194 C \u2194 B \u2194 A \u2194 T. The sentinels stay at the ends. The algorithm: <strong>visit every node (including sentinels) and swap its prev and next pointers.</strong>",
+      "action": "Write <strong>\"curr\"</strong> above node H (the engine). This tracks which car we're currently re-coupling.",
+      "checkpoint": "curr = H. We start at the engine.",
+      "conceptNote": "For each node:<br>1. Store <code>temp = curr.next</code><br>2. Set <code>curr.next = curr.prev</code><br>3. Set <code>curr.prev = temp</code><br>4. Move forward: <code>curr = curr.prev</code> (the old next)",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 0,
+        "swappedUpTo": -1,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "<strong>Process H (engine).</strong> Swap its couplings: its blue (next) was pointing right to A; its red (prev) was pointing to nothing.",
+      "action": "<strong>Erase</strong> H's blue coupling to A (top) and H's red coupling to nothing (bottom).<br><br><strong>Redraw</strong>:<br>\u2022 H's <strong>next</strong> now points to nothing (blue goes left into empty space).<br>\u2022 H's <strong>prev</strong> now points to A (red goes right to A).",
+      "checkpoint": "H's couplings are swapped. It looks strange in isolation, but keep going.",
+      "conceptNote": null,
+      "hint": "After swapping, H's prev points to A (the old next). That's how we'll move to the next car: follow the new prev.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 0,
+        "swappedUpTo": 0,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Move curr to <strong>A</strong> (follow H's new prev, which points to A).",
+      "action": "Erase \"curr\" from H, write it above A.",
+      "checkpoint": "curr = A.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 1,
+        "swappedUpTo": 0,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "<strong>Process A.</strong> Swap its couplings.",
+      "action": "<strong>Erase</strong> A's blue coupling to B (top) and A's red coupling to H (bottom).<br><br><strong>Redraw</strong>:<br>\u2022 A's <strong>next</strong> now points LEFT to H (blue goes left).<br>\u2022 A's <strong>prev</strong> now points RIGHT to B (red goes right).<br><br>Look at the H\u2014A section: the couplings are now reversed between them!",
+      "checkpoint": "H and A are fully reversed: A \u2192 H (blue, next). The coupling between them now goes right to left.",
+      "conceptNote": null,
+      "hint": "Notice: between H and A, blue now goes right-to-left and red goes left-to-right. That section of the train is reversed.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 1,
+        "swappedUpTo": 1,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Move curr to <strong>B</strong>.",
+      "action": "Move \"curr\" label to B.",
+      "checkpoint": "curr = B.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 2,
+        "swappedUpTo": 1,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "<strong>Process B.</strong> Swap its couplings.",
+      "action": "<strong>Erase</strong> B's blue to C and B's red to A. <strong>Redraw</strong>: B's next \u2192 A (left), B's prev \u2192 C (right).",
+      "checkpoint": "Three cars reversed: C \u2192 B \u2192 A \u2192 H (following blue/next). The pattern is building.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 2,
+        "swappedUpTo": 2,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "Move curr to <strong>C</strong>. Swap its couplings.",
+      "action": "<strong>Erase</strong> C's blue to D and C's red to B. <strong>Redraw</strong>: C's next \u2192 B (left), C's prev \u2192 D (right).",
+      "checkpoint": "Four cars reversed: D \u2192 C \u2192 B \u2192 A \u2192 H.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 3,
+        "swappedUpTo": 3,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "Move curr to <strong>D</strong>. Swap its couplings.",
+      "action": "<strong>Erase</strong> D's blue to T and D's red to C. <strong>Redraw</strong>: D's next \u2192 C (left), D's prev \u2192 T (right).",
+      "checkpoint": "Five cars reversed: T \u2192 D \u2192 C \u2192 B \u2192 A \u2192 H.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 4,
+        "swappedUpTo": 4,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "Move curr to <strong>T (caboose)</strong>. Swap its couplings.",
+      "action": "<strong>Erase</strong> T's blue (was pointing to nothing) and T's red (was pointing to D). <strong>Redraw</strong>: T's next \u2192 D (left), T's prev \u2192 nothing.",
+      "checkpoint": "Every single car's couplings have been swapped!",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": 5,
+        "swappedUpTo": 5,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "<strong>Update head.</strong> The engine (H) is now at the wrong end. Since every coupling is reversed, the caboose (T) is now the front of the train. Move the \"head\" label from H to T.",
+      "action": "Erase \"head\" from above H. Write \"head\" above T. The train now reads: T (new engine) \u2192 D \u2192 C \u2192 B \u2192 A \u2192 H (new caboose).",
+      "checkpoint": "Verify: follow blue (next) arrows from T: T \u2192 D \u2192 C \u2192 B \u2192 A \u2192 H \u2192 nothing. Follow red (prev) arrows from H: H \u2192 A \u2192 B \u2192 C \u2192 D \u2192 T \u2192 nothing. Both directions work!",
+      "conceptNote": "In code: <code>head = prev_node</code> after the loop. The last node processed becomes the new head. With sentinels, head now points to what was the trailer, and the old header becomes the new trailer.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "A", "B", "C", "D", "T"],
+        "current": -1,
+        "swappedUpTo": 5,
+        "headAt": 5,
+        "reversed": true,
+        "label": "Reversed! The engine moved to the T end, caboose to the H end."
+      }
+    },
+    {
+      "id": 12,
+      "instruction": "Count the work. You visited each of the 6 nodes exactly <strong>once</strong> and did 3 pointer operations per node (store temp, swap next, swap prev). That's <strong>O(n) time</strong> and <strong>O(1) extra space</strong>.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "The full code:<br><br><code>curr = head</code><br><code>while curr is not None:</code><br>&nbsp;&nbsp;<code>temp = curr.next</code><br>&nbsp;&nbsp;<code>curr.next = curr.prev</code><br>&nbsp;&nbsp;<code>curr.prev = temp</code><br>&nbsp;&nbsp;<code>prev_node = curr</code><br>&nbsp;&nbsp;<code>curr = curr.prev</code><br><code>head = prev_node</code>",
+      "hint": "We advance with <code>curr = curr.prev</code> (NOT curr.next) because we just swapped the pointers. The old \"next\" is now stored in \"prev\".",
+      "diagram": null
+    },
+    {
+      "id": 13,
+      "instruction": "<strong>Try it yourself!</strong> Draw a fresh train with sentinels and 5 data cars (A through E). Reverse it node by node, erasing and redrawing every coupling.",
+      "action": "Track curr as you go. After each swap, verify the reversed section by tracing the blue arrows backward. At the end, move the head label.",
+      "checkpoint": null,
+      "conceptNote": null,
+      "hint": "If you lose track, put a small checkmark next to each car after you swap its couplings. The checkmarks tell you which part of the train is already reversed.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "Why do we need a temp variable when swapping prev and next?",
+      "answer": "If we overwrite curr.next with curr.prev first, we lose the reference to the original next node (which we need to advance to). Storing it in temp preserves it."
+    },
+    {
+      "question": "After swapping a node's pointers, why do we move forward using curr.prev instead of curr.next?",
+      "answer": "Because we just swapped them! The original \"next\" pointer is now in \"prev\". So curr.prev points to what used to be the next car in the original train."
+    },
+    {
+      "question": "What role do the sentinel nodes (H and T) play during reversal?",
+      "answer": "They get their pointers swapped just like every other node. After reversal, the old trailer (T) becomes the new head, and the old header (H) becomes the new tail. Sentinels mean we never have to handle null edge cases."
+    },
+    {
+      "question": "Could you reverse a singly linked list the same way?",
+      "answer": "Not exactly. A singly linked list has no prev pointer to swap. Instead, you redirect each node's next to point backward, using three pointers (prev, curr, next). The core idea is similar but the mechanics differ."
+    },
+    {
+      "question": "What is the time and space complexity?",
+      "answer": "O(n) time: visit each node once. O(1) space: only a constant number of pointer variables (curr, prev_node, temp), regardless of list size."
+    }
+  ],
+  "nextTutorial": null
+}

@@ -89,6 +89,27 @@
           "difficulty": "core-practice",
           "estimatedMinutes": 20,
           "file": "tutorials/linked-lists-doubly.json"
+        },
+        {
+          "id": "linked-lists-reverse",
+          "title": "Reversing DLL by Node",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 20,
+          "file": "tutorials/linked-lists-reverse.json"
+        },
+        {
+          "id": "linked-lists-reverse-data",
+          "title": "Reversing DLL by Data",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 15,
+          "file": "tutorials/linked-lists-reverse-data.json"
+        },
+        {
+          "id": "linked-lists-move-node",
+          "title": "Manually Moving Nodes in DLLs",
+          "difficulty": "challenge",
+          "estimatedMinutes": 25,
+          "file": "tutorials/linked-lists-move-node.json"
         }
       ]
     },
@@ -105,6 +126,13 @@
           "difficulty": "core-practice",
           "estimatedMinutes": 25,
           "file": "tutorials/recursion-intro.json"
+        },
+        {
+          "id": "recursion-challenge-q5",
+          "title": "Counting Lowercase",
+          "difficulty": "challenge",
+          "estimatedMinutes": 30,
+          "file": "tutorials/recursion-challenge-q5.json"
         }
       ]
     },
@@ -121,6 +149,20 @@
           "difficulty": "warm-up",
           "estimatedMinutes": 20,
           "file": "tutorials/sorting-bubble.json"
+        },
+        {
+          "id": "sorting-insertion",
+          "title": "Insertion Sort",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 20,
+          "file": "tutorials/sorting-insertion.json"
+        },
+        {
+          "id": "sorting-merge",
+          "title": "Merge Sort",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 30,
+          "file": "tutorials/sorting-merge.json"
         }
       ]
     },
@@ -144,6 +186,13 @@
           "difficulty": "core-practice",
           "estimatedMinutes": 15,
           "file": "tutorials/searching-two-pointers.json"
+        },
+        {
+          "id": "searching-sliding-window",
+          "title": "Sliding Window",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 20,
+          "file": "tutorials/searching-sliding-window.json"
         }
       ]
     },
@@ -160,6 +209,13 @@
           "difficulty": "warm-up",
           "estimatedMinutes": 15,
           "file": "tutorials/trees-intro.json"
+        },
+        {
+          "id": "trees-traversal",
+          "title": "Tree Traversals: The Outline Trick",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 25,
+          "file": "tutorials/trees-traversal.json"
         }
       ]
     },
@@ -167,9 +223,17 @@
       "id": "complexity",
       "title": "Complexity",
       "icon": "complexity",
-      "description": "Feel the difference between O(n) and O(n²) by counting your physical steps across algorithms.",
+      "description": "Feel the difference between O(n) and O(n\u00b2) by counting your physical steps across algorithms.",
       "color": "#A098C4",
-      "tutorials": []
+      "tutorials": [
+        {
+          "id": "complexity-growth-curves",
+          "title": "Growth Curves",
+          "difficulty": "core-practice",
+          "estimatedMinutes": 25,
+          "file": "tutorials/complexity-growth-curves.json"
+        }
+      ]
     }
   ]
 }

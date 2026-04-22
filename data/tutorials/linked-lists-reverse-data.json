@@ -1,0 +1,200 @@
+{
+  "id": "linked-lists-reverse-data",
+  "topic": "linked-lists",
+  "title": "Reversing a DLL by Data: The Train Swap",
+  "subtitle": "Reverse a doubly linked list by swapping cargo between train cars, without moving any cars.",
+  "encouragement": "This is a really elegant algorithm. Instead of rewiring pointers (which is tricky and error-prone), we just swap the DATA inside the nodes. The structure stays the same; only the contents move. It's like rearranging passengers between train cars without uncoupling anything.",
+  "realWorldExample": "Imagine a train: the locomotive (header) leads, then cargo cars carry data, then the caboose (trailer) is at the end. To reverse the order of cargo, you don't rearrange the train itself. You walk one worker from the front and one from the back, and they swap the cargo in their cars. They keep meeting closer to the middle until everything is reversed.",
+  "materials": [
+    {
+      "item": "A large sheet of paper",
+      "detail": "Landscape orientation. You'll draw a train with 5 cars.",
+      "emoji": "📄"
+    },
+    {
+      "item": "Colored pencils or pens (blue + red)",
+      "detail": "Blue for next pointers (forward), red for prev pointers (backward).",
+      "emoji": "🖊️"
+    },
+    {
+      "item": "5 small paper squares",
+      "detail": "Write these numbers on 3 of them: 3, 7, 5. Leave 2 blank (for header and trailer).",
+      "emoji": "📝"
+    },
+    {
+      "item": "A pencil and eraser",
+      "detail": "You'll erase and rewrite data values as you swap them.",
+      "emoji": "✏️"
+    }
+  ],
+  "setup": [
+    "Draw 5 train cars in a horizontal row across your paper. Make each car a rounded rectangle, like a train car with small wheels underneath.",
+    "Label the first car \"header\" (the locomotive). Leave it EMPTY inside; it has no data.",
+    "Write 3 in the second car, 7 in the third car, and 5 in the fourth car. These are your data nodes.",
+    "Label the last car \"trailer\" (the caboose). Leave it EMPTY inside; it also has no data.",
+    "Draw blue arrows pointing RIGHT between each pair of adjacent cars (these are the \"next\" pointers).",
+    "Draw red arrows pointing LEFT between each pair of adjacent cars (these are the \"prev\" pointers).",
+    "Your train should look like: [header] ⇄ [3] ⇄ [7] ⇄ [5] ⇄ [trailer]"
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Let's understand the structure first. A doubly linked list with sentinels has a <strong>header</strong> node at the front and a <strong>trailer</strong> node at the back. Neither stores real data. They're just bookends.",
+      "action": "Point to your header (locomotive) and trailer (caboose). Notice: the real data lives BETWEEN them, in the cargo cars.",
+      "checkpoint": "Your train: [header] ⇄ [3] ⇄ [7] ⇄ [5] ⇄ [trailer]. The header's next points to the node with 3. The trailer's prev points to the node with 5.",
+      "conceptNote": "In code: <code>dll.header.next</code> gives us the first real data node. <code>dll.trailer.prev</code> gives us the last. The header and trailer are sentinels; they simplify edge cases.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "3", "7", "5", "T"],
+        "current": -1,
+        "swappedUpTo": -1,
+        "headAt": 0
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "Our goal: reverse the data so it reads 5, 7, 3 instead of 3, 7, 5. But we will <strong>NOT</strong> move any train cars or change any pointers. We only swap the cargo inside.",
+      "action": null,
+      "checkpoint": "Before: [header] ⇄ [3] ⇄ [7] ⇄ [5] ⇄ [trailer]. After: [header] ⇄ [5] ⇄ [7] ⇄ [3] ⇄ [trailer].",
+      "conceptNote": "This is the \"reverse by data\" approach. The node structure and all pointers stay identical. Only the <code>.data</code> field of each node changes.",
+      "hint": "Why would we want this? Because swapping data is simple and safe. We don't risk breaking any pointers.",
+      "diagram": null
+    },
+    {
+      "id": 3,
+      "instruction": "Set up two workers. <strong>front</strong> starts at <code>header.next</code> (the first data node). <strong>back</strong> starts at <code>trailer.prev</code> (the last data node).",
+      "action": "Place one finger (or a coin) on the car with 3. That's front. Place another finger on the car with 5. That's back.",
+      "checkpoint": "front is pointing at 3 (index 0). back is pointing at 5 (index 2).",
+      "conceptNote": "In code: <code>front = dll.header.next</code> and <code>back = dll.trailer.prev</code>. We also track indices: <code>front_idx = 0</code> and <code>back_idx = len(dll) - 1</code>.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "3", "7", "5", "T"],
+        "current": 1,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "front → car 3  |  back → car 5"
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "<strong>Step 1: Swap!</strong> The front worker and back worker exchange the cargo in their cars. front has 3, back has 5. Swap them.",
+      "action": "Erase the 3 in the front car and write 5. Erase the 5 in the back car and write 3.",
+      "checkpoint": "Train is now: [header] ⇄ [5] ⇄ [7] ⇄ [3] ⇄ [trailer]. The outer values have swapped!",
+      "conceptNote": "In code: <code>front.data, back.data = back.data, front.data</code>. This is Python's tuple swap; it exchanges the values in one line.",
+      "hint": "Notice: we didn't touch any arrows. The next and prev pointers are exactly the same. Only the data changed.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "5", "7", "3", "T"],
+        "current": 1,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "Swapped! 3 ↔ 5  |  Pointers unchanged"
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "<strong>Move the workers inward.</strong> front moves one car to the right (<code>front = front.next</code>). back moves one car to the left (<code>back = back.prev</code>).",
+      "action": "Move your front finger from the car with 5 to the car with 7. Move your back finger from the car with 3 to the car with 7.",
+      "checkpoint": "Both workers are now pointing at the SAME car: the middle car with 7.",
+      "conceptNote": "In code: <code>front = front.next</code>, <code>back = back.prev</code>, <code>front_idx += 1</code>, <code>back_idx -= 1</code>. Now front_idx = 1 and back_idx = 1.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "5", "7", "3", "T"],
+        "current": 2,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "front & back both → car 7 (middle)"
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "<strong>Check the loop condition:</strong> is <code>front_idx < back_idx</code>? front_idx is 1, back_idx is 1. 1 < 1 is <strong>False</strong>. We stop!",
+      "action": "Remove your fingers. The algorithm is done.",
+      "checkpoint": "Final train: [header] ⇄ [5] ⇄ [7] ⇄ [3] ⇄ [trailer]. The data is reversed!",
+      "conceptNote": "The while loop exits when the two indices meet or cross. With an odd number of elements, they meet at the middle (which doesn't need to swap with itself). With an even number, they cross without meeting.",
+      "hint": "Check: the original was 3, 7, 5. Now it's 5, 7, 3. Reversed! And we didn't rewire a single pointer.",
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "5", "7", "3", "T"],
+        "current": -1,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "Done! Data reversed. Pointers untouched."
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "Let's trace through the code to make sure we understand every line.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "<code>front = dll.header.next</code> — skip the sentinel, start at first real node.<br><code>back = dll.trailer.prev</code> — skip the sentinel, start at last real node.<br><code>front_idx = 0</code>, <code>back_idx = len(dll) - 1</code> — track positions so we know when to stop.<br><br>The while loop: <code>while front_idx < back_idx</code> — keep going as long as front hasn't passed back.<br><br>Inside the loop: swap data, move both pointers inward, update both indices.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "Now try it with <strong>4 data nodes</strong>. Draw a new train: [header] ⇄ [A] ⇄ [B] ⇄ [C] ⇄ [D] ⇄ [trailer].",
+      "action": "Set front on A (index 0), back on D (index 3). Swap A and D. Move inward: front on B (index 1), back on C (index 2). Swap B and C. Move inward: front_idx = 2, back_idx = 1. 2 < 1 is false. Stop!",
+      "checkpoint": "Result: [header] ⇄ [D] ⇄ [C] ⇄ [B] ⇄ [A] ⇄ [trailer]. Reversed in 2 swaps!",
+      "conceptNote": "With an even number of elements, the workers cross each other (front_idx > back_idx) instead of meeting. Both cases are handled by <code>while front_idx < back_idx</code>.",
+      "hint": null,
+      "diagram": {
+        "type": "train-dll",
+        "cars": ["H", "D", "C", "B", "A", "T"],
+        "current": -1,
+        "swappedUpTo": -1,
+        "headAt": 0,
+        "label": "4 data nodes reversed in 2 swaps"
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "What's the <strong>time complexity</strong>? We visit each node at most once from each end. The two pointers together cover the whole list.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Each iteration does O(1) work (one swap, two pointer moves). The loop runs n/2 times (where n is the number of data nodes). Total: <strong>O(n)</strong> time, <strong>O(1)</strong> extra space. We only used two pointer variables and two index variables.",
+      "hint": "Compare this to creating a new reversed list, which would be O(n) time AND O(n) space. Reversing by data is in-place.",
+      "diagram": null
+    },
+    {
+      "id": 10,
+      "instruction": "Why does this work? Because a DLL lets us walk from <strong>both ends simultaneously</strong>. The prev pointers give us backward access that a singly linked list doesn't have.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "In a singly linked list, you can't do this efficiently because you can't walk backward. You'd need to use a stack or recursion to reverse. The doubly linked list's prev pointers are what make this two-pointer approach possible.",
+      "hint": "This is the same two-pointer / converging pattern you saw in the Searching section. Same idea, different data structure.",
+      "diagram": null
+    },
+    {
+      "id": 11,
+      "instruction": "<strong>Try it yourself!</strong> Draw a train with 5 data nodes: [header] ⇄ [1] ⇄ [2] ⇄ [3] ⇄ [4] ⇄ [5] ⇄ [trailer]. Walk through the algorithm step by step.",
+      "action": "You should need exactly 2 swaps (1↔5, then 2↔4) before front_idx and back_idx meet at the middle (node 3). The result: 5, 4, 3, 2, 1.",
+      "checkpoint": null,
+      "conceptNote": null,
+      "hint": "For n data nodes, you always do exactly ⌊n/2⌋ swaps. The middle element (if n is odd) stays in place.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "What's the difference between reversing by data and reversing by moving nodes?",
+      "answer": "Reversing by data only changes the .data field of each node; the pointers (next/prev) stay the same. Reversing by node actually rewires the pointers so each node's next and prev are swapped. Both produce a reversed list, but reversing by data is simpler and less error-prone."
+    },
+    {
+      "question": "Why do we use front_idx and back_idx instead of comparing the node references directly?",
+      "answer": "We need to know when the two pointers have met or crossed. With indices, we just check front_idx < back_idx. Comparing node references (front != back) would fail for even-length lists because the pointers cross without ever pointing to the same node."
+    },
+    {
+      "question": "Could you reverse a singly linked list by data using this same approach? Why or why not?",
+      "answer": "Not efficiently. In a singly linked list, there's no prev pointer, so you can't walk backward from the tail. You'd need to find the back node by traversing from the head each time, making it O(n²). The DLL's prev pointers are what make this O(n)."
+    },
+    {
+      "question": "What role do the header and trailer sentinel nodes play in this algorithm?",
+      "answer": "They provide clean starting points: header.next is always the first real node, trailer.prev is always the last. Without sentinels, we'd need special-case handling for empty lists or single-element lists."
+    }
+  ],
+  "nextTutorial": null
+}

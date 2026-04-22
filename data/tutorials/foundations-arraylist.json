@@ -2,9 +2,9 @@
   "id": "foundations-arraylist",
   "topic": "foundations",
   "title": "ArrayList: How Arrays Grow",
-  "subtitle": "Discover what happens under the hood when an array runs out of space and needs to grow.",
-  "encouragement": "Every dynamic list you've ever used hides this trick. Once you see it with your hands, you'll understand why appending is almost always fast but sometimes takes a beat longer.",
-  "realWorldExample": "Think of a notebook with numbered lines. You write one item per line. When you fill the last line, you grab a bigger notebook, copy everything over, and keep going. Python lists, Java ArrayLists, and JavaScript arrays all do exactly this behind the scenes.",
+  "subtitle": "Discover what happens in memory when a Python list runs out of space and needs to grow.",
+  "encouragement": "Every Python list you've ever used hides this trick. Python doesn't simply expand the existing memory; instead, it creates a completely new, larger array, copies the existing elements into it, and then discards the old one. Once you see it with your hands, you'll understand why appending is almost always fast but sometimes takes a beat longer.",
+  "realWorldExample": "Think of a notebook with numbered lines. You write one item per line. When you fill the last line, you can't just glue extra pages on. You grab a bigger notebook, copy everything over, and toss the old one in the recycling bin. Python lists do exactly this behind the scenes.",
   "materials": [
     {
       "item": "Two strips of paper",
@@ -82,10 +82,10 @@
     },
     {
       "id": 4,
-      "instruction": "You need to append <strong>E</strong>, but there's no room. Time to <strong>resize</strong>. Grab your LONG strip and draw <strong>8 boxes</strong> on it, numbered 0 through 7.",
-      "action": "Draw 8 boxes on the long strip. Label them 0 through 7. This is your new backing array with double the capacity.",
-      "checkpoint": "You should have a new empty strip with 8 boxes: [ ][ ][ ][ ][ ][ ][ ][ ].",
-      "conceptNote": "Most ArrayList implementations double the capacity when they resize. Going from 4 to 8, or from 100 to 200. This doubling is key to performance.",
+      "instruction": "You need to append <strong>E</strong>, but there's no room. Here's the key: Python does NOT expand the old strip. It <strong>creates a brand new, larger array in a completely different place in memory</strong>. Grab your LONG strip and draw <strong>8 boxes</strong> on it, numbered 0 through 7.",
+      "action": "Draw 8 boxes on the long strip. Place it NEXT TO (not on top of) the old strip. You now have two arrays: the old full one and the new empty one. They exist in different memory locations.",
+      "checkpoint": "Two strips side by side: the old strip [A][B][C][D] and a new empty strip [ ][ ][ ][ ][ ][ ][ ][ ].",
+      "conceptNote": "Python allocates a new array with double the capacity in a different region of memory. This prevents modifying the original memory block and avoids fragmentation. The old array still exists right now; we haven't discarded it yet.",
       "hint": null,
       "diagram": {
         "type": "array",
@@ -94,10 +94,10 @@
     },
     {
       "id": 5,
-      "instruction": "Now <strong>copy every item</strong> from the old strip to the new strip, one by one. Move A, B, C, D into the same positions on the new strip.",
-      "action": "Pick up A from old box 0, place it in new box 0. Repeat for B (box 1), C (box 2), D (box 3).",
+      "instruction": "Now <strong>copy every element</strong> from the old strip to the new strip, one by one. But here's a critical detail: <strong>this is a shallow copy, not a deep copy.</strong>",
+      "action": "Pick up each card from the old strip and place it in the same position on the new strip. A to box 0, B to box 1, C to box 2, D to box 3. Notice: you moved the SAME cards. You didn't rewrite new cards with the same letters.",
       "checkpoint": "New strip: [A][B][C][D][ ][ ][ ][ ]. Old strip is now empty.",
-      "conceptNote": "This copy costs O(n), you had to touch every single item. With 4 items, that's 4 operations. With a million items, that's a million operations.",
+      "conceptNote": "This copy costs O(n); you had to touch every single element. But understand what \"copy\" means here: Python copies the <strong>references</strong> (pointers to objects), not the objects themselves. Your cards represent references. A <strong>shallow copy</strong> means the new container has its own slots, but the slots point to the exact same objects as the old container. A <strong>deep copy</strong> would create brand-new copies of every object too, like rewriting each card from scratch.",
       "hint": "Use tape to symbolically set the old strip aside. It's been replaced. The new strip IS your array now.",
       "diagram": {
         "type": "array",
@@ -107,10 +107,19 @@
     },
     {
       "id": 6,
-      "instruction": "NOW place <strong>E</strong> into the new strip. There's room!",
-      "action": "Place \"E\" in box 4. Move your paperclip to index 5.",
-      "checkpoint": "New strip: [A][B][C][D][E][ ][ ][ ], paperclip at index 5. Size: 5, Capacity: 8.",
-      "conceptNote": "That single append of E required: allocate new array (8 slots) + copy 4 items + place E. Total work for this one append: 5 operations. Expensive!",
+      "instruction": "Pause and think about this: why does <strong>shallow vs deep copy</strong> matter? Imagine your card A wasn't just the letter \"A\" but a small envelope with a list inside it, like <code>[1, 2, 3]</code>.",
+      "action": "Imagine you open card A's envelope on the NEW strip and change the list to [1, 2, 99]. Because it was a shallow copy, the original object was shared. If the old strip still existed, opening card A there would ALSO show [1, 2, 99]. Both strips held the same envelope, not copies of it.",
+      "checkpoint": null,
+      "conceptNote": "A <strong>shallow copy</strong> creates a new container (new list object, new strip) but the contents are shared with the original. A <strong>deep copy</strong> creates a new container AND new copies of every nested object inside it. During an ArrayList resize, Python does a shallow copy: new array, same object references. If you need independence between the original and copy, you'd use <code>import copy; copy.deepcopy(lst)</code>.",
+      "hint": "This is one of the trickiest concepts in CS 1134. If you modify a nested list inside a shallow copy, the change appears in the original too, because both point to the same object in memory.",
+      "diagram": null
+    },
+    {
+      "id": 7,
+      "instruction": "Now <strong>throw away the old strip</strong>. Crumple it up, toss it aside, or flip it over. It no longer exists in memory. Then place <strong>E</strong> into the new strip.",
+      "action": "Physically discard the old strip (crumple it, push it away, whatever feels satisfying). Then place \"E\" in box 4 on the new strip. Move your paperclip to index 5.",
+      "checkpoint": "Only ONE strip remains: [A][B][C][D][E][ ][ ][ ], paperclip at index 5. Size: 5, Capacity: 8. The old strip is gone.",
+      "conceptNote": "This is <strong>garbage collection</strong> in action. Once all elements are copied to the new array, nothing references the old array anymore. Python's garbage collector detects this and frees that memory. The old array is gone. That single append of E required: allocate new array (8 slots) + copy 4 items + discard old array + place E. Expensive!",
       "hint": null,
       "diagram": {
         "type": "array",
@@ -119,7 +128,7 @@
       }
     },
     {
-      "id": 7,
+      "id": 8,
       "instruction": "Append <strong>F</strong> and <strong>G</strong>.",
       "action": "Place \"F\" in box 5 (move paperclip to 6). Place \"G\" in box 6 (move paperclip to 7).",
       "checkpoint": "Strip: [A][B][C][D][E][F][G][ ], paperclip at index 7.",
@@ -132,7 +141,7 @@
       }
     },
     {
-      "id": 8,
+      "id": 9,
       "instruction": "Let's count the total work. You appended 7 items (A through G). How many were cheap O(1) appends, and how many triggered a resize?",
       "action": "Count: A, B, C, D were O(1). Then E triggered a resize costing 5 operations. Then F, G were O(1). That's 6 cheap appends and 1 expensive one.",
       "checkpoint": null,
@@ -141,7 +150,7 @@
       "diagram": null
     },
     {
-      "id": 9,
+      "id": 10,
       "instruction": "This averaging effect has a name: <strong>amortized O(1)</strong>. Imagine spreading the cost of that one expensive resize across all the cheap appends that came before and after it.",
       "action": null,
       "checkpoint": null,
@@ -150,7 +159,7 @@
       "diagram": null
     },
     {
-      "id": 10,
+      "id": 11,
       "instruction": "Final question: what would happen if instead of doubling, you only added 1 extra box each time you resized?",
       "action": "Imagine: capacity 4 fills up, you make a new strip of 5, copy 4 items. Then it fills, you make 6, copy 5. Then 7, copy 6. Every single append triggers a copy!",
       "checkpoint": null,
@@ -162,7 +171,7 @@
   "reflection": [
     {
       "question": "What happens when you append to an ArrayList that's at capacity?",
-      "answer": "It allocates a new array (usually double the size), copies all existing items over, then places the new item. This is a resize operation."
+      "answer": "Python creates a completely new, larger array in a different place in memory (usually double the size), copies all existing elements into it, discards the old array via garbage collection, then places the new item. It does NOT expand the existing array."
     },
     {
       "question": "Why does the ArrayList double its capacity instead of just adding one more slot?",
@@ -175,6 +184,10 @@
     {
       "question": "If an ArrayList has size 100 and capacity 128, how many more appends can you do before a resize?",
       "answer": "28 more appends. The resize happens when size reaches capacity (128). Then it would double to 256."
+    },
+    {
+      "question": "During a resize, is the copy of elements a shallow copy or a deep copy? Why does this matter?",
+      "answer": "It's a shallow copy. Remember: a shallow copy creates a new container (a new list object with its own slots) but the contents are shared with the original. Python copies the references (pointers) to the objects, not the objects themselves. So if the list contains mutable objects like inner lists, the new array and old array point to the exact same objects in memory. Modifying a nested list inside a shallow copy also changes the original, because both point to the same object. A deep copy, by contrast, would create new copies of every nested object too, giving you full independence between the original and the copy."
     }
   ],
   "nextTutorial": "stacks-intro"

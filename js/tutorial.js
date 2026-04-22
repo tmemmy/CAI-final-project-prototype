@@ -1,18 +1,23 @@
 import { renderMaterialsList, renderSetup, renderStepBubble, renderReflection } from './components.js';
 import { scrollToElement } from './ui.js';
+import { renderInteraction, bindInteractionEvents, cleanupInteraction } from './interactions.js';
+import { renderHeroAnimation } from './hero-animations.js';
 
 let currentTutorial = null;
 let currentStepIndex = 0;
 let totalSteps = 0;
+let stepLocked = false; // true when waiting for interaction completion
 
 export function startTutorial(tutorial, container, backTopicId) {
+  cleanupInteraction();
   currentTutorial = tutorial;
   currentStepIndex = 0;
   totalSteps = tutorial.steps.length;
+  stepLocked = false;
 
   // Set back link
   const backLink = document.getElementById('activity-back-link');
-  backLink.onclick = () => { location.hash = `#/topic/${backTopicId}`; };
+  backLink.onclick = () => { cleanupInteraction(); location.hash = `#/topic/${backTopicId}`; };
 
   // Render materials screen first
   renderMaterialsScreen(container);
@@ -25,6 +30,8 @@ function renderMaterialsScreen(container) {
         <h2 class="section-title">${currentTutorial.title}</h2>
         <p class="section-subtitle">${currentTutorial.subtitle}</p>
       </div>
+
+      ${currentTutorial.heroAnimation ? renderHeroAnimation(currentTutorial.heroAnimation) : ''}
 
       <div class="encouragement-banner">
         <p>${currentTutorial.encouragement}</p>
@@ -85,6 +92,21 @@ function showStep(index) {
   // Only add if not already rendered
   if (!document.getElementById(`step-${step.id}`)) {
     stepsContainer.insertAdjacentHTML('beforeend', renderStepBubble(step));
+
+    // If step has an interaction, render it and lock advancement
+    if (step.interaction) {
+      const stepEl = document.getElementById(`step-${step.id}`);
+      const interactionHtml = renderInteraction(step.interaction, () => {
+        // Unlock when interaction is completed
+        stepLocked = false;
+        updateNav();
+      });
+      stepEl.insertAdjacentHTML('beforeend', interactionHtml);
+      bindInteractionEvents(step.interaction);
+      stepLocked = true;
+    } else {
+      stepLocked = false;
+    }
   }
 
   // Scroll to current step
@@ -95,6 +117,7 @@ function showStep(index) {
 }
 
 function handleNext() {
+  if (stepLocked) return; // Can't advance until interaction is complete
   if (currentStepIndex < totalSteps - 1) {
     showStep(currentStepIndex + 1);
   } else {
@@ -119,9 +142,14 @@ function updateNav() {
   prevBtn.disabled = currentStepIndex === 0;
   progress.textContent = `Step ${currentStepIndex + 1} of ${totalSteps}`;
 
-  if (currentStepIndex === totalSteps - 1) {
+  if (stepLocked) {
+    nextBtn.disabled = true;
+    nextBtn.innerHTML = 'Next &#8594;';
+  } else if (currentStepIndex === totalSteps - 1) {
+    nextBtn.disabled = false;
     nextBtn.textContent = 'Finish \u2714';
   } else {
+    nextBtn.disabled = false;
     nextBtn.innerHTML = 'Next &#8594;';
   }
 }

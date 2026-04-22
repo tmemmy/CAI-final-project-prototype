@@ -29,6 +29,15 @@
   flex-shrink: 0;
 }
 
+.material-doodle {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
+  mix-blend-mode: multiply;
+}
+
 .material-info-name {
   font-weight: 600;
   margin-bottom: 2px;
@@ -126,8 +135,8 @@
   box-shadow: var(--shadow-sm);
   border-left: 4px solid var(--color-primary);
   opacity: 0;
-  transform: translateY(12px);
-  animation: stepReveal 0.4s ease forwards;
+  transform: translateX(30px);
+  animation: stepSlideIn 0.4s ease-out forwards;
 }
 
 .step-header {
@@ -329,19 +338,19 @@
 
 /* Flashcard styles */
 .flashcard {
-  perspective: 600px;
+  perspective: 800px;
   cursor: pointer;
-  min-height: 60px;
+  min-height: 100px;
 }
 
 .flashcard-inner {
   position: relative;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
   transform-style: preserve-3d;
 }
 
 .flashcard.flipped .flashcard-inner {
-  transform: rotateX(180deg);
+  transform: rotateY(180deg);
 }
 
 .flashcard-front,
@@ -369,23 +378,14 @@
   letter-spacing: 0.5px;
 }
 
-.flashcard.flipped .flashcard-front {
-  visibility: hidden;
+.flashcard-back {
+  background: var(--color-success-light);
+  border: 1px solid var(--color-success);
+  transform: rotateY(180deg);
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-}
-
-.flashcard-back {
-  background: var(--color-success-light);
-  border: 1px solid var(--color-success);
-  display: none;
-}
-
-.flashcard.flipped .flashcard-back {
-  display: block;
-  transform: rotateX(180deg);
 }
 
 /* Materials note */

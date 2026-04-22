@@ -1,0 +1,395 @@
+{
+  "id": "recursion-challenge-q5",
+  "topic": "recursion",
+  "title": "Recursion Challenge: Counting Lowercase Letters",
+  "subtitle": "Stack papers to trace count_lowercase and is_number_of_lowercase_even, then watch the stack unravel.",
+  "encouragement": "You already know the three parts of recursion from the intro tutorial. Now you'll apply them to a real problem: counting lowercase letters in a string using two pointers. If you did the bowl stack activity, this will feel familiar. The twist here is that the function decides what to do based on the CHARACTER it sees, not just a number.",
+  "realWorldExample": "Imagine you're sorting a stack of mail. You look at the first letter: is it addressed to someone on your floor? If yes, count it. Then hand the rest of the pile to your neighbor and trust them to count theirs correctly. That's this function.",
+  "materials": [
+    {
+      "item": "6 sheets of paper or sticky notes",
+      "detail": "One for each recursive call. Index cards, scrap paper, or sticky notes all work. Label them 1 through 6.",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "A pen",
+      "detail": "To write the function state on each paper.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    },
+    {
+      "item": "A flat surface for stacking",
+      "detail": "Your desk, a book, or even the floor. You need room to build a stack of papers and then unstack them.",
+      "emoji": "\ud83e\uddf1"
+    }
+  ],
+  "setup": [
+    "Clear your desk. Keep 6 papers and a pen handy.",
+    "We'll trace TWO functions on the string <strong>s = \"AbCd\"</strong> with <strong>low = 0, high = 3</strong>.",
+    "Part (a): <code>count_lowercase(\"AbCd\", 0, 3)</code> counts lowercase letters between indices 0 and 3.",
+    "Part (b): <code>is_number_of_lowercase_even(\"AbCd\", 0, 3)</code> returns True if the count is even.",
+    "The string looks like this: <strong>A</strong>(0) <strong>b</strong>(1) <strong>C</strong>(2) <strong>d</strong>(3). Two lowercase letters: b and d."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Before we start stacking, let's review the <strong>three parts</strong> for <code>count_lowercase(s, low, high)</code>:<br><br>1. <strong>Base case:</strong> if <code>low > high</code>, return 0. There are no characters left to check.<br>2. <strong>Recursive assumption:</strong> trust that <code>count_lowercase(s, low+1, high)</code> correctly counts lowercase letters from <code>low+1</code> to <code>high</code>.<br>3. <strong>Work done by this call:</strong> check if <code>s[low]</code> is lowercase. If yes, add 1 to the recursive result. If not, just pass through the recursive result.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Here's the code:<br><code>def count_lowercase(s, low, high):<br>&nbsp;&nbsp;if low > high:<br>&nbsp;&nbsp;&nbsp;&nbsp;return 0<br>&nbsp;&nbsp;if s[low].islower():<br>&nbsp;&nbsp;&nbsp;&nbsp;return 1 + count_lowercase(s, low+1, high)<br>&nbsp;&nbsp;return count_lowercase(s, low+1, high)</code>",
+      "hint": "Notice: the function ALWAYS moves <code>low</code> forward by 1. It checks one character per call and hands the rest off.",
+      "diagram": null
+    },
+    {
+      "id": 2,
+      "instruction": "<strong>PART (a): Let's trace count_lowercase(\"AbCd\", 0, 3).</strong><br><br>Call 1: <code>count_lowercase(s, 0, 3)</code>. Check <code>s[0] = 'A'</code>. That's uppercase, so we DON'T add 1. We just pass through to <code>count_lowercase(s, 1, 3)</code>. But we don't have that answer yet, so we <strong>PAUSE</strong>.",
+      "action": "Write on Paper 1: <strong>\"count_lc(s,0,3): s[0]='A' (upper) = count_lc(s,1,3) = ???\"</strong> and write <strong>\"WAITING\"</strong>. Place it on the desk.",
+      "checkpoint": "One paper on the desk. It says count_lc(s,0,3) is WAITING for count_lc(s,1,3).",
+      "conceptNote": "Because 'A' is uppercase, this call does NO work of its own. It just passes through whatever the smaller call returns. Think of it as: \"I checked my letter, it's not lowercase, so my answer is exactly what the rest of the string gives me.\"",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "Call 2: <code>count_lowercase(s, 1, 3)</code>. Check <code>s[1] = 'b'</code>. That's <strong>lowercase!</strong> So this call's work is: <strong>1 +</strong> whatever <code>count_lowercase(s, 2, 3)</code> gives us. But we need that answer first. <strong>PAUSE.</strong>",
+      "action": "Write on Paper 2: <strong>\"count_lc(s,1,3): s[1]='b' (lower) = 1 + count_lc(s,2,3) = 1 + ???\"</strong> / <strong>\"WAITING\"</strong>. Stack it ON TOP of Paper 1.",
+      "checkpoint": "Two papers stacked. Paper 2 (top) is waiting. It knows it will add 1 to whatever comes back.",
+      "conceptNote": "This is the key difference: when the character IS lowercase, the call does real work (adds 1). When it's uppercase, the call is a pass-through. But both cases still need the recursive answer before they can finish.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Call 3: <code>count_lowercase(s, 2, 3)</code>. Check <code>s[2] = 'C'</code>. Uppercase again. Pass through to <code>count_lowercase(s, 3, 3)</code>. <strong>PAUSE.</strong>",
+      "action": "Write on Paper 3: <strong>\"count_lc(s,2,3): s[2]='C' (upper) = count_lc(s,3,3) = ???\"</strong> / <strong>\"WAITING\"</strong>. Stack on top.",
+      "checkpoint": "Three papers stacked. Paper 3 on top, passing through.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Call 4: <code>count_lowercase(s, 3, 3)</code>. Check <code>s[3] = 'd'</code>. <strong>Lowercase!</strong> So: <strong>1 +</strong> count_lowercase(s, 4, 3). <strong>PAUSE.</strong>",
+      "action": "Write on Paper 4: <strong>\"count_lc(s,3,3): s[3]='d' (lower) = 1 + count_lc(s,4,3) = 1 + ???\"</strong> / <strong>\"WAITING\"</strong>. Stack on top.",
+      "checkpoint": "Four papers stacked. Paper 4 on top. This one will also add 1.",
+      "conceptNote": "Notice the pattern: every call checks one character and moves <code>low</code> forward. The stack grows by one paper per character in the range.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,3,3): 'd' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "Call 5: <code>count_lowercase(s, 4, 3)</code>. Wait: <strong>low (4) > high (3)</strong>. That's our <strong>BASE CASE!</strong> Return <strong>0</strong>. No more characters to check.",
+      "action": "Write on Paper 5: <strong>\"count_lc(s,4,3): low > high, BASE CASE = 0\"</strong> / <strong>\"DONE!\"</strong>. Stack on top.",
+      "checkpoint": "Five papers stacked. The top one says BASE CASE = 0 / DONE!",
+      "conceptNote": "The base case says: \"There are no characters in this range (the range is empty), so there are 0 lowercase letters.\" This is the stop signal that prevents infinite recursion.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,4,3): BASE CASE = 0", "status": "DONE!", "isBase": true, "resolved": false },
+          { "label": "count_lc(s,3,3): 'd' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "<strong>THE UNRAVELING BEGINS!</strong> Now we go back up the stack, top to bottom. Each waiting call can finally do its piece of work.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Remember: the most recently called function finishes first. LIFO! Just like the stack data structure.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 8,
+      "instruction": "<strong>Paper 5 (base case) returns 0.</strong> Remove it from the stack. Now Paper 4 gets its answer!",
+      "action": "Take Paper 5 off the stack. Look at Paper 4: <code>count_lc(s,3,3)</code> was <strong>1 + ???</strong>. The ??? is <strong>0</strong>. So: 1 + 0 = <strong>1</strong>. Cross out ??? and write <strong>0</strong>. Cross out WAITING and write <strong>= 1</strong>.",
+      "checkpoint": "Paper 4 now says: count_lc(s,3,3) = 1 + 0 = 1. Remove it from the stack.",
+      "conceptNote": "The 'd' was the last lowercase letter found. It contributed 1 to the count, and everything beyond it (the empty range) contributed 0.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,3,3): 'd' = 1 + 0 = 1", "status": "Returns: 1", "isBase": false, "resolved": true },
+          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "Received: 1", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "<strong>Paper 3</strong> gets the answer 1. <code>count_lc(s,2,3)</code>: 'C' was uppercase, so it's a pass-through. It returns <strong>1</strong> (unchanged).",
+      "action": "On Paper 3, cross out ??? and write <strong>1</strong>. Cross out WAITING and write <strong>= 1</strong>. Remove Paper 3.",
+      "checkpoint": "Paper 3: count_lc(s,2,3) = 1. Three papers remain.",
+      "conceptNote": "Uppercase characters are \"invisible\" to the count. They don't add anything; they just relay the answer from the rest of the string.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "Received: 1", "isBase": false, "resolved": false },
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "<strong>Paper 2</strong> gets the answer 1. <code>count_lc(s,1,3)</code>: 'b' was lowercase, so it's <strong>1 + 1 = 2</strong>.",
+      "action": "On Paper 2, cross out ??? and write <strong>1</strong>. Cross out WAITING and write <strong>= 2</strong>. Remove Paper 2.",
+      "checkpoint": "Paper 2: count_lc(s,1,3) = 1 + 1 = 2. Two papers remain.",
+      "conceptNote": "The 'b' contributed its own 1, and the rest of the string (from index 2 onward) contributed 1 (from 'd'). Total so far: 2.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "Received: 2", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "instruction": "<strong>Paper 1</strong> gets the answer 2. <code>count_lc(s,0,3)</code>: 'A' was uppercase, pass-through. Returns <strong>2</strong>.",
+      "action": "On Paper 1, cross out ??? and write <strong>2</strong>. Cross out WAITING and write <strong>= 2</strong>. Remove the last paper.",
+      "checkpoint": "All papers are off the stack. <strong>count_lowercase(\"AbCd\", 0, 3) = 2</strong>. Check: b and d are the two lowercase letters. It works!",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "count_lc(s,0,3) = 2", "status": "DONE! Final answer: 2", "isBase": false, "resolved": true }
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "instruction": "Line up your papers left to right in the order they resolved:<br><br><strong>Base(0) \u2192 d(1) \u2192 C(1) \u2192 b(2) \u2192 A(2)</strong><br><br>Notice: the 'pass-through' calls (A, C) didn't change the count. Only 'b' and 'd' added 1 each.",
+      "action": "Lay out all 5 papers in a row and trace the values flowing back: 0 \u2192 1 \u2192 1 \u2192 2 \u2192 2.",
+      "checkpoint": "You should see: the count only increases when a lowercase letter is encountered.",
+      "conceptNote": "This is key to understanding the two branches in the code: <code>return 1 + recursive_call</code> vs <code>return recursive_call</code>. The \"1 +\" only happens for lowercase characters.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 13,
+      "instruction": "<strong>PART (b): Now let's trace is_number_of_lowercase_even(\"AbCd\", 0, 3).</strong><br><br>Grab fresh papers! This function returns <strong>True/False</strong> instead of a number. The logic is trickier: finding a lowercase letter <strong>FLIPS</strong> the answer.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Here's the code:<br><code>def is_number_of_lowercase_even(s, low, high):<br>&nbsp;&nbsp;if low > high:<br>&nbsp;&nbsp;&nbsp;&nbsp;return True<br>&nbsp;&nbsp;if s[low].islower():<br>&nbsp;&nbsp;&nbsp;&nbsp;if is_...(s,low+1,high):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return False<br>&nbsp;&nbsp;&nbsp;&nbsp;else: return True<br>&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;if is_...(s,low+1,high):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return True<br>&nbsp;&nbsp;&nbsp;&nbsp;else: return False</code>",
+      "hint": "The three parts for this function:<br>1. <strong>Base case:</strong> low > high \u2192 return True (0 lowercase = even).<br>2. <strong>Recursive assumption:</strong> trust that the call on the rest correctly answers \"is the count even?\"<br>3. <strong>Work done by this call:</strong> if I see a lowercase letter, FLIP the result. If uppercase, pass it through.",
+      "diagram": null
+    },
+    {
+      "id": 14,
+      "instruction": "Call 1: <code>is_even(s, 0, 3)</code>. Check <code>s[0] = 'A'</code>. Uppercase: <strong>pass through</strong> whatever is_even(s, 1, 3) returns. <strong>PAUSE.</strong>",
+      "action": "Write on Paper 1: <strong>\"is_even(s,0,3): 'A' upper = same as is_even(s,1,3) = ???\"</strong> / <strong>\"WAITING\"</strong>. Place on desk.",
+      "checkpoint": "One paper. Uppercase = pass-through, same as part (a).",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "instruction": "Call 2: <code>is_even(s, 1, 3)</code>. Check <code>s[1] = 'b'</code>. Lowercase! This call will <strong>FLIP</strong> whatever comes back. <strong>PAUSE.</strong>",
+      "action": "Write on Paper 2: <strong>\"is_even(s,1,3): 'b' lower = FLIP is_even(s,2,3) = FLIP(???)\"</strong> / <strong>\"WAITING\"</strong>. Stack on top.",
+      "checkpoint": "Two papers. Paper 2 will flip its answer because 'b' is lowercase.",
+      "conceptNote": "\"FLIP\" means: if the rest says True, return False. If the rest says False, return True. Finding one more lowercase letter changes the parity (even becomes odd, odd becomes even).",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "instruction": "Call 3: <code>is_even(s, 2, 3)</code>. Check <code>s[2] = 'C'</code>. Uppercase: <strong>pass through</strong>. <strong>PAUSE.</strong>",
+      "action": "Write on Paper 3: <strong>\"is_even(s,2,3): 'C' upper = same as is_even(s,3,3) = ???\"</strong> / <strong>\"WAITING\"</strong>. Stack on top.",
+      "checkpoint": "Three papers. Another pass-through.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "instruction": "Call 4: <code>is_even(s, 3, 3)</code>. Check <code>s[3] = 'd'</code>. Lowercase! <strong>FLIP.</strong> <strong>PAUSE.</strong>",
+      "action": "Write on Paper 4: <strong>\"is_even(s,3,3): 'd' lower = FLIP is_even(s,4,3) = FLIP(???)\"</strong> / <strong>\"WAITING\"</strong>. Stack on top.",
+      "checkpoint": "Four papers. Paper 4 will also flip.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,3,3): 'd' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "instruction": "Call 5: <code>is_even(s, 4, 3)</code>. <strong>BASE CASE!</strong> low > high. Return <strong>True</strong>. (Zero lowercase letters = even = True.)",
+      "action": "Write on Paper 5: <strong>\"is_even(s,4,3): BASE CASE = True\"</strong> / <strong>\"DONE!\"</strong>. Stack on top.",
+      "checkpoint": "Five papers stacked. Top says TRUE / DONE!",
+      "conceptNote": "The base case returns True because zero is an even number. This is the starting point for all the flips and pass-throughs to build on.",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,4,3): BASE = True", "status": "DONE!", "isBase": true, "resolved": false },
+          { "label": "is_even(s,3,3): 'd' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "instruction": "<strong>UNRAVELING PART (b)!</strong> Remove Paper 5 (base case, True). Paper 4 gets its answer.",
+      "action": "Take Paper 5 off. Paper 4: <code>is_even(s,3,3)</code>, 'd' is lowercase, so <strong>FLIP(True) = False</strong>. Cross out FLIP(???) and write <strong>FLIP(True) = False</strong>. Remove Paper 4.",
+      "checkpoint": "Paper 4: is_even(s,3,3) = False. (One lowercase letter so far = odd.)",
+      "conceptNote": "We found 'd' (1 lowercase letter). 1 is odd, so the answer flipped from True to False. The flip represents: \"I found one more lowercase letter, so the parity changed.\"",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "Received: False", "isBase": false, "resolved": false },
+          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "instruction": "Paper 3: <code>is_even(s,2,3)</code>, 'C' is uppercase, <strong>pass through</strong>. Returns <strong>False</strong> (unchanged).",
+      "action": "Cross out ??? on Paper 3, write <strong>False</strong>. Remove Paper 3.",
+      "checkpoint": "Paper 3: is_even(s,2,3) = False. Still odd because 'C' didn't change anything.",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "Received: False", "isBase": false, "resolved": false },
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "instruction": "Paper 2: <code>is_even(s,1,3)</code>, 'b' is lowercase, <strong>FLIP(False) = True</strong>!",
+      "action": "Cross out FLIP(???) on Paper 2, write <strong>FLIP(False) = True</strong>. Remove Paper 2.",
+      "checkpoint": "Paper 2: is_even(s,1,3) = True. (Two lowercase letters now = even!)",
+      "conceptNote": "We found the second lowercase letter 'b'. Two flips: True \u2192 False \u2192 True. Every pair of lowercase letters brings us back to True (even).",
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "Received: True", "isBase": false, "resolved": false }
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "instruction": "Paper 1: <code>is_even(s,0,3)</code>, 'A' is uppercase, <strong>pass through</strong>. Returns <strong>True</strong>.",
+      "action": "Cross out ??? on Paper 1, write <strong>True</strong>. Remove the last paper.",
+      "checkpoint": "All papers are off the stack. <strong>is_number_of_lowercase_even(\"AbCd\", 0, 3) = True</strong>. Check: b and d are 2 lowercase letters. 2 is even. Correct!",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "callstack",
+        "frames": [
+          { "label": "is_even(s,0,3) = True", "status": "DONE! Final answer: True", "isBase": false, "resolved": true }
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "instruction": "Line up the Part (b) papers and trace the True/False values:<br><br><strong>Base(True) \u2192 d: FLIP(False) \u2192 C: pass(False) \u2192 b: FLIP(True) \u2192 A: pass(True)</strong><br><br>Each lowercase letter flipped the answer. Two flips brought it back to True.",
+      "action": "Lay out all 5 papers and trace: True \u2192 False \u2192 False \u2192 True \u2192 True.",
+      "checkpoint": "The pattern: every lowercase letter flips. Even number of flips = True. Odd = False.",
+      "conceptNote": "This is why the base case returns True (not False). Zero lowercase letters is even. Then each lowercase letter toggles the parity. It's like flipping a light switch: flip once = on, flip twice = off (back to start).",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 24,
+      "instruction": "<strong>Key takeaway:</strong> Both functions use the exact same recursive structure (check one character, recurse on the rest). The only difference is the <strong>work done by each call</strong>:<br><br>\u2022 <code>count_lowercase</code>: adds 1 or 0.<br>\u2022 <code>is_number_of_lowercase_even</code>: flips or passes through True/False.<br><br>The three parts of recursion are the same every time. Only the \"work\" changes.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Once you understand the three-part structure, you can adapt it to almost any problem. Identify: (1) when to stop, (2) what the smaller version is, (3) what this one call contributes.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 25,
+      "instruction": "<strong>Practice challenge:</strong> Trace both functions on <strong>s = \"Hello\"</strong> with <strong>low = 0, high = 4</strong>.<br><br>Lowercase letters: e, l, l, o (4 letters).<br>\u2022 <code>count_lowercase(\"Hello\", 0, 4)</code> should return <strong>4</strong>.<br>\u2022 <code>is_number_of_lowercase_even(\"Hello\", 0, 4)</code> should return <strong>True</strong> (4 is even).",
+      "action": "Use 6 fresh papers. Trace the full winding and unwinding for each function. Don't peek at the answer until you're done!",
+      "checkpoint": "If you got 4 and True, you've nailed it!",
+      "conceptNote": null,
+      "hint": "For is_even on \"Hello\": the base case returns True, then 'o' flips to False, 'l' flips to True, 'l' flips to False, 'e' flips to True. Four flips = back to True.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "In count_lowercase, what does the uppercase branch (return count_lowercase(s, low+1, high) without adding 1) actually DO? Is it wasted work?",
+      "answer": "It's not wasted! It moves the 'low' pointer forward by 1, shrinking the problem. Without it, the recursion would never reach the base case. The uppercase branch's job is to say 'this character doesn't count, but keep going.' Every call contributes by checking one character and passing the rest along."
+    },
+    {
+      "question": "Why does the base case for is_number_of_lowercase_even return True instead of False?",
+      "answer": "Because 0 lowercase letters IS an even number (0 is even). The base case represents the empty range: no characters to check means zero lowercase letters, and zero is even. If the base case returned False, every answer would be flipped, and the function would be wrong."
+    },
+    {
+      "question": "Could you write is_number_of_lowercase_even by calling count_lowercase and checking if the result is even? Would that be better or worse?",
+      "answer": "Yes! You could write: return count_lowercase(s, low, high) % 2 == 0. It would give the same answer. But the recursive version does it in ONE pass through the string, while the two-call version builds the entire count first. For this problem, both are fine. But the flip approach shows a deeper idea: you can track parity without ever knowing the full count."
+    },
+    {
+      "question": "How many papers (stack frames) did we use for a 4-character string? What about a 100-character string?",
+      "answer": "5 papers for 4 characters (one per character + 1 for the base case). For 100 characters, you'd need 101 stack frames. In Python, the default recursion limit is ~1000, so this function works fine for strings up to about 999 characters. Beyond that, you'd need an iterative approach."
+    }
+  ],
+  "nextTutorial": null
+}

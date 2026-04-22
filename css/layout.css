@@ -21,11 +21,15 @@
 }
 
 .app-logo {
-  font-family: var(--font-hand);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--color-primary);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  height: 36px;
+  width: auto;
 }
 
 .breadcrumb {
@@ -72,14 +76,61 @@ main {
 }
 
 /* Welcome page */
+#view-welcome {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-abstract {
+  position: absolute;
+  top: -40px;
+  right: -60px;
+  width: 320px;
+  opacity: 0.12;
+  animation: heroSpin 40s linear infinite;
+}
+
+.hero-float {
+  position: absolute;
+  width: 60px;
+  opacity: 0;
+  animation: heroFloatIn 0.8s ease-out forwards, heroBob 4s ease-in-out infinite;
+  filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.1));
+}
+
+.hero-float-scissors { top: 8%; left: 5%; width: 55px; animation-delay: 0.2s, 0.2s; mix-blend-mode: multiply; }
+.hero-float-tape { top: 15%; right: 8%; width: 60px; animation-delay: 0.4s, 0.4s; mix-blend-mode: multiply; }
+.hero-float-pencils { top: 55%; left: 3%; width: 50px; animation-delay: 0.6s, 0.6s; }
+.hero-float-sticky { bottom: 20%; right: 5%; width: 55px; animation-delay: 0.8s, 0.8s; }
+.hero-float-bulb { top: 5%; left: 45%; width: 48px; animation-delay: 0.3s, 0.3s; }
+.hero-float-clips { bottom: 15%; left: 10%; width: 50px; animation-delay: 1s, 1s; mix-blend-mode: multiply; }
+.hero-float-markers { top: 40%; right: 3%; width: 48px; animation-delay: 0.5s, 0.5s; }
+.hero-float-coin { bottom: 30%; right: 15%; width: 40px; animation-delay: 0.7s, 0.7s; }
+
 .welcome-content {
   text-align: center;
   padding: var(--spacing-2xl) 0;
+  position: relative;
+  z-index: 1;
 }
 
-.welcome-emoji {
-  font-size: 3rem;
+.hero-character-wrap {
   margin-bottom: var(--spacing-lg);
+  animation: heroCharacterIn 1s ease-out 0.1s both;
+}
+
+.hero-character {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(4px 6px 12px rgba(0,0,0,0.12));
 }
 
 .welcome-title {
@@ -89,6 +140,7 @@ main {
   line-height: 1.3;
   margin-bottom: var(--spacing-lg);
   color: var(--color-text);
+  animation: heroTextIn 0.7s ease-out 0.3s both;
 }
 
 .welcome-description {
@@ -99,16 +151,19 @@ main {
   max-width: 520px;
   margin-left: auto;
   margin-right: auto;
+  animation: heroTextIn 0.7s ease-out 0.5s both;
 }
 
 .welcome-who {
   font-size: 0.9rem;
   color: var(--color-text-light);
   margin-bottom: var(--spacing-xl);
+  animation: heroTextIn 0.7s ease-out 0.65s both;
 }
 
 .welcome-cta {
   font-size: 1.1rem;
+  animation: heroCTAIn 0.8s ease-out 0.8s both;
 }
 
 /* Responsive */
@@ -119,5 +174,17 @@ main {
 
   main {
     padding: var(--spacing-lg) 0;
+  }
+
+  .hero-character {
+    width: 130px;
+  }
+
+  .hero-float {
+    width: 40px !important;
+  }
+
+  .hero-abstract {
+    width: 200px;
   }
 }

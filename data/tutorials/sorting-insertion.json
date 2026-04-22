@@ -1,0 +1,223 @@
+{
+  "id": "sorting-insertion",
+  "topic": "sorting",
+  "title": "Insertion Sort: The Donut Line-Up",
+  "subtitle": "Pick up each donut and slide it into its spot in the sorted line, one at a time.",
+  "encouragement": "Insertion sort is how most people sort things in real life. When you pick up a hand of cards and slide each one into place, you're doing insertion sort. It feels natural because it IS natural.",
+  "realWorldExample": "You're organizing donuts on a shelf by size. You start with one donut already placed. Then you pick up the next donut, compare it to the ones already on the shelf, scoot the bigger ones over, and slide it into the gap. Repeat until every donut is in line.",
+  "materials": [
+    {
+      "item": "6 small pieces of paper",
+      "detail": "Any paper you have: sticky notes, index cards, torn scraps, whatever works. Write one number on each: 5, 8, 6, 1, 9, 3.",
+      "emoji": "📄"
+    },
+    {
+      "item": "A flat surface",
+      "detail": "Desk or table with enough room to lay 6 cards in a row with space between them.",
+      "emoji": "🧹"
+    },
+    {
+      "item": "A colored pen",
+      "detail": "To mark the boundary between the sorted region (left) and unsorted region (right).",
+      "emoji": "🖊️"
+    }
+  ],
+  "setup": [
+    "Lay your 6 cards in a row from left to right: 5, 8, 6, 1, 9, 3",
+    "Leave a finger-width of space between each card so you can slide them.",
+    "Place your colored pen vertically between the first card (5) and the second card (8). Everything to the LEFT of the pen is the \"sorted region.\" Right now, that's just 5 by itself."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "The idea of insertion sort: the first donut (5) is already \"sorted\" because a single item is always in order. Now we'll go through the rest of the donuts one by one, picking each one up and <strong>sliding it backwards into the correct spot</strong> in the sorted region.",
+      "action": null,
+      "checkpoint": "Your row: [5 | 8, 6, 1, 9, 3] where | marks the sorted boundary. Only 5 is sorted so far.",
+      "conceptNote": "In code, we start the loop at index 1, not 0. The element at index 0 is trivially sorted on its own.",
+      "hint": "This is different from bubble sort. Instead of finding the right element, we take the NEXT unsorted element and find the right PLACE for it.",
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["5", "8", "6", "1", "9", "3"],
+        "pointer": { "index": 1, "label": "next" },
+        "highlight": [0]
+      }
+    },
+    {
+      "id": 2,
+      "instruction": "<strong>Pass 1:</strong> Pick up donut <strong>8</strong> (index 1). Hold it in your hand. Now look left: is 5 bigger than 8?",
+      "action": "Pick up the 8 card. Compare 5 and 8. Is 5 > 8? No! So 8 is already in the right spot. Put it back down.",
+      "checkpoint": "Row: [5, 8 | 6, 1, 9, 3]. Move the pen boundary right. Sorted region now has 5 and 8.",
+      "conceptNote": "When the element to the left is already smaller, we stop immediately. No shifting needed. This is the best case for a single insertion: O(1).",
+      "hint": null,
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["5", "8", "6", "1", "9", "3"],
+        "highlight": [0, 1],
+        "pointer": { "index": 2, "label": "next" }
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "<strong>Pass 2:</strong> Pick up donut <strong>6</strong> (index 2). Hold it in your hand. This leaves an empty slot where 6 was.",
+      "action": "Pick up the 6 card. Now look left: is 8 > 6? Yes! Slide 8 one spot to the right, into the empty slot.",
+      "checkpoint": "After sliding 8 right: [5, __, 8 | 1, 9, 3] with 6 in your hand and a gap at index 1.",
+      "conceptNote": "This is the <strong>shift</strong>, not a swap. We're just scooting 8 over to make room. In code: <code>lst[j] = lst[j - 1]</code>. We saved 6 in a variable first so we don't lose it.",
+      "hint": "This is why we save the current element BEFORE shifting. If we didn't, the shift would overwrite it and it would be lost.",
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["5", "", "8", "1", "9", "3"],
+        "highlight": [2],
+        "pointer": { "index": 1, "label": "gap" }
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "Keep looking left: is 5 > 6? No! We found the spot. <strong>Drop donut 6 into the gap</strong> (index 1).",
+      "action": "Place the 6 card at index 1. Move the pen boundary right.",
+      "checkpoint": "Row: [5, 6, 8 | 1, 9, 3]. Three donuts sorted!",
+      "conceptNote": "We walked backwards and stopped as soon as we found a value that's smaller or equal. That's the insertion point. In code: <code>lst[j] = curr</code>.",
+      "hint": null,
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["5", "6", "8", "1", "9", "3"],
+        "highlight": [0, 1, 2],
+        "pointer": { "index": 3, "label": "next" }
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "<strong>Pass 3:</strong> Pick up donut <strong>1</strong> (index 3). This one has a long way to go. Hold it and start looking left.",
+      "action": "Pick up the 1 card. Is 8 > 1? Yes, slide 8 right. Is 6 > 1? Yes, slide 6 right. Is 5 > 1? Yes, slide 5 right. We've hit the beginning of the list!",
+      "checkpoint": "After all shifts: [__, 5, 6, 8 | 9, 3] with 1 in your hand and a gap at index 0.",
+      "conceptNote": "When we walk all the way to the beginning (j reaches 0), that means our element is the smallest so far. It goes at position 0.",
+      "hint": "Count the shifts: 3 shifts for this one insertion. That's because 1 had to pass every sorted element.",
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["", "5", "6", "8", "9", "3"],
+        "pointer": { "index": 0, "label": "gap" }
+      }
+    },
+    {
+      "id": 6,
+      "instruction": "<strong>Drop donut 1 at index 0.</strong>",
+      "action": "Place the 1 card at the far left. Move the pen boundary right.",
+      "checkpoint": "Row: [1, 5, 6, 8 | 9, 3]. Four donuts sorted!",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["1", "5", "6", "8", "9", "3"],
+        "highlight": [0, 1, 2, 3],
+        "pointer": { "index": 4, "label": "next" }
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "<strong>Pass 4:</strong> Pick up donut <strong>9</strong> (index 4). Look left: is 8 > 9?",
+      "action": "Pick up 9. Is 8 > 9? No! 9 is already bigger than everything in the sorted region. Put it right back.",
+      "checkpoint": "Row: [1, 5, 6, 8, 9 | 3]. Five donuts sorted. Only one left!",
+      "conceptNote": "Just like pass 1, no shifting needed. This is O(1) for this insertion. If the list were already sorted, EVERY pass would be this fast, giving us O(n) total.",
+      "hint": null,
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["1", "5", "6", "8", "9", "3"],
+        "highlight": [0, 1, 2, 3, 4],
+        "pointer": { "index": 5, "label": "next" }
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "<strong>Pass 5:</strong> Pick up donut <strong>3</strong> (the last one). Hold it and start walking left.",
+      "action": "Is 9 > 3? Yes, slide 9 right. Is 8 > 3? Yes, slide 8 right. Is 6 > 3? Yes, slide 6 right. Is 5 > 3? Yes, slide 5 right. Is 1 > 3? No! Stop.",
+      "checkpoint": "After shifts: [1, __, 5, 6, 8, 9] with 3 in your hand and a gap at index 1.",
+      "conceptNote": "Four shifts this time. 3 had to pass 9, 8, 6, and 5, but stopped at 1 because 1 is smaller.",
+      "hint": null,
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["1", "", "5", "6", "8", "9"],
+        "pointer": { "index": 1, "label": "gap" }
+      }
+    },
+    {
+      "id": 9,
+      "instruction": "<strong>Drop donut 3 into the gap at index 1.</strong> That's it: all donuts are sorted!",
+      "action": "Place the 3 card at index 1. Remove the pen boundary; everything is sorted.",
+      "checkpoint": "Final row: [1, 3, 5, 6, 8, 9]. Done!",
+      "conceptNote": null,
+      "hint": null,
+      "diagram": {
+        "type": "donut-array",
+        "cells": ["1", "3", "5", "6", "8", "9"],
+        "highlight": [0, 1, 2, 3, 4, 5]
+      }
+    },
+    {
+      "id": 10,
+      "instruction": "Let's count the total work. For each pass, how many elements did you shift?",
+      "action": "Pass 1: 0 shifts. Pass 2: 1 shift. Pass 3: 3 shifts. Pass 4: 0 shifts. Pass 5: 4 shifts. Total: <strong>8 shifts</strong> across 5 passes.",
+      "checkpoint": null,
+      "conceptNote": "Worst case for 6 elements: 1 + 2 + 3 + 4 + 5 = 15 shifts. We did 8 because some elements were already close to their correct position. The worst case is a reverse-sorted list: every element shifts all the way to the front.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 11,
+      "instruction": "Insertion sort's <strong>time complexity is O(n\u00b2)</strong> in the worst and average case. But here's what makes it special: its <strong>best case is O(n)</strong> on an already-sorted list.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "T(n) = 1 + 2 + 3 + ... + (n-1) = n(n-1)/2 = O(n\u00b2). But if the list is already sorted, each pass does zero shifts and just moves on. That's one comparison per pass, n-1 total: O(n). This makes insertion sort great for <strong>nearly sorted data</strong>.",
+      "hint": "This is also why insertion sort is used as a subroutine in more advanced algorithms like Timsort (Python's built-in sort). For small or nearly-sorted chunks, insertion sort is faster than fancier algorithms.",
+      "diagram": null
+    },
+    {
+      "id": 12,
+      "instruction": "Notice something important: insertion sort <strong>shifts</strong>, not <strong>swaps</strong>. We save the element, scoot everything over, then drop it in. That's fewer operations than swapping neighbors one by one.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "A swap requires 3 assignments (temp = a; a = b; b = temp). A shift is just 1 assignment (<code>lst[j] = lst[j-1]</code>). We saved the element once at the start, then do single assignments per shift, then one final placement. Fewer writes to memory.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 13,
+      "instruction": "<strong>Loop invariant:</strong> here's how we know insertion sort is correct. At the start of each pass i, the first i elements are sorted. This is always true.",
+      "action": "Look back at your work. After pass 1, the first 2 elements were sorted. After pass 2, the first 3. After pass 3, the first 4. After pass 5, all 6. The sorted region grew by exactly one element each pass.",
+      "checkpoint": null,
+      "conceptNote": "A <strong>loop invariant</strong> is a condition that holds true before and after every iteration of a loop. For insertion sort: \"the first i elements are sorted.\" <strong>Initialization:</strong> before the loop, the first 1 element is trivially sorted. <strong>Maintenance:</strong> each pass inserts one element correctly, keeping the region sorted. <strong>Termination:</strong> when i = n, the entire list is sorted.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 14,
+      "instruction": "<strong>Try it yourself!</strong> Shuffle your donuts back to a random order and do insertion sort again. This time, try it with your eyes on the <strong>sorted boundary</strong>: watch it grow from left to right, one donut at a time.",
+      "action": "Pick up each unsorted donut, walk it backwards through the sorted region, and drop it in place. Count your shifts.",
+      "checkpoint": null,
+      "conceptNote": null,
+      "hint": "If you want an extra challenge, try sorting the donuts in REVERSE order (9, 8, 6, 5, 3, 1). That's the worst case: every single donut shifts all the way to the front.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "How is insertion sort different from bubble sort?",
+      "answer": "Bubble sort repeatedly compares neighbors and swaps; the largest element \"bubbles\" to the end each pass. Insertion sort picks up the next unsorted element and slides it backwards into the correct position in the sorted region. Insertion sort shifts instead of swapping, and it builds the sorted region from left to right."
+    },
+    {
+      "question": "Why do we save the current element in a variable before shifting?",
+      "answer": "Because shifting moves elements to the right, which overwrites the slot where our element was. If we didn't save it first, we'd lose it. The saved copy is what gets placed into the gap at the end."
+    },
+    {
+      "question": "When is insertion sort better than other O(n\u00b2) sorts?",
+      "answer": "When the data is already nearly sorted. Insertion sort's best case is O(n) on a sorted list, because no shifts are needed. Bubble sort and selection sort are always O(n\u00b2) in their basic forms. This is why Python's Timsort uses insertion sort on small, nearly-sorted chunks."
+    },
+    {
+      "question": "What is a loop invariant, and what is it for insertion sort?",
+      "answer": "A loop invariant is a condition that's true before and after every iteration of a loop. For insertion sort: \"at the start of pass i, the first i elements are sorted.\" This holds at initialization (1 element is trivially sorted), is maintained each pass (we insert correctly), and at termination (all n elements are sorted)."
+    },
+    {
+      "question": "Insertion sort does shifts, not swaps. Why is that more efficient?",
+      "answer": "A swap needs 3 assignments (using a temp variable). A shift is just 1 assignment: copy the element one position right. We save the current element once, do all the single-assignment shifts, then place it once. Fewer total memory writes."
+    }
+  ],
+  "nextTutorial": "sorting-merge"
+}

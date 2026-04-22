@@ -1,0 +1,169 @@
+{
+  "id": "searching-sliding-window",
+  "topic": "searching",
+  "title": "Sliding Window: Frame the Best Subarray",
+  "subtitle": "Cut out a paper window, slide it across a row of numbers, and watch the sum update as cards appear and disappear.",
+  "encouragement": "The sliding window technique feels like a cheat code once you see it. Instead of recalculating everything when the window moves, you just subtract what disappeared off the left edge and add what appeared on the right. It turns an O(n*k) brute-force approach into O(n). Let's build it with your hands.",
+  "realWorldExample": "Imagine reading a sentence through a narrow slit cut in a piece of paper. You can only see a few words at a time. To read the next group, you slide the paper over: one word disappears on the left, one new word appears on the right. You never go back and re-read the whole sentence; you just update what changed.",
+  "materials": [
+    {
+      "item": "8 index cards or paper squares",
+      "detail": "Write one number on each: 2, 1, 5, 1, 3, 2, 8, 4. These represent daily values (temperatures, scores, sales, etc.).",
+      "emoji": "\ud83d\udcdd"
+    },
+    {
+      "item": "A piece of paper and scissors",
+      "detail": "You'll cut a window out of this paper. The window should be wide enough to reveal exactly 3 cards when placed over your row.",
+      "emoji": "\u2702\ufe0f"
+    },
+    {
+      "item": "A sticky note",
+      "detail": "To track the current window sum and the best sum seen so far.",
+      "emoji": "\ud83d\udccc"
+    },
+    {
+      "item": "A pen",
+      "detail": "For writing sums and notes.",
+      "emoji": "\ud83d\udd8a\ufe0f"
+    }
+  ],
+  "setup": [
+    "Lay out your 8 cards in a row, touching edge to edge: 2, 1, 5, 1, 3, 2, 8, 4.",
+    "Write index numbers 0 through 7 below each card.",
+    "Now build your window: take a piece of paper wide enough to cover the entire row. Cut a rectangular hole in it that's exactly 3 cards wide. When you lay this paper over your row, it should hide all the cards EXCEPT the 3 visible through the hole. This paper IS your sliding window.",
+    "On your sticky note, make two lines: \"window sum: ___\" and \"best sum: ___\".",
+    "Our goal: find which group of 3 consecutive cards has the highest sum."
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "The problem: find which group of <strong>3 consecutive cards</strong> has the largest sum. The brute-force way would be to add up every group of 3 from scratch. But the sliding window is smarter: compute the first window's sum, then <strong>slide</strong> the frame one card at a time. Each slide, one card disappears off the left and one new card appears on the right. Subtract the one that disappeared, add the one that appeared.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Brute force: for each starting position, add up k elements. That's O(n * k). Sliding window: compute the first sum once, then each slide is one subtraction and one addition. That's O(n).",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 2,
+      "instruction": "<strong>Place your window at the start.</strong> Position the paper frame so the hole reveals the first 3 cards: indices 0, 1, 2. All other cards are hidden under the paper. Add up what you see.",
+      "action": "You can see through the window: <strong>2, 1, 5</strong>. Sum = 2 + 1 + 5 = <strong>8</strong>. Write on your sticky note: window sum = 8, best sum = 8.",
+      "checkpoint": "Your window reveals [2, 1, 5]. Everything else is hidden. Window sum = 8. Best = 8.",
+      "conceptNote": "This initial sum costs O(k) to compute. We only do this once. Every slide after this is O(1).",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "1", "5", "1", "3", "2", "8", "4"],
+        "highlight": [0, 1, 2]
+      }
+    },
+    {
+      "id": 3,
+      "instruction": "<strong>Now slide it yourself!</strong> Use the arrow button (or swipe) to push the window one card to the right. Watch what <strong>disappears</strong> off the left edge and what <strong>appears</strong> on the right. The sum updates automatically: subtract what left, add what entered. Slide all the way to the end to find the best window.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Each slide is the same two operations: subtract the card that disappeared, add the card that appeared. That's O(1) per slide, no matter how big the window is.",
+      "hint": "Watch the \u2212 and + indicators: they show you exactly which card left and which entered. That's the whole algorithm.",
+      "diagram": null,
+      "interaction": {
+        "type": "sliding-window",
+        "cells": [2, 1, 5, 1, 3, 2, 8, 4],
+        "windowSize": 3,
+        "goal": "max"
+      }
+    },
+    {
+      "id": 4,
+      "instruction": "You found it! The best subarray of size 3 is <strong>[2, 8, 4]</strong> at indices [5, 6, 7] with a sum of <strong>14</strong>. Let's count the work.",
+      "action": "You computed the first sum (3 additions), then did 5 slides (1 subtraction + 1 addition each). Total: 3 + 10 = <strong>13 operations</strong>. Brute force would have been 6 windows x 3 additions = <strong>18</strong>.",
+      "checkpoint": null,
+      "conceptNote": "The gap gets massive at scale. For 10,000 cards with window size 500: brute force does ~4.75 million operations. Sliding window does ~10,000. That's 475x faster.",
+      "hint": null,
+      "diagram": {
+        "type": "array",
+        "cells": ["2", "1", "5", "1", "3", "2", "8", "4"],
+        "highlight": [5, 6, 7]
+      }
+    },
+    {
+      "id": 5,
+      "instruction": "Let's connect this to code. The structure matches exactly what you did: build the first window, then loop and slide.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "The loop runs from i = k to i = n-1. At each step:<br><br>\u2022 <code>window_sum -= lst[i - k]</code> (the card that disappeared off the left)<br>\u2022 <code>window_sum += lst[i]</code> (the card that appeared on the right)<br>\u2022 <code>best = max(best, window_sum)</code><br><br>Three lines inside the loop. That's the whole algorithm.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 6,
+      "instruction": "Now try a <strong>bigger window</strong>. Same array, but window size <strong>k = 4</strong>. Slide through and find the best sum.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "Bigger window = fewer slides (4 instead of 5) but each slide still costs the same O(1). The formula: n elements, window size k = n - k slides.",
+      "hint": "Notice: you use the exact same technique with the wider window. The only thing that changed is how many cards you see at once.",
+      "diagram": null,
+      "interaction": {
+        "type": "sliding-window",
+        "cells": [2, 1, 5, 1, 3, 2, 8, 4],
+        "windowSize": 4,
+        "goal": "max"
+      }
+    },
+    {
+      "id": 7,
+      "instruction": "One more: same array, window size 3, but find the <strong>minimum</strong> sum window.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "The sliding mechanics are identical. The only change: track the minimum instead of maximum. Same physical motion, different question.",
+      "hint": null,
+      "diagram": null,
+      "interaction": {
+        "type": "sliding-window",
+        "cells": [2, 1, 5, 1, 3, 2, 8, 4],
+        "windowSize": 3,
+        "goal": "min"
+      }
+    },
+    {
+      "id": 8,
+      "instruction": "<strong>When to use sliding window vs. two pointers?</strong> This is the question students struggle with most. Here's the guide.",
+      "action": null,
+      "checkpoint": null,
+      "conceptNote": "<strong>Sliding window:</strong> the problem asks about <strong>contiguous subarrays or substrings</strong>. You're looking at a range that moves in one direction. Both edges of the window travel left to right. The window size can be fixed (like k = 3) or flexible (grow/shrink until a condition is met).<br><br><strong>Two pointers:</strong> the problem asks about a <strong>pair of elements</strong>, usually in a sorted array. The pointers start at opposite ends and move toward each other.<br><br>Key signal: \"consecutive,\" \"contiguous subarray,\" or \"substring\" = sliding window. \"Pair,\" \"two elements that sum to\" = two pointers.",
+      "hint": null,
+      "diagram": null
+    },
+    {
+      "id": 9,
+      "instruction": "<strong>Try it with your physical window!</strong> Write 10 random single-digit numbers on cards, cut a window of any size, and slide it across the whole row. Track your sums on a sticky note.",
+      "action": "Practice the rhythm: slide, see what disappeared, see what appeared, subtract, add, check the best. Repeat until the frame hits the end.",
+      "checkpoint": null,
+      "conceptNote": null,
+      "hint": "For a challenge: try tracking the best window's starting index too. When you update the best, write down where the window starts.",
+      "diagram": null
+    }
+  ],
+  "reflection": [
+    {
+      "question": "Why is the sliding window O(n) instead of O(n*k)?",
+      "answer": "After computing the first window sum (O(k)), each slide costs O(1): one subtraction and one addition. There are n - k slides, so the total is O(k) + O(n - k) = O(n). Brute force recomputes all k elements for each window, giving O(n * k)."
+    },
+    {
+      "question": "What changes if the window size equals 1?",
+      "answer": "Each window is just a single card. The \"max sum subarray of size 1\" is simply the maximum element in the array. The sliding window still works, but it degenerates into a linear scan."
+    },
+    {
+      "question": "What if the window size k is larger than the array?",
+      "answer": "There are no valid windows. The problem has no solution. In code, check if k > n and handle it as an edge case before starting."
+    },
+    {
+      "question": "Could you use this technique to find the average of each window?",
+      "answer": "Yes! Track the sum with the same slide logic, then divide by k when you need the average. The mechanics are identical: subtract what leaves, add what enters."
+    },
+    {
+      "question": "How do you identify a sliding window problem vs. a two-pointer problem?",
+      "answer": "Sliding window: the problem asks about contiguous subarrays or substrings, involving a sum, average, or count within a range. Both edges move in the same direction. Two pointers: the problem asks about pairs of elements, often in a sorted array. Pointers start at opposite ends and move toward each other."
+    }
+  ],
+  "nextTutorial": null
+}

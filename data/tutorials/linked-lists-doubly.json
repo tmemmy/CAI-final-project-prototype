@@ -201,5 +201,5 @@
       "answer": "Without sentinels, you need special cases for inserting at the front (no predecessor) or back (no successor), and for deleting the first or last node. Sentinels ensure every real node always has neighbors."
     }
   ],
-  "nextTutorial": "trees-intro"
+  "nextTutorial": "linked-lists-reverse"
 }
