@@ -1,5 +1,10 @@
 // js/generator.js — Handles Claude API calls for tutorial generation
 
+// Clean API key: trim whitespace, remove invisible chars or encoding artifacts
+function cleanApiKey(key) {
+  return key.trim().replace(/[\s\u200B\u00A0]/g, '');
+}
+
 const MATERIAL_KIT = [
   'Paper (strips, sheets, or squares)',
   'Colored pencils or pens',
@@ -82,7 +87,7 @@ ${EXAMPLE_TUTORIAL_STRUCTURE}`;
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': apiKey,
+      'x-api-key': cleanApiKey(apiKey),
       'anthropic-version': '2023-06-01',
       'anthropic-dangerous-direct-browser-access': 'true'
     },
@@ -159,7 +164,7 @@ Please revise the tutorial based on this feedback and return the updated JSON.`;
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': apiKey,
+      'x-api-key': cleanApiKey(apiKey),
       'anthropic-version': '2023-06-01',
       'anthropic-dangerous-direct-browser-access': 'true'
     },

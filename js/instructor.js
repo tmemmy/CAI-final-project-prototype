@@ -31,6 +31,47 @@ const MATERIAL_KIT = [
 let currentPreview = null;
 let revisionCount = 0;
 
+function refreshApiKeyUI() {
+  const section = document.getElementById('api-key-section');
+  if (!section) return;
+  const apiKey = localStorage.getItem('cutandcode-api-key');
+
+  if (apiKey) {
+    section.innerHTML = `
+      <h3 class="instructor-card-title">API Key</h3>
+      <div class="api-key-saved">
+        <span class="api-key-status">API key saved</span>
+        <button class="btn btn-ghost btn-sm" id="change-key-btn">Change</button>
+      </div>
+    `;
+    document.getElementById('change-key-btn').addEventListener('click', () => {
+      localStorage.removeItem('cutandcode-api-key');
+      refreshApiKeyUI();
+    });
+  } else {
+    section.innerHTML = `
+      <h3 class="instructor-card-title">API Key</h3>
+      <div class="api-key-form">
+        <input type="password" class="instructor-input" id="api-key-input"
+          placeholder="Enter your Claude API key (sk-ant-...)" />
+        <button class="btn btn-primary btn-sm" id="save-key-btn">Save Key</button>
+      </div>
+    `;
+    document.getElementById('save-key-btn').addEventListener('click', () => {
+      const input = document.getElementById('api-key-input');
+      const key = input.value.trim();
+      if (key) {
+        localStorage.setItem('cutandcode-api-key', key);
+        refreshApiKeyUI();
+        const genBtn = document.getElementById('generate-btn');
+        if (genBtn) { genBtn.disabled = false; }
+        const hint = document.querySelector('.instructor-hint');
+        if (hint) hint.remove();
+      }
+    });
+  }
+}
+
 export function renderInstructorMode() {
   const apiKey = localStorage.getItem('cutandcode-api-key');
   const tutorials = getGeneratedTutorials();
@@ -191,7 +232,12 @@ export function bindInstructorEvents() {
       const key = input.value.trim();
       if (key) {
         localStorage.setItem('cutandcode-api-key', key);
-        location.hash = '#/instructor'; // re-render
+        refreshApiKeyUI();
+        // Enable the generate button now that we have a key
+        const genBtn = document.getElementById('generate-btn');
+        if (genBtn) { genBtn.disabled = false; }
+        const hint = document.querySelector('.instructor-hint');
+        if (hint) hint.remove();
       }
     });
   }
@@ -200,24 +246,8 @@ export function bindInstructorEvents() {
   const changeKeyBtn = document.getElementById('change-key-btn');
   if (changeKeyBtn) {
     changeKeyBtn.addEventListener('click', () => {
-      const section = document.getElementById('api-key-section');
-      section.innerHTML = `
-        <h3 class="instructor-card-title">API Key</h3>
-        <div class="api-key-form">
-          <input type="password" class="instructor-input" id="api-key-input"
-            placeholder="Enter your Claude API key (sk-ant-...)" />
-          <button class="btn btn-primary btn-sm" id="save-key-btn">Save Key</button>
-        </div>
-      `;
-      // Re-bind save
-      document.getElementById('save-key-btn').addEventListener('click', () => {
-        const input = document.getElementById('api-key-input');
-        const key = input.value.trim();
-        if (key) {
-          localStorage.setItem('cutandcode-api-key', key);
-          location.hash = '#/instructor';
-        }
-      });
+      localStorage.removeItem('cutandcode-api-key');
+      refreshApiKeyUI();
     });
   }
 
