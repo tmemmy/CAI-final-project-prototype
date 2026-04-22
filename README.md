@@ -34,7 +34,7 @@ CutAndCode is a web app that teaches CS data structures and algorithms through p
 
 ## Instructor Mode
 
-Instructors can generate new tutorials from any concept by entering a Claude API key. Generated tutorials are constrained to a standard kit of 10 materials and follow the same format as pre-built tutorials. The instructor reviews before publishing. Students never need API keys.
+Instructors can generate new tutorials from any concept by entering a Claude API key. Generated tutorials are constrained to a standard kit of 7 materials and follow the same format as pre-built tutorials. The instructor reviews before publishing. Students never need API keys.
 
 ## Running Locally
 
