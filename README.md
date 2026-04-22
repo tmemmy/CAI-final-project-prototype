@@ -53,6 +53,6 @@ python3 -m http.server 8080
 
 ## Credits
 
-Created by Maria Fraguas for Creative AI at NYU, 2026.
+Created by Maria Fraguas for Creativity and AI at NYU, 2026.
 
 Built collaboratively with Claude Code (Anthropic).
