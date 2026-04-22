@@ -111,4 +111,10 @@ function renderInstructor() {
 
 // Initialize
 window.addEventListener('hashchange', handleRoute);
-window.addEventListener('DOMContentLoaded', handleRoute);
+window.addEventListener('DOMContentLoaded', () => {
+  // If no hash on first visit, default to welcome page
+  if (!location.hash || location.hash === '#') {
+    location.hash = '#/';
+  }
+  handleRoute();
+});
