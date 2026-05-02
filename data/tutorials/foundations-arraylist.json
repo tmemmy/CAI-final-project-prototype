@@ -8,7 +8,7 @@
   "materials": [
     {
       "item": "Two strips of paper",
-      "detail": "One short strip (~6 inches) and one longer strip (~12 inches). The short one is your starting array; the long one is the resized array.",
+      "detail": "One short and one long. The short one is your starting array; the long one is the resized array.",
       "emoji": "\ud83d\udccf"
     },
     {
@@ -18,7 +18,7 @@
     },
     {
       "item": "8 small paper cards",
-      "detail": "About 1 inch each. Write these letters on them: A, B, C, D, E, F, G, H",
+      "detail": "Write these letters on them: A, B, C, D, E, F, G, H",
       "emoji": "\ud83d\udcdd"
     },
     {

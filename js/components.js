@@ -30,11 +30,11 @@ const topicIcons = {
     <line x1="17" y1="24" x2="17" y2="24" stroke="#A098C4"/>
   </svg>`,
   recursion: `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <ellipse cx="24" cy="36" rx="18" ry="7" stroke="#6B9CC4" fill="#EBF3FA"/>
-    <ellipse cx="24" cy="28" rx="14" ry="6" stroke="#6B9CC4" fill="#E8F0F8"/>
-    <ellipse cx="24" cy="21" rx="10" ry="5" stroke="#6B9CC4" fill="#D8E8F4"/>
-    <ellipse cx="24" cy="15" rx="6" ry="4" stroke="#6B9CC4" fill="#C8DCF0"/>
-    <circle cx="24" cy="10" r="3" stroke="#6B9CC4" fill="#6B9CC4"/>
+    <circle cx="24" cy="38" r="3" stroke="#6B9CC4" fill="#6B9CC4"/>
+    <ellipse cx="24" cy="33" rx="6" ry="4" stroke="#6B9CC4" fill="#C8DCF0"/>
+    <ellipse cx="24" cy="27" rx="10" ry="5" stroke="#6B9CC4" fill="#D8E8F4"/>
+    <ellipse cx="24" cy="20" rx="14" ry="6" stroke="#6B9CC4" fill="#E8F0F8"/>
+    <ellipse cx="24" cy="12" rx="18" ry="7" stroke="#6B9CC4" fill="#EBF3FA"/>
   </svg>`,
   sorting: `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="4" y="32" width="8" height="12" rx="1" stroke="#C4889B" fill="#F5EDF0"/>
@@ -100,27 +100,45 @@ export function renderTutorialListItem(topicId, tutorial) {
 }
 
 const DOODLE_PATH = 'images for graphics/doodles';
-const materialImageMap = {
-  'paper': `${DOODLE_PATH}/Humaaans - Paperwork.png`,
-  'card': `${DOODLE_PATH}/Dayflow - Sticky Notes.png`,
-  'scissor': `${DOODLE_PATH}/scissors.jpeg`,
-  'pen': `${DOODLE_PATH}/The Little Things - Markers.png`,
-  'marker': `${DOODLE_PATH}/The Little Things - Markers.png`,
-  'pencil': `${DOODLE_PATH}/The Little Things - Pencils.png`,
-  'tape': `${DOODLE_PATH}/tape.jpeg`,
-  'bowl': `${DOODLE_PATH}/The Munchies - Bowl.png`,
-  'cup': `${DOODLE_PATH}/The Munchies - Bowl.png`,
-  'sticky': `${DOODLE_PATH}/Dayflow - Sticky Notes.png`,
-  'clip': `${DOODLE_PATH}/paper clips.jpeg`,
-  'coin': `${DOODLE_PATH}/Hands - Coin.png`,
-  'token': `${DOODLE_PATH}/Hands - Coin.png`,
-  'string': `${DOODLE_PATH}/Happy Pride! - Colors.png`,
-  'yarn': `${DOODLE_PATH}/Happy Pride! - Colors.png`,
-};
+// Order matters: more specific keywords first so "paperclip" matches 'clip' not 'paper'
+const materialImageMap = [
+  ['scissor', `${DOODLE_PATH}/scissors.jpeg`],
+  ['paperclip', `${DOODLE_PATH}/paperclip.jpeg`],
+  ['clip', `${DOODLE_PATH}/paperclip.jpeg`],
+  ['sticky', `${DOODLE_PATH}/Dayflow - Sticky Notes.png`],
+  ['bowl', `${DOODLE_PATH}/The Munchies - Bowl.png`],
+  ['cup', `${DOODLE_PATH}/The Munchies - Bowl.png`],
+  ['coin', `${DOODLE_PATH}/Hands - Coin.png`],
+  ['token', `${DOODLE_PATH}/Hands - Coin.png`],
+  ['tape', `${DOODLE_PATH}/tape.jpeg`],
+  ['blue colored pencil', `${DOODLE_PATH}/blue pencil.png`],
+  ['red colored pencil', `${DOODLE_PATH}/red pencil.png`],
+  ['blue pen', `${DOODLE_PATH}/blue pen.png`],
+  ['red pen', `${DOODLE_PATH}/red pen.png`],
+  ['green pen', `${DOODLE_PATH}/green pen.png`],
+  ['colored pencil', `${DOODLE_PATH}/The Little Things - Pencils.png`],
+  ['pencil', `${DOODLE_PATH}/The Little Things - Pencils.png`],
+  ['eraser', `${DOODLE_PATH}/The Little Things - Pencils.png`],
+  ['marker', `${DOODLE_PATH}/The Little Things - Markers.png`],
+  ['pen', `${DOODLE_PATH}/The Little Things - Markers.png`],
+  ['index card', `${DOODLE_PATH}/paper squares.png`],
+  ['paper card', `${DOODLE_PATH}/paper squares.png`],
+  ['paper square', `${DOODLE_PATH}/paper squares.png`],
+  ['paper piece', `${DOODLE_PATH}/paper squares.png`],
+  ['card', `${DOODLE_PATH}/paper squares.png`],
+  ['square', `${DOODLE_PATH}/paper squares.png`],
+  ['strip', `${DOODLE_PATH}/paper strips.png`],
+  ['sheet', `${DOODLE_PATH}/blank page.png`],
+  ['large', `${DOODLE_PATH}/blank page.png`],
+  ['paper', `${DOODLE_PATH}/blank page.png`],
+  ['string', `${DOODLE_PATH}/Happy Pride! - Colors.png`],
+  ['yarn', `${DOODLE_PATH}/Happy Pride! - Colors.png`],
+  ['pointer', `${DOODLE_PATH}/Hands - Coin.png`],
+];
 
 function getMaterialImage(item) {
   const lower = item.toLowerCase();
-  for (const [keyword, img] of Object.entries(materialImageMap)) {
+  for (const [keyword, img] of materialImageMap) {
     if (lower.includes(keyword)) return img;
   }
   return null;

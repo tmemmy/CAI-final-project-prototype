@@ -20,7 +20,7 @@
       "id": "stacks",
       "title": "Stacks",
       "icon": "stacks",
-      "description": "Learn LIFO (Last In, First Out) by building a stack like a Pringles can, index 0 at the bottom.",
+      "description": "Learn LIFO (Last In, First Out).",
       "color": "#5A8AB4",
       "tutorials": [
         {
@@ -50,7 +50,7 @@
       "id": "queues",
       "title": "Queues",
       "icon": "queues",
-      "description": "Learn FIFO (First In, First Out) by building a queue like a conveyor belt, in at the back, out at the front.",
+      "description": "Learn FIFO (First In, First Out).",
       "color": "#8CB89B",
       "tutorials": [
         {
@@ -73,7 +73,7 @@
       "id": "linked-lists",
       "title": "Linked Lists",
       "icon": "linked-lists",
-      "description": "Draw nodes and pointers with pencil and paper. Erase and redraw to insert and delete.",
+      "description": "Non-contiguous data storage. Each element (node) is \"aware\" of its neighbors because it stores a pointer (memory address) to them.",
       "color": "#A098C4",
       "tutorials": [
         {
@@ -117,7 +117,7 @@
       "id": "recursion",
       "title": "Recursion",
       "icon": "recursion",
-      "description": "Finally understand recursion by stacking bowls and watching the call stack unravel.",
+      "description": "Trace a call stack. Base case(s), recursive step(s), and the work done by each call.",
       "color": "#6B9CC4",
       "tutorials": [
         {
@@ -140,7 +140,7 @@
       "id": "sorting",
       "title": "Sorting",
       "icon": "sorting",
-      "description": "See how sorting algorithms work by physically swapping cards on your desk.",
+      "description": "Rearrange a list of data into a specific order, given runtime constraints.",
       "color": "#C4889B",
       "tutorials": [
         {
@@ -200,7 +200,7 @@
       "id": "trees",
       "title": "Trees",
       "icon": "trees",
-      "description": "Draw binary trees with pencil and paper. Traverse in-order, pre-order, and post-order.",
+      "description": "Binary trees and binary search trees. Traversals: pre-order, post-order, in-order, and breadth-first.",
       "color": "#8CB89B",
       "tutorials": [
         {
@@ -223,7 +223,7 @@
       "id": "complexity",
       "title": "Complexity",
       "icon": "complexity",
-      "description": "Feel the difference between O(n) and O(n\u00b2) by counting your physical steps across algorithms.",
+      "description": "Visualize the difference in runtimes using a graph. Draw and compare O(1) through O(n!).",
       "color": "#A098C4",
       "tutorials": [
         {

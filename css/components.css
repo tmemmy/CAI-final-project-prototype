@@ -9,8 +9,10 @@
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--radius-full);
+  border: none;
   font-weight: 600;
   font-size: 1rem;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
@@ -18,12 +20,23 @@
   background: var(--color-primary);
   color: white;
   padding: var(--spacing-md) var(--spacing-xl);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 16px;
+  box-shadow: 0 4px 0 0 var(--color-primary-hover), 0 6px 16px rgba(107,156,196,0.25);
+  transition: all 0.1s;
 }
 
 .btn-primary:hover {
-  background: var(--color-primary-hover);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 0 var(--color-primary-hover), 0 10px 24px rgba(107,156,196,0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 0 var(--color-primary-hover), 0 2px 8px rgba(107,156,196,0.2);
 }
 
 .btn-secondary {
@@ -197,6 +210,65 @@
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   color: var(--color-text-muted);
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+
+/* ============================================
+   CODI MASCOT PROMPT
+   ============================================ */
+
+.codi-prompt {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.codi-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(160, 152, 196, 0.2);
+  animation: codiBounce 3s ease-in-out infinite;
+}
+
+@keyframes codiBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.codi-speech {
+  background: var(--color-surface);
+  border-radius: 16px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: 0 2px 12px rgba(107, 156, 196, 0.08);
+  position: relative;
+}
+
+.codi-speech::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid var(--color-surface);
+}
+
+.codi-speech .section-title {
+  margin-bottom: 2px;
+}
+
+.codi-speech .section-subtitle {
+  margin-bottom: 0;
 }
 
 /* ============================================

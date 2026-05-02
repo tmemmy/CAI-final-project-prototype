@@ -3,33 +3,28 @@
   "topic": "sorting",
   "title": "Merge Sort: Divide, Conquer, Combine",
   "subtitle": "Stack bowls to trace the recursive call stack, split cards into piles, and merge them back in sorted order.",
-  "encouragement": "Merge sort is the first sorting algorithm in this course that's genuinely fast: \u0398(n log n) in every case. It's the same strategy used in real-world systems to sort massive datasets. The trick is divide-and-conquer: break the problem in half, trust that each half gets solved, then combine. If you did the recursion tutorial with bowls, this will feel familiar because merge sort IS recursion.",
+  "encouragement": "Merge sort is the first sorting algorithm in this course that's genuinely fast: Θ(n log n) in every case. It's the same strategy used in real-world systems to sort massive datasets. The trick is divide-and-conquer: break the problem in half, trust that each half gets solved, then combine. If you did the recursion tutorial with bowls, this will feel familiar because merge sort IS recursion.",
   "realWorldExample": "Imagine you and a friend need to alphabetize 200 flash cards. Instead of sorting all 200 yourself, you split the pile in half: you each sort 100 cards, then you sit across from each other and merge your two sorted piles by comparing the card on top of each pile and placing the smaller one down first. That's merge sort.",
   "materials": [
     {
       "item": "8 index cards or paper squares",
       "detail": "Write one number on each: 5, 8, 6, 1, 9, 3, 0, 2. Big, clear numbers.",
-      "emoji": "\ud83c\udccf"
+      "emoji": "🃏"
     },
     {
       "item": "4 bowls, cups, or stackable containers",
       "detail": "These represent the recursive call stack, just like in the recursion tutorial. Label them Bowl 1 through Bowl 4.",
-      "emoji": "\ud83e\udd63"
+      "emoji": "🥣"
     },
     {
       "item": "8+ sticky notes",
       "detail": "To label each bowl with what that recursive call is doing. You'll reuse bowls, so keep extra sticky notes handy.",
-      "emoji": "\ud83d\udccc"
+      "emoji": "📌"
     },
     {
       "item": "A pen",
       "detail": "For writing on sticky notes.",
-      "emoji": "\ud83d\udd8a\ufe0f"
-    },
-    {
-      "item": "A large flat surface",
-      "detail": "You need room for the bowl stack AND space to lay out card piles for splitting and merging.",
-      "emoji": "\ud83e\uddf9"
+      "emoji": "🖊️"
     }
   ],
   "setup": [
@@ -45,7 +40,7 @@
       "action": null,
       "checkpoint": null,
       "conceptNote": "Three parts of the recursion:<br>1. <strong>Base case:</strong> a list of 0 or 1 elements is already sorted. Return immediately.<br>2. <strong>Recursive assumption:</strong> trust that merge_sort correctly sorts each half.<br>3. <strong>Work done by this call:</strong> split, then merge the two sorted halves back together.",
-      "hint": "The maximum stack depth will be 4 bowls (for 8 cards). That's log\u2082(8) + 1 levels.",
+      "hint": "The maximum stack depth will be 4 bowls (for 8 cards). That's log₂(8) + 1 levels.",
       "diagram": null
     },
     {
@@ -58,7 +53,12 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "SPLITTING", "isBase": false, "resolved": false }
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "SPLITTING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -72,8 +72,18 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([5,8,6,1])", "status": "SPLITTING", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "WAITING for left", "isBase": false, "resolved": false }
+          {
+            "label": "ms([5,8,6,1])",
+            "status": "SPLITTING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -87,9 +97,24 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([5,8])", "status": "SPLITTING", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1])", "status": "WAITING for left", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "WAITING for left", "isBase": false, "resolved": false }
+          {
+            "label": "ms([5,8])",
+            "status": "SPLITTING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -103,10 +128,30 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([5])", "status": "BASE CASE!", "isBase": true, "resolved": false },
-          { "label": "ms([5,8])", "status": "WAITING for left", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1])", "status": "WAITING for left", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "WAITING for left", "isBase": false, "resolved": false }
+          {
+            "label": "ms([5])",
+            "status": "BASE CASE!",
+            "isBase": true,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -120,9 +165,24 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([5,8])", "status": "Ready to MERGE", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1])", "status": "WAITING for left", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "WAITING for left", "isBase": false, "resolved": false }
+          {
+            "label": "ms([5,8])",
+            "status": "Ready to MERGE",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -130,13 +190,19 @@
       "id": 7,
       "instruction": "<strong>Bowl 3 merges!</strong> It has two sorted halves: [5] and [8]. Lay them face up. Compare the fronts and build the merged result.",
       "action": "Compare 5 vs 8. <strong>5</strong> is smaller: place it first. <strong>8</strong> is all that's left: place it second. Merged result: <strong>[5, 8]</strong>. Group these two cards together.",
-      "checkpoint": "Bowl 3 is done. Update its note: <strong>\"ms([5,8]) \u2192 [5,8] DONE\"</strong>. Remove Bowl 3 from the stack.",
+      "checkpoint": "Bowl 3 is done. Update its note: <strong>\"ms([5,8]) → [5,8] DONE\"</strong>. Remove Bowl 3 from the stack.",
       "conceptNote": null,
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["5", "8"],
-        "highlight": [0, 1]
+        "cells": [
+          "5",
+          "8"
+        ],
+        "highlight": [
+          0,
+          1
+        ]
       }
     },
     {
@@ -149,9 +215,24 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([6,1])", "status": "SPLITTING", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1])", "status": "WAITING for right", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "WAITING for left", "isBase": false, "resolved": false }
+          {
+            "label": "ms([6,1])",
+            "status": "SPLITTING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1])",
+            "status": "WAITING for right",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -165,9 +246,24 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([6,1])", "status": "Ready to MERGE", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1])", "status": "WAITING for right", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "WAITING for left", "isBase": false, "resolved": false }
+          {
+            "label": "ms([6,1])",
+            "status": "Ready to MERGE",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1])",
+            "status": "WAITING for right",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "WAITING for left",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -180,35 +276,61 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["1", "6"],
-        "highlight": [0, 1]
+        "cells": [
+          "1",
+          "6"
+        ],
+        "highlight": [
+          0,
+          1
+        ]
       }
     },
     {
       "id": 11,
       "instruction": "<strong>Bowl 2 merges [5, 8] and [1, 6].</strong> This is the first merge with more than one card per pile. Use two fingers as pointers: one on the front of each pile.",
-      "action": "Lay [5, 8] and [1, 6] face up, side by side. Point at the front of each:<br><br>\u2022 <strong>5</strong> vs <strong>1</strong>: 1 wins. Place 1.<br>\u2022 <strong>5</strong> vs <strong>6</strong>: 5 wins. Place 5.<br>\u2022 <strong>8</strong> vs <strong>6</strong>: 6 wins. Place 6.<br>\u2022 Only 8 left. Place 8.<br><br>Merged: <strong>[1, 5, 6, 8]</strong>.",
-      "checkpoint": "Update Bowl 2: <strong>\"ms([5,8,6,1]) \u2192 [1,5,6,8] DONE\"</strong>. Remove Bowl 2. One bowl remains. The entire left half is sorted!",
-      "conceptNote": "The merge function uses two pointers. Each comparison only looks at the <strong>front</strong> of each pile. Because both piles are already sorted, the front card is always the smallest remaining element. This is why merge runs in \u0398(n) time.",
+      "action": "Lay [5, 8] and [1, 6] face up, side by side. Point at the front of each:<br><br>• <strong>5</strong> vs <strong>1</strong>: 1 wins. Place 1.<br>• <strong>5</strong> vs <strong>6</strong>: 5 wins. Place 5.<br>• <strong>8</strong> vs <strong>6</strong>: 6 wins. Place 6.<br>• Only 8 left. Place 8.<br><br>Merged: <strong>[1, 5, 6, 8]</strong>.",
+      "checkpoint": "Update Bowl 2: <strong>\"ms([5,8,6,1]) → [1,5,6,8] DONE\"</strong>. Remove Bowl 2. One bowl remains. The entire left half is sorted!",
+      "conceptNote": "The merge function uses two pointers. Each comparison only looks at the <strong>front</strong> of each pile. Because both piles are already sorted, the front card is always the smallest remaining element. This is why merge runs in Θ(n) time.",
       "hint": "If one pile runs out before the other, just place all remaining cards from the other pile. They're already sorted.",
       "diagram": {
         "type": "array",
-        "cells": ["1", "5", "6", "8"],
-        "highlight": [0, 1, 2, 3]
+        "cells": [
+          "1",
+          "5",
+          "6",
+          "8"
+        ],
+        "highlight": [
+          0,
+          1,
+          2,
+          3
+        ]
       }
     },
     {
       "id": 12,
       "instruction": "Bowl 1 got its left half back: [1, 5, 6, 8]. Now it calls merge_sort on the <strong>right half: [9, 3, 0, 2]</strong>. Same process: split, recurse, merge.",
-      "action": "Update Bowl 1: <strong>\"WAITING for right\"</strong>. Now work through the right side. You know the pattern, so let's go faster:<br><br>\u2022 Stack Bowl 2: ms([9,3,0,2]) \u2192 splits into [9,3] and [0,2]<br>\u2022 Stack Bowl 3: ms([9,3]) \u2192 splits into [9] and [3]<br>\u2022 Stack+remove Bowl 4: ms([9]) base case. Stack+remove Bowl 4: ms([3]) base case.<br>\u2022 Bowl 3 merges [9] and [3]: compare 9 vs 3. <strong>[3, 9]</strong>. Remove Bowl 3.",
+      "action": "Update Bowl 1: <strong>\"WAITING for right\"</strong>. Now work through the right side. You know the pattern, so let's go faster:<br><br>• Stack Bowl 2: ms([9,3,0,2]) → splits into [9,3] and [0,2]<br>• Stack Bowl 3: ms([9,3]) → splits into [9] and [3]<br>• Stack+remove Bowl 4: ms([9]) base case. Stack+remove Bowl 4: ms([3]) base case.<br>• Bowl 3 merges [9] and [3]: compare 9 vs 3. <strong>[3, 9]</strong>. Remove Bowl 3.",
       "checkpoint": "Bowl 2 got its left half back: [3, 9]. Now it recurses right on [0, 2].",
       "conceptNote": null,
       "hint": null,
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "ms([9,3,0,2])", "status": "WAITING for right", "isBase": false, "resolved": false },
-          { "label": "ms([5,8,6,1,9,3,0,2])", "status": "WAITING for right", "isBase": false, "resolved": false }
+          {
+            "label": "ms([9,3,0,2])",
+            "status": "WAITING for right",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "ms([5,8,6,1,9,3,0,2])",
+            "status": "WAITING for right",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -221,34 +343,68 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["0", "2"],
-        "highlight": [0, 1]
+        "cells": [
+          "0",
+          "2"
+        ],
+        "highlight": [
+          0,
+          1
+        ]
       }
     },
     {
       "id": 14,
       "instruction": "<strong>Bowl 2 merges [3, 9] and [0, 2].</strong>",
-      "action": "Lay both piles face up. Two-finger comparison:<br><br>\u2022 <strong>3</strong> vs <strong>0</strong>: 0 wins. Place 0.<br>\u2022 <strong>3</strong> vs <strong>2</strong>: 2 wins. Place 2.<br>\u2022 [0,2] pile is empty! Drain the rest: place 3, then 9.<br><br>Merged: <strong>[0, 2, 3, 9]</strong>.",
+      "action": "Lay both piles face up. Two-finger comparison:<br><br>• <strong>3</strong> vs <strong>0</strong>: 0 wins. Place 0.<br>• <strong>3</strong> vs <strong>2</strong>: 2 wins. Place 2.<br>• [0,2] pile is empty! Drain the rest: place 3, then 9.<br><br>Merged: <strong>[0, 2, 3, 9]</strong>.",
       "checkpoint": "Update Bowl 2: <strong>\"DONE\"</strong>. Remove Bowl 2. Only Bowl 1 remains. The right half is sorted!",
       "conceptNote": "When one pile empties, the \"drain\" step kicks in. All remaining cards are already sorted and larger than everything placed so far. Just lay them down. In the code, this is the two cleanup <code>while</code> loops after the main comparison loop.",
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["0", "2", "3", "9"],
-        "highlight": [0, 1, 2, 3]
+        "cells": [
+          "0",
+          "2",
+          "3",
+          "9"
+        ],
+        "highlight": [
+          0,
+          1,
+          2,
+          3
+        ]
       }
     },
     {
       "id": 15,
       "instruction": "<strong>The final merge!</strong> Bowl 1 has both halves back: <strong>[1, 5, 6, 8]</strong> and <strong>[0, 2, 3, 9]</strong>. This is the last merge. Take your time with it.",
-      "action": "Lay both sorted halves face up. Two-finger merge:<br><br>\u2022 <strong>1</strong> vs <strong>0</strong>: 0 wins.<br>\u2022 <strong>1</strong> vs <strong>2</strong>: 1 wins.<br>\u2022 <strong>5</strong> vs <strong>2</strong>: 2 wins.<br>\u2022 <strong>5</strong> vs <strong>3</strong>: 3 wins.<br>\u2022 <strong>5</strong> vs <strong>9</strong>: 5 wins.<br>\u2022 <strong>6</strong> vs <strong>9</strong>: 6 wins.<br>\u2022 <strong>8</strong> vs <strong>9</strong>: 8 wins.<br>\u2022 Drain: 9.<br><br>Result: <strong>[0, 1, 2, 3, 5, 6, 8, 9]</strong>.",
-      "checkpoint": "Update Bowl 1: <strong>\"ms([5,8,6,1,9,3,0,2]) \u2192 [0,1,2,3,5,6,8,9] DONE!\"</strong> Remove the last bowl. <strong>The stack is empty. The list is sorted!</strong>",
+      "action": "Lay both sorted halves face up. Two-finger merge:<br><br>• <strong>1</strong> vs <strong>0</strong>: 0 wins.<br>• <strong>1</strong> vs <strong>2</strong>: 1 wins.<br>• <strong>5</strong> vs <strong>2</strong>: 2 wins.<br>• <strong>5</strong> vs <strong>3</strong>: 3 wins.<br>• <strong>5</strong> vs <strong>9</strong>: 5 wins.<br>• <strong>6</strong> vs <strong>9</strong>: 6 wins.<br>• <strong>8</strong> vs <strong>9</strong>: 8 wins.<br>• Drain: 9.<br><br>Result: <strong>[0, 1, 2, 3, 5, 6, 8, 9]</strong>.",
+      "checkpoint": "Update Bowl 1: <strong>\"ms([5,8,6,1,9,3,0,2]) → [0,1,2,3,5,6,8,9] DONE!\"</strong> Remove the last bowl. <strong>The stack is empty. The list is sorted!</strong>",
       "conceptNote": null,
-      "hint": "Count the comparisons: 7 to merge 8 elements. Merging two halves of total size n takes at most n\u22121 comparisons. That's \u0398(n).",
+      "hint": "Count the comparisons: 7 to merge 8 elements. Merging two halves of total size n takes at most n−1 comparisons. That's Θ(n).",
       "diagram": {
         "type": "array",
-        "cells": ["0", "1", "2", "3", "5", "6", "8", "9"],
-        "highlight": [0, 1, 2, 3, 4, 5, 6, 7]
+        "cells": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "5",
+          "6",
+          "8",
+          "9"
+        ],
+        "highlight": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
       }
     },
     {
@@ -256,7 +412,7 @@
       "instruction": "Look at your collection of used sticky notes. Arrange them to see the <strong>tree shape</strong> of what you just did. The splitting goes DOWN (deeper into recursion), the merging comes back UP (as calls return).",
       "action": "On your desk, arrange the sticky notes in a tree: the full-list note at the top, the two half-list notes below it, the four pair notes below those, and the eight single-card notes at the bottom. Draw arrows going down (split) and up (merge).",
       "checkpoint": null,
-      "conceptNote": "The tree has <strong>log\u2082(n)</strong> levels. With 8 cards, that's 3 levels of splitting. At each level, the total merge work is \u0398(n) because every card gets compared once. Total: \u0398(n) \u00d7 log\u2082(n) = <strong>\u0398(n log n)</strong>.",
+      "conceptNote": "The tree has <strong>log₂(n)</strong> levels. With 8 cards, that's 3 levels of splitting. At each level, the total merge work is Θ(n) because every card gets compared once. Total: Θ(n) × log₂(n) = <strong>Θ(n log n)</strong>.",
       "hint": null,
       "diagram": {
         "type": "tree",
@@ -267,39 +423,55 @@
             "value": "1568",
             "left": {
               "value": "58",
-              "left": { "value": "5" },
-              "right": { "value": "8" }
+              "left": {
+                "value": "5"
+              },
+              "right": {
+                "value": "8"
+              }
             },
             "right": {
               "value": "16",
-              "left": { "value": "6" },
-              "right": { "value": "1" }
+              "left": {
+                "value": "6"
+              },
+              "right": {
+                "value": "1"
+              }
             }
           },
           "right": {
             "value": "0239",
             "left": {
               "value": "39",
-              "left": { "value": "9" },
-              "right": { "value": "3" }
+              "left": {
+                "value": "9"
+              },
+              "right": {
+                "value": "3"
+              }
             },
             "right": {
               "value": "02",
-              "left": { "value": "0" },
-              "right": { "value": "2" }
+              "left": {
+                "value": "0"
+              },
+              "right": {
+                "value": "2"
+              }
             }
           }
         },
-        "label": "Split down \u2193 then merge up \u2191"
+        "label": "Split down ↓ then merge up ↑"
       }
     },
     {
       "id": 17,
-      "instruction": "Let's talk <strong>time complexity</strong>. You felt the stack grow to depth 4 (log\u2082(8) + 1) and shrink repeatedly. At every level of the tree, the total merge work touched all 8 cards. That gives us the formula.",
+      "instruction": "Let's talk <strong>time complexity</strong>. You felt the stack grow to depth 4 (log₂(8) + 1) and shrink repeatedly. At every level of the tree, the total merge work touched all 8 cards. That gives us the formula.",
       "action": null,
       "checkpoint": null,
-      "conceptNote": "The recurrence is T(n) = 2 \u00b7 T(n/2) + \u0398(n). Two recursive calls on half the input, plus \u0398(n) for splitting and merging. This solves to <strong>\u0398(n log n)</strong> in ALL cases: best, worst, and average. Compare that to bubble sort's O(n\u00b2).",
-      "hint": "For 8 cards: bubble sort worst case uses ~28 comparisons. Your merge sort used about 17. For 1000 items the gap is enormous: ~500,000 vs ~10,000. One tradeoff: merge sort uses \u0398(n) extra space for the temporary merged lists, while bubble sort is in-place.",
+      "conceptNote": "The recurrence is T(n) = 2 · T(n/2) + Θ(n). Two recursive calls on half the input, plus Θ(n) for splitting and merging. This solves to <strong>Θ(n log n)</strong> in ALL cases: best, worst, and average. Compare that to bubble sort's O(n²).",
+      "hint": "For 8 cards: bubble sort worst case uses ~28 comparisons. Your merge sort used about 17. For 1000 items the gap is enormous: ~500,000 vs ~10,000. One tradeoff: merge sort uses Θ(n) extra space for the temporary merged lists, while bubble sort is in-place.",
       "diagram": null
     },
     {
@@ -323,8 +495,8 @@
   ],
   "reflection": [
     {
-      "question": "Why does merge sort ALWAYS take \u0398(n log n), even when the input is already sorted?",
-      "answer": "Even if the input is sorted, merge sort still splits all the way down to single elements and merges back up. It doesn't check whether a sublist is already sorted. The structure of the recursion tree is always the same, so the work is always \u0398(n log n). This is different from bubble sort, which can stop early in the best case."
+      "question": "Why does merge sort ALWAYS take Θ(n log n), even when the input is already sorted?",
+      "answer": "Even if the input is sorted, merge sort still splits all the way down to single elements and merges back up. It doesn't check whether a sublist is already sorted. The structure of the recursion tree is always the same, so the work is always Θ(n log n). This is different from bubble sort, which can stop early in the best case."
     },
     {
       "question": "During the merge step, why do we only look at the front of each pile?",
@@ -332,15 +504,15 @@
     },
     {
       "question": "What did the bowl stack tell you about how recursion works in merge sort?",
-      "answer": "The stack grows as we dive deeper into splits (going left-first), then shrinks as base cases return and merges complete. It grows again when we switch to the right branch. The maximum depth was 4 bowls for 8 cards: that's log\u2082(8) + 1. Each bowl represents a paused function waiting for its sub-calls to finish."
+      "answer": "The stack grows as we dive deeper into splits (going left-first), then shrinks as base cases return and merges complete. It grows again when we switch to the right branch. The maximum depth was 4 bowls for 8 cards: that's log₂(8) + 1. Each bowl represents a paused function waiting for its sub-calls to finish."
     },
     {
       "question": "Merge sort needs extra space for the merged output. Could you merge two sorted piles without any extra space?",
-      "answer": "In-place merging is possible but very complicated and typically slower in practice. Standard merge sort trades \u0398(n) extra space for simplicity and speed. This is a classic space-time tradeoff."
+      "answer": "In-place merging is possible but very complicated and typically slower in practice. Standard merge sort trades Θ(n) extra space for simplicity and speed. This is a classic space-time tradeoff."
     },
     {
       "question": "If you doubled the cards from 8 to 16, how many more bowls would you need at maximum depth?",
-      "answer": "Just one more! log\u2082(8) = 3, log\u2082(16) = 4. That's logarithmic growth: doubling the input only adds one level. Compare to bubble sort, where doubling the input roughly quadruples the work."
+      "answer": "Just one more! log₂(8) = 3, log₂(16) = 4. That's logarithmic growth: doubling the input only adds one level. Compare to bubble sort, where doubling the input roughly quadruples the work."
     }
   ],
   "nextTutorial": null

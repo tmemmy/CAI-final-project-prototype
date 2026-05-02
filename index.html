@@ -7,27 +7,31 @@
   <meta name="description" content="Interactive physical tutorials for learning data structures and algorithms. Built for kinesthetic learners.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/variables.css?v=9">
-  <link rel="stylesheet" href="css/reset.css?v=9">
-  <link rel="stylesheet" href="css/layout.css?v=9">
-  <link rel="stylesheet" href="css/components.css?v=9">
-  <link rel="stylesheet" href="css/tutorial.css?v=9">
-  <link rel="stylesheet" href="css/animations.css?v=9">
-  <link rel="stylesheet" href="css/instructor.css?v=9">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css?v=10">
+  <link rel="stylesheet" href="css/reset.css?v=10">
+  <link rel="stylesheet" href="css/layout.css?v=10">
+  <link rel="stylesheet" href="css/components.css?v=10">
+  <link rel="stylesheet" href="css/tutorial.css?v=10">
+  <link rel="stylesheet" href="css/animations.css?v=10">
+  <link rel="stylesheet" href="css/instructor.css?v=10">
   <link rel="stylesheet" href="css/interactions.css?v=1">
 </head>
 <body>
 
   <!-- HEADER -->
   <header class="app-header">
-    <div class="container">
-      <div class="app-logo" onclick="location.hash='#/'" aria-label="CutAndCode Home">
-        <img src="images for graphics/cutandcode-logo.png" alt="CutAndCode" class="logo-img" />
+    <div class="header-inner">
+      <div class="app-logo" onclick="location.hash='#/'" aria-label="Cut and Code Home">
+        <img src="images for graphics/cutandcode-logo.png" alt="Cut and Code" class="logo-img" />
       </div>
+      <nav class="nav-center">
+        <a class="nav-tab active" onclick="location.hash='#/topics'">Learn</a>
+        <a class="nav-tab disabled" title="Coming soon">Practice</a>
+      </nav>
       <nav class="breadcrumb" id="breadcrumb"></nav>
       <a class="instructor-toggle" href="#/instructor">
-        <img class="instructor-toggle-img" src="images for graphics/doodles/instructor-cat.png" alt="Instructor cat" /> Instructor Mode
+        <img class="instructor-toggle-img" src="images for graphics/mascot/Codi Teacher.png" alt="Codi Teacher" /> Instructor Mode
       </a>
     </div>
   </header>
@@ -37,27 +41,16 @@
     <div class="container">
 
       <!-- VIEW: Welcome / Landing -->
-      <section id="view-welcome" class="view">
-        <!-- Animated floating doodles background -->
-        <div class="hero-scene">
-          <img class="hero-float hero-float-scissors" src="images for graphics/doodles/scissors.jpeg" alt="" aria-hidden="true" />
-          <img class="hero-float hero-float-tape" src="images for graphics/doodles/tape.jpeg" alt="" aria-hidden="true" />
-          <img class="hero-float hero-float-pencils" src="images for graphics/doodles/The Little Things - Pencils.png" alt="" aria-hidden="true" />
-          <img class="hero-float hero-float-sticky" src="images for graphics/doodles/Dayflow - Sticky Notes.png" alt="" aria-hidden="true" />
-          <img class="hero-float hero-float-bulb" src="images for graphics/doodles/Dayflow - Light Bulb.png" alt="" aria-hidden="true" />
-          <img class="hero-float hero-float-clips" src="images for graphics/doodles/paper clips.jpeg" alt="" aria-hidden="true" />
-          <img class="hero-float hero-float-markers" src="images for graphics/doodles/The Little Things - Markers.png" alt="" aria-hidden="true" />
-          <img class="hero-float hero-float-coin" src="images for graphics/doodles/Hands - Coin.png" alt="" aria-hidden="true" />
-          <img class="hero-abstract" src="images for graphics/doodles/Dayflow - Abstract 5.png" alt="" aria-hidden="true" />
-        </div>
-
+      <section id="view-welcome" class="view active">
         <div class="welcome-content">
-          <div class="hero-character-wrap">
-            <img class="hero-character" src="images for graphics/doodles/Dayflow - Sitting.png" alt="Student learning with hands-on activities" />
+          <div class="hero-video-wrap">
+            <video class="hero-video" autoplay muted loop playsinline>
+              <source src="images for graphics/welcome-video.mp4" type="video/mp4">
+            </video>
           </div>
           <h1 class="welcome-title">Learn algorithms with your hands, not just your eyes.</h1>
           <p class="welcome-description">
-            CutAndCode turns abstract data structures and algorithms into hands-on activities
+            Cut and Code turns abstract data structures and algorithms into hands-on activities
             you can build with every-day items you have at home.
             First you'll understand the algorithm, then you'll be ready to code.
           </p>
@@ -72,9 +65,12 @@
 
       <!-- VIEW: Topic Selection -->
       <section id="view-topics" class="view">
-        <div class="section-header">
-          <h2 class="section-title">Pick a topic</h2>
-          <p class="section-subtitle">Choose what you'd like to work on today.</p>
+        <div class="codi-prompt">
+          <img class="codi-img" src="images for graphics/mascot/Codi Winking.png" alt="Codi winking">
+          <div class="codi-speech">
+            <h2 class="section-title">Pick a topic</h2>
+            <p class="section-subtitle">Choose what you'd like to work on today.</p>
+          </div>
         </div>
         <div class="topic-grid" id="topic-grid"></div>
       </section>
@@ -108,7 +104,7 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script type="module" src="js/app.js?v=9"></script>
+  <script type="module" src="js/app.js?v=10"></script>
 
 </body>
 </html>

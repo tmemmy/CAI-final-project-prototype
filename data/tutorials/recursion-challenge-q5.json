@@ -9,17 +9,12 @@
     {
       "item": "6 sheets of paper or sticky notes",
       "detail": "One for each recursive call. Index cards, scrap paper, or sticky notes all work. Label them 1 through 6.",
-      "emoji": "\ud83d\udcdd"
+      "emoji": "📝"
     },
     {
       "item": "A pen",
       "detail": "To write the function state on each paper.",
-      "emoji": "\ud83d\udd8a\ufe0f"
-    },
-    {
-      "item": "A flat surface for stacking",
-      "detail": "Your desk, a book, or even the floor. You need room to build a stack of papers and then unstack them.",
-      "emoji": "\ud83e\uddf1"
+      "emoji": "🖊️"
     }
   ],
   "setup": [
@@ -49,7 +44,12 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -63,8 +63,18 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,1,3): 'b' lower = 1 + ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -78,9 +88,24 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,2,3): 'C' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,1,3): 'b' lower = 1 + ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -94,10 +119,30 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,3,3): 'd' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,3,3): 'd' lower = 1 + ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,2,3): 'C' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,1,3): 'b' lower = 1 + ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -111,11 +156,36 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,4,3): BASE CASE = 0", "status": "DONE!", "isBase": true, "resolved": false },
-          { "label": "count_lc(s,3,3): 'd' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,4,3): BASE CASE = 0",
+            "status": "DONE!",
+            "isBase": true,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,3,3): 'd' lower = 1 + ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,2,3): 'C' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,1,3): 'b' lower = 1 + ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -138,10 +208,30 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,3,3): 'd' = 1 + 0 = 1", "status": "Returns: 1", "isBase": false, "resolved": true },
-          { "label": "count_lc(s,2,3): 'C' upper = ???", "status": "Received: 1", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,3,3): 'd' = 1 + 0 = 1",
+            "status": "Returns: 1",
+            "isBase": false,
+            "resolved": true
+          },
+          {
+            "label": "count_lc(s,2,3): 'C' upper = ???",
+            "status": "Received: 1",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,1,3): 'b' lower = 1 + ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -155,8 +245,18 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,1,3): 'b' lower = 1 + ???", "status": "Received: 1", "isBase": false, "resolved": false },
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,1,3): 'b' lower = 1 + ???",
+            "status": "Received: 1",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -170,7 +270,12 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,0,3): 'A' upper = ???", "status": "Received: 2", "isBase": false, "resolved": false }
+          {
+            "label": "count_lc(s,0,3): 'A' upper = ???",
+            "status": "Received: 2",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -184,14 +289,19 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "count_lc(s,0,3) = 2", "status": "DONE! Final answer: 2", "isBase": false, "resolved": true }
+          {
+            "label": "count_lc(s,0,3) = 2",
+            "status": "DONE! Final answer: 2",
+            "isBase": false,
+            "resolved": true
+          }
         ]
       }
     },
     {
       "id": 12,
-      "instruction": "Line up your papers left to right in the order they resolved:<br><br><strong>Base(0) \u2192 d(1) \u2192 C(1) \u2192 b(2) \u2192 A(2)</strong><br><br>Notice: the 'pass-through' calls (A, C) didn't change the count. Only 'b' and 'd' added 1 each.",
-      "action": "Lay out all 5 papers in a row and trace the values flowing back: 0 \u2192 1 \u2192 1 \u2192 2 \u2192 2.",
+      "instruction": "Line up your papers left to right in the order they resolved:<br><br><strong>Base(0) → d(1) → C(1) → b(2) → A(2)</strong><br><br>Notice: the 'pass-through' calls (A, C) didn't change the count. Only 'b' and 'd' added 1 each.",
+      "action": "Lay out all 5 papers in a row and trace the values flowing back: 0 → 1 → 1 → 2 → 2.",
       "checkpoint": "You should see: the count only increases when a lowercase letter is encountered.",
       "conceptNote": "This is key to understanding the two branches in the code: <code>return 1 + recursive_call</code> vs <code>return recursive_call</code>. The \"1 +\" only happens for lowercase characters.",
       "hint": null,
@@ -203,7 +313,7 @@
       "action": null,
       "checkpoint": null,
       "conceptNote": "Here's the code:<br><code>def is_number_of_lowercase_even(s, low, high):<br>&nbsp;&nbsp;if low > high:<br>&nbsp;&nbsp;&nbsp;&nbsp;return True<br>&nbsp;&nbsp;if s[low].islower():<br>&nbsp;&nbsp;&nbsp;&nbsp;if is_...(s,low+1,high):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return False<br>&nbsp;&nbsp;&nbsp;&nbsp;else: return True<br>&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;if is_...(s,low+1,high):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return True<br>&nbsp;&nbsp;&nbsp;&nbsp;else: return False</code>",
-      "hint": "The three parts for this function:<br>1. <strong>Base case:</strong> low > high \u2192 return True (0 lowercase = even).<br>2. <strong>Recursive assumption:</strong> trust that the call on the rest correctly answers \"is the count even?\"<br>3. <strong>Work done by this call:</strong> if I see a lowercase letter, FLIP the result. If uppercase, pass it through.",
+      "hint": "The three parts for this function:<br>1. <strong>Base case:</strong> low > high → return True (0 lowercase = even).<br>2. <strong>Recursive assumption:</strong> trust that the call on the rest correctly answers \"is the count even?\"<br>3. <strong>Work done by this call:</strong> if I see a lowercase letter, FLIP the result. If uppercase, pass it through.",
       "diagram": null
     },
     {
@@ -216,7 +326,12 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -230,8 +345,18 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,1,3): 'b' lower = FLIP(???)",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -245,9 +370,24 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,2,3): 'C' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,1,3): 'b' lower = FLIP(???)",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -261,10 +401,30 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,3,3): 'd' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,3,3): 'd' lower = FLIP(???)",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,2,3): 'C' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,1,3): 'b' lower = FLIP(???)",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -278,11 +438,36 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,4,3): BASE = True", "status": "DONE!", "isBase": true, "resolved": false },
-          { "label": "is_even(s,3,3): 'd' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,4,3): BASE = True",
+            "status": "DONE!",
+            "isBase": true,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,3,3): 'd' lower = FLIP(???)",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,2,3): 'C' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,1,3): 'b' lower = FLIP(???)",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -296,9 +481,24 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,2,3): 'C' upper = ???", "status": "Received: False", "isBase": false, "resolved": false },
-          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "WAITING", "isBase": false, "resolved": false },
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,2,3): 'C' upper = ???",
+            "status": "Received: False",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,1,3): 'b' lower = FLIP(???)",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -312,8 +512,18 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,1,3): 'b' lower = FLIP(???)", "status": "Received: False", "isBase": false, "resolved": false },
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "WAITING", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,1,3): 'b' lower = FLIP(???)",
+            "status": "Received: False",
+            "isBase": false,
+            "resolved": false
+          },
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "WAITING",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -322,12 +532,17 @@
       "instruction": "Paper 2: <code>is_even(s,1,3)</code>, 'b' is lowercase, <strong>FLIP(False) = True</strong>!",
       "action": "Cross out FLIP(???) on Paper 2, write <strong>FLIP(False) = True</strong>. Remove Paper 2.",
       "checkpoint": "Paper 2: is_even(s,1,3) = True. (Two lowercase letters now = even!)",
-      "conceptNote": "We found the second lowercase letter 'b'. Two flips: True \u2192 False \u2192 True. Every pair of lowercase letters brings us back to True (even).",
+      "conceptNote": "We found the second lowercase letter 'b'. Two flips: True → False → True. Every pair of lowercase letters brings us back to True (even).",
       "hint": null,
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,0,3): 'A' upper = ???", "status": "Received: True", "isBase": false, "resolved": false }
+          {
+            "label": "is_even(s,0,3): 'A' upper = ???",
+            "status": "Received: True",
+            "isBase": false,
+            "resolved": false
+          }
         ]
       }
     },
@@ -341,14 +556,19 @@
       "diagram": {
         "type": "callstack",
         "frames": [
-          { "label": "is_even(s,0,3) = True", "status": "DONE! Final answer: True", "isBase": false, "resolved": true }
+          {
+            "label": "is_even(s,0,3) = True",
+            "status": "DONE! Final answer: True",
+            "isBase": false,
+            "resolved": true
+          }
         ]
       }
     },
     {
       "id": 23,
-      "instruction": "Line up the Part (b) papers and trace the True/False values:<br><br><strong>Base(True) \u2192 d: FLIP(False) \u2192 C: pass(False) \u2192 b: FLIP(True) \u2192 A: pass(True)</strong><br><br>Each lowercase letter flipped the answer. Two flips brought it back to True.",
-      "action": "Lay out all 5 papers and trace: True \u2192 False \u2192 False \u2192 True \u2192 True.",
+      "instruction": "Line up the Part (b) papers and trace the True/False values:<br><br><strong>Base(True) → d: FLIP(False) → C: pass(False) → b: FLIP(True) → A: pass(True)</strong><br><br>Each lowercase letter flipped the answer. Two flips brought it back to True.",
+      "action": "Lay out all 5 papers and trace: True → False → False → True → True.",
       "checkpoint": "The pattern: every lowercase letter flips. Even number of flips = True. Odd = False.",
       "conceptNote": "This is why the base case returns True (not False). Zero lowercase letters is even. Then each lowercase letter toggles the parity. It's like flipping a light switch: flip once = on, flip twice = off (back to start).",
       "hint": null,
@@ -356,7 +576,7 @@
     },
     {
       "id": 24,
-      "instruction": "<strong>Key takeaway:</strong> Both functions use the exact same recursive structure (check one character, recurse on the rest). The only difference is the <strong>work done by each call</strong>:<br><br>\u2022 <code>count_lowercase</code>: adds 1 or 0.<br>\u2022 <code>is_number_of_lowercase_even</code>: flips or passes through True/False.<br><br>The three parts of recursion are the same every time. Only the \"work\" changes.",
+      "instruction": "<strong>Key takeaway:</strong> Both functions use the exact same recursive structure (check one character, recurse on the rest). The only difference is the <strong>work done by each call</strong>:<br><br>• <code>count_lowercase</code>: adds 1 or 0.<br>• <code>is_number_of_lowercase_even</code>: flips or passes through True/False.<br><br>The three parts of recursion are the same every time. Only the \"work\" changes.",
       "action": null,
       "checkpoint": null,
       "conceptNote": "Once you understand the three-part structure, you can adapt it to almost any problem. Identify: (1) when to stop, (2) what the smaller version is, (3) what this one call contributes.",
@@ -365,7 +585,7 @@
     },
     {
       "id": 25,
-      "instruction": "<strong>Practice challenge:</strong> Trace both functions on <strong>s = \"Hello\"</strong> with <strong>low = 0, high = 4</strong>.<br><br>Lowercase letters: e, l, l, o (4 letters).<br>\u2022 <code>count_lowercase(\"Hello\", 0, 4)</code> should return <strong>4</strong>.<br>\u2022 <code>is_number_of_lowercase_even(\"Hello\", 0, 4)</code> should return <strong>True</strong> (4 is even).",
+      "instruction": "<strong>Practice challenge:</strong> Trace both functions on <strong>s = \"Hello\"</strong> with <strong>low = 0, high = 4</strong>.<br><br>Lowercase letters: e, l, l, o (4 letters).<br>• <code>count_lowercase(\"Hello\", 0, 4)</code> should return <strong>4</strong>.<br>• <code>is_number_of_lowercase_even(\"Hello\", 0, 4)</code> should return <strong>True</strong> (4 is even).",
       "action": "Use 6 fresh papers. Trace the full winding and unwinding for each function. Don't peek at the answer until you're done!",
       "checkpoint": "If you got 4 and True, you've nailed it!",
       "conceptNote": null,

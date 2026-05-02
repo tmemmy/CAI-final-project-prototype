@@ -12,11 +12,6 @@
       "emoji": "📄"
     },
     {
-      "item": "A flat surface",
-      "detail": "Desk or table with enough room to lay 6 cards in a row with space between them.",
-      "emoji": "🧹"
-    },
-    {
       "item": "A colored pen",
       "detail": "To mark the boundary between the sorted region (left) and unsorted region (right).",
       "emoji": "🖊️"
@@ -37,9 +32,21 @@
       "hint": "This is different from bubble sort. Instead of finding the right element, we take the NEXT unsorted element and find the right PLACE for it.",
       "diagram": {
         "type": "donut-array",
-        "cells": ["5", "8", "6", "1", "9", "3"],
-        "pointer": { "index": 1, "label": "next" },
-        "highlight": [0]
+        "cells": [
+          "5",
+          "8",
+          "6",
+          "1",
+          "9",
+          "3"
+        ],
+        "pointer": {
+          "index": 1,
+          "label": "next"
+        },
+        "highlight": [
+          0
+        ]
       }
     },
     {
@@ -51,9 +58,22 @@
       "hint": null,
       "diagram": {
         "type": "donut-array",
-        "cells": ["5", "8", "6", "1", "9", "3"],
-        "highlight": [0, 1],
-        "pointer": { "index": 2, "label": "next" }
+        "cells": [
+          "5",
+          "8",
+          "6",
+          "1",
+          "9",
+          "3"
+        ],
+        "highlight": [
+          0,
+          1
+        ],
+        "pointer": {
+          "index": 2,
+          "label": "next"
+        }
       }
     },
     {
@@ -65,9 +85,21 @@
       "hint": "This is why we save the current element BEFORE shifting. If we didn't, the shift would overwrite it and it would be lost.",
       "diagram": {
         "type": "donut-array",
-        "cells": ["5", "", "8", "1", "9", "3"],
-        "highlight": [2],
-        "pointer": { "index": 1, "label": "gap" }
+        "cells": [
+          "5",
+          "",
+          "8",
+          "1",
+          "9",
+          "3"
+        ],
+        "highlight": [
+          2
+        ],
+        "pointer": {
+          "index": 1,
+          "label": "gap"
+        }
       }
     },
     {
@@ -79,9 +111,23 @@
       "hint": null,
       "diagram": {
         "type": "donut-array",
-        "cells": ["5", "6", "8", "1", "9", "3"],
-        "highlight": [0, 1, 2],
-        "pointer": { "index": 3, "label": "next" }
+        "cells": [
+          "5",
+          "6",
+          "8",
+          "1",
+          "9",
+          "3"
+        ],
+        "highlight": [
+          0,
+          1,
+          2
+        ],
+        "pointer": {
+          "index": 3,
+          "label": "next"
+        }
       }
     },
     {
@@ -93,8 +139,18 @@
       "hint": "Count the shifts: 3 shifts for this one insertion. That's because 1 had to pass every sorted element.",
       "diagram": {
         "type": "donut-array",
-        "cells": ["", "5", "6", "8", "9", "3"],
-        "pointer": { "index": 0, "label": "gap" }
+        "cells": [
+          "",
+          "5",
+          "6",
+          "8",
+          "9",
+          "3"
+        ],
+        "pointer": {
+          "index": 0,
+          "label": "gap"
+        }
       }
     },
     {
@@ -106,9 +162,24 @@
       "hint": null,
       "diagram": {
         "type": "donut-array",
-        "cells": ["1", "5", "6", "8", "9", "3"],
-        "highlight": [0, 1, 2, 3],
-        "pointer": { "index": 4, "label": "next" }
+        "cells": [
+          "1",
+          "5",
+          "6",
+          "8",
+          "9",
+          "3"
+        ],
+        "highlight": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pointer": {
+          "index": 4,
+          "label": "next"
+        }
       }
     },
     {
@@ -120,9 +191,25 @@
       "hint": null,
       "diagram": {
         "type": "donut-array",
-        "cells": ["1", "5", "6", "8", "9", "3"],
-        "highlight": [0, 1, 2, 3, 4],
-        "pointer": { "index": 5, "label": "next" }
+        "cells": [
+          "1",
+          "5",
+          "6",
+          "8",
+          "9",
+          "3"
+        ],
+        "highlight": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "pointer": {
+          "index": 5,
+          "label": "next"
+        }
       }
     },
     {
@@ -134,8 +221,18 @@
       "hint": null,
       "diagram": {
         "type": "donut-array",
-        "cells": ["1", "", "5", "6", "8", "9"],
-        "pointer": { "index": 1, "label": "gap" }
+        "cells": [
+          "1",
+          "",
+          "5",
+          "6",
+          "8",
+          "9"
+        ],
+        "pointer": {
+          "index": 1,
+          "label": "gap"
+        }
       }
     },
     {
@@ -147,8 +244,22 @@
       "hint": null,
       "diagram": {
         "type": "donut-array",
-        "cells": ["1", "3", "5", "6", "8", "9"],
-        "highlight": [0, 1, 2, 3, 4, 5]
+        "cells": [
+          "1",
+          "3",
+          "5",
+          "6",
+          "8",
+          "9"
+        ],
+        "highlight": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
       }
     },
     {
@@ -162,10 +273,10 @@
     },
     {
       "id": 11,
-      "instruction": "Insertion sort's <strong>time complexity is O(n\u00b2)</strong> in the worst and average case. But here's what makes it special: its <strong>best case is O(n)</strong> on an already-sorted list.",
+      "instruction": "Insertion sort's <strong>time complexity is O(n²)</strong> in the worst and average case. But here's what makes it special: its <strong>best case is O(n)</strong> on an already-sorted list.",
       "action": null,
       "checkpoint": null,
-      "conceptNote": "T(n) = 1 + 2 + 3 + ... + (n-1) = n(n-1)/2 = O(n\u00b2). But if the list is already sorted, each pass does zero shifts and just moves on. That's one comparison per pass, n-1 total: O(n). This makes insertion sort great for <strong>nearly sorted data</strong>.",
+      "conceptNote": "T(n) = 1 + 2 + 3 + ... + (n-1) = n(n-1)/2 = O(n²). But if the list is already sorted, each pass does zero shifts and just moves on. That's one comparison per pass, n-1 total: O(n). This makes insertion sort great for <strong>nearly sorted data</strong>.",
       "hint": "This is also why insertion sort is used as a subroutine in more advanced algorithms like Timsort (Python's built-in sort). For small or nearly-sorted chunks, insertion sort is faster than fancier algorithms.",
       "diagram": null
     },
@@ -207,8 +318,8 @@
       "answer": "Because shifting moves elements to the right, which overwrites the slot where our element was. If we didn't save it first, we'd lose it. The saved copy is what gets placed into the gap at the end."
     },
     {
-      "question": "When is insertion sort better than other O(n\u00b2) sorts?",
-      "answer": "When the data is already nearly sorted. Insertion sort's best case is O(n) on a sorted list, because no shifts are needed. Bubble sort and selection sort are always O(n\u00b2) in their basic forms. This is why Python's Timsort uses insertion sort on small, nearly-sorted chunks."
+      "question": "When is insertion sort better than other O(n²) sorts?",
+      "answer": "When the data is already nearly sorted. Insertion sort's best case is O(n) on a sorted list, because no shifts are needed. Bubble sort and selection sort are always O(n²) in their basic forms. This is why Python's Timsort uses insertion sort on small, nearly-sorted chunks."
     },
     {
       "question": "What is a loop invariant, and what is it for insertion sort?",

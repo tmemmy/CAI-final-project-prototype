@@ -5,7 +5,6 @@
   "subtitle": "Build an intuition for the most important rule in computing: Last In, First Out.",
   "encouragement": "Stacks are everywhere in computing, from the undo button to how your computer runs functions. This tutorial is about building the mental model. Once you see it, you can't unsee it.",
   "realWorldExample": "A Pringles can. You can only reach the chip on top. To get to the one at the bottom, you'd have to remove every chip above it first. Your browser's back button works the same way: the most recent page is always the one you go back to.",
-  "heroAnimation": "stack-pringles",
   "materials": [
     {
       "item": "5 small paper cards",

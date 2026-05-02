@@ -9,17 +9,12 @@
     {
       "item": "6 index cards or paper squares",
       "detail": "Write one number on each: 5, 2, 8, 1, 9, 3. Any scrap paper works; cut or tear it into roughly equal pieces.",
-      "emoji": "\ud83c\udccf"
-    },
-    {
-      "item": "A flat surface",
-      "detail": "A desk, table, or even the floor where you can lay the cards in a row.",
-      "emoji": "\ud83e\uddf9"
+      "emoji": "🃏"
     },
     {
       "item": "A pen and scrap paper (optional)",
       "detail": "To keep track of how many comparisons and swaps you make.",
-      "emoji": "\ud83d\udcdd"
+      "emoji": "📝"
     }
   ],
   "setup": [
@@ -37,13 +32,33 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["2", "5", "8", "1", "9", "3"],
-        "swapIndices": [0, 1]
+        "cells": [
+          "2",
+          "5",
+          "8",
+          "1",
+          "9",
+          "3"
+        ],
+        "swapIndices": [
+          0,
+          1
+        ]
       },
       "interaction": {
         "type": "sorting-swap",
-        "cells": [5, 2, 8, 1, 9, 3],
-        "swapIndices": [0, 1],
+        "cells": [
+          5,
+          2,
+          8,
+          1,
+          9,
+          3
+        ],
+        "swapIndices": [
+          0,
+          1
+        ],
         "label": "5 > 2? Yes! Tap both highlighted cards to swap."
       }
     },
@@ -56,8 +71,18 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["2", "5", "8", "1", "9", "3"],
-        "highlight": [1, 2]
+        "cells": [
+          "2",
+          "5",
+          "8",
+          "1",
+          "9",
+          "3"
+        ],
+        "highlight": [
+          1,
+          2
+        ]
       }
     },
     {
@@ -69,13 +94,33 @@
       "hint": "Notice how 8 is \"moving\" to the right. It's bubbling up toward its correct position.",
       "diagram": {
         "type": "array",
-        "cells": ["2", "5", "1", "8", "9", "3"],
-        "swapIndices": [2, 3]
+        "cells": [
+          "2",
+          "5",
+          "1",
+          "8",
+          "9",
+          "3"
+        ],
+        "swapIndices": [
+          2,
+          3
+        ]
       },
       "interaction": {
         "type": "sorting-swap",
-        "cells": [2, 5, 8, 1, 9, 3],
-        "swapIndices": [2, 3],
+        "cells": [
+          2,
+          5,
+          8,
+          1,
+          9,
+          3
+        ],
+        "swapIndices": [
+          2,
+          3
+        ],
         "label": "8 > 1? Yes! Tap both to swap."
       }
     },
@@ -88,8 +133,18 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["2", "5", "1", "8", "9", "3"],
-        "highlight": [3, 4]
+        "cells": [
+          "2",
+          "5",
+          "1",
+          "8",
+          "9",
+          "3"
+        ],
+        "highlight": [
+          3,
+          4
+        ]
       }
     },
     {
@@ -101,13 +156,33 @@
       "hint": "It's called \"bubble\" sort because the largest values \"bubble up\" to the right end, like air bubbles rising in water.",
       "diagram": {
         "type": "array",
-        "cells": ["2", "5", "1", "8", "3", "9"],
-        "swapIndices": [4, 5]
+        "cells": [
+          "2",
+          "5",
+          "1",
+          "8",
+          "3",
+          "9"
+        ],
+        "swapIndices": [
+          4,
+          5
+        ]
       },
       "interaction": {
         "type": "sorting-swap",
-        "cells": [2, 5, 1, 8, 9, 3],
-        "swapIndices": [4, 5],
+        "cells": [
+          2,
+          5,
+          1,
+          8,
+          9,
+          3
+        ],
+        "swapIndices": [
+          4,
+          5
+        ],
         "label": "9 > 3? Yes! Tap both to swap."
       }
     },
@@ -120,8 +195,18 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["2", "5", "1", "8", "3", "9"],
-        "highlight": [0, 1]
+        "cells": [
+          "2",
+          "5",
+          "1",
+          "8",
+          "3",
+          "9"
+        ],
+        "highlight": [
+          0,
+          1
+        ]
       }
     },
     {
@@ -133,13 +218,33 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["2", "1", "5", "8", "3", "9"],
-        "swapIndices": [1, 2]
+        "cells": [
+          "2",
+          "1",
+          "5",
+          "8",
+          "3",
+          "9"
+        ],
+        "swapIndices": [
+          1,
+          2
+        ]
       },
       "interaction": {
         "type": "sorting-swap",
-        "cells": [2, 5, 1, 8, 3, 9],
-        "swapIndices": [1, 2],
+        "cells": [
+          2,
+          5,
+          1,
+          8,
+          3,
+          9
+        ],
+        "swapIndices": [
+          1,
+          2
+        ],
         "label": "5 > 1? Yes! Tap both to swap."
       }
     },
@@ -152,8 +257,18 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["2", "1", "5", "8", "3", "9"],
-        "highlight": [2, 3]
+        "cells": [
+          "2",
+          "1",
+          "5",
+          "8",
+          "3",
+          "9"
+        ],
+        "highlight": [
+          2,
+          3
+        ]
       }
     },
     {
@@ -165,13 +280,33 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["2", "1", "5", "3", "8", "9"],
-        "swapIndices": [3, 4]
+        "cells": [
+          "2",
+          "1",
+          "5",
+          "3",
+          "8",
+          "9"
+        ],
+        "swapIndices": [
+          3,
+          4
+        ]
       },
       "interaction": {
         "type": "sorting-swap",
-        "cells": [2, 1, 5, 8, 3, 9],
-        "swapIndices": [3, 4],
+        "cells": [
+          2,
+          1,
+          5,
+          8,
+          3,
+          9
+        ],
+        "swapIndices": [
+          3,
+          4
+        ],
         "label": "8 > 3? Yes! Tap both to swap."
       }
     },
@@ -184,13 +319,33 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["1", "2", "5", "3", "8", "9"],
-        "swapIndices": [0, 1]
+        "cells": [
+          "1",
+          "2",
+          "5",
+          "3",
+          "8",
+          "9"
+        ],
+        "swapIndices": [
+          0,
+          1
+        ]
       },
       "interaction": {
         "type": "sorting-swap",
-        "cells": [2, 1, 5, 3, 8, 9],
-        "swapIndices": [0, 1],
+        "cells": [
+          2,
+          1,
+          5,
+          3,
+          8,
+          9
+        ],
+        "swapIndices": [
+          0,
+          1
+        ],
         "label": "2 > 1? Yes! Tap both to swap."
       }
     },
@@ -203,8 +358,18 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["1", "2", "5", "3", "8", "9"],
-        "highlight": [1, 2]
+        "cells": [
+          "1",
+          "2",
+          "5",
+          "3",
+          "8",
+          "9"
+        ],
+        "highlight": [
+          1,
+          2
+        ]
       }
     },
     {
@@ -216,13 +381,33 @@
       "hint": "The list looks sorted already! But the algorithm doesn't \"know\" that yet. It will do one more pass to confirm.",
       "diagram": {
         "type": "array",
-        "cells": ["1", "2", "3", "5", "8", "9"],
-        "swapIndices": [2, 3]
+        "cells": [
+          "1",
+          "2",
+          "3",
+          "5",
+          "8",
+          "9"
+        ],
+        "swapIndices": [
+          2,
+          3
+        ]
       },
       "interaction": {
         "type": "sorting-swap",
-        "cells": [1, 2, 5, 3, 8, 9],
-        "swapIndices": [2, 3],
+        "cells": [
+          1,
+          2,
+          5,
+          3,
+          8,
+          9
+        ],
+        "swapIndices": [
+          2,
+          3
+        ],
         "label": "5 > 3? Yes! Tap both to swap."
       }
     },
@@ -235,8 +420,22 @@
       "hint": null,
       "diagram": {
         "type": "array",
-        "cells": ["1", "2", "3", "5", "8", "9"],
-        "highlight": [0, 1, 2, 3, 4, 5]
+        "cells": [
+          "1",
+          "2",
+          "3",
+          "5",
+          "8",
+          "9"
+        ],
+        "highlight": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
       }
     },
     {
@@ -244,8 +443,8 @@
       "instruction": "Let's count the work. How many total <strong>comparisons</strong> and <strong>swaps</strong> did you make?",
       "action": null,
       "checkpoint": "Pass 1: 5 comparisons, 3 swaps. Pass 2: 4 comparisons, 2 swaps. Pass 3: 3 comparisons, 2 swaps. Pass 4: 2 comparisons, 0 swaps.<br><br>Total: <strong>14 comparisons, 7 swaps</strong>.",
-      "conceptNote": "For n items, worst case is (n-1) + (n-2) + ... + 1 = n(n-1)/2 comparisons. For n = 6, that's 15. We did 14 because we stopped one pass early. This is why bubble sort is <strong>O(n\u00b2)</strong>.",
-      "hint": "O(n\u00b2) means if you double the number of items, the work roughly quadruples. Bubble sort is simple but slow for large lists.",
+      "conceptNote": "For n items, worst case is (n-1) + (n-2) + ... + 1 = n(n-1)/2 comparisons. For n = 6, that's 15. We did 14 because we stopped one pass early. This is why bubble sort is <strong>O(n²)</strong>.",
+      "hint": "O(n²) means if you double the number of items, the work roughly quadruples. Bubble sort is simple but slow for large lists.",
       "diagram": null
     },
     {
@@ -253,7 +452,7 @@
       "instruction": "<strong>Try it yourself!</strong> Shuffle your cards back to a random order and do bubble sort again from scratch. This time, count your swaps and try the early-stop optimization.",
       "action": "If a full pass has zero swaps, stop immediately; the list is sorted!",
       "checkpoint": null,
-      "conceptNote": "Best case: the list is already sorted. You do one pass with 0 swaps and stop. That's O(n), just n-1 comparisons. Worst case (reverse sorted): every pair swaps every pass. That's O(n\u00b2).",
+      "conceptNote": "Best case: the list is already sorted. You do one pass with 0 swaps and stop. That's O(n), just n-1 comparisons. Worst case (reverse sorted): every pair swaps every pass. That's O(n²).",
       "hint": null,
       "diagram": null
     }
@@ -273,7 +472,7 @@
     },
     {
       "question": "Could you sort the list by bubbling the SMALLEST to the left instead? What would change?",
-      "answer": "Yes! You'd compare right to left instead, and the smallest value would \"sink\" to the left each pass. The algorithm is the same idea in reverse, with the same O(n\u00b2) runtime."
+      "answer": "Yes! You'd compare right to left instead, and the smallest value would \"sink\" to the left each pass. The algorithm is the same idea in reverse, with the same O(n²) runtime."
     }
   ],
   "nextTutorial": "sorting-insertion"

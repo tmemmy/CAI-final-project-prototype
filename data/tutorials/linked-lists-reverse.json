@@ -5,7 +5,6 @@
   "subtitle": "Unhook and re-hook every coupling on a train to make it run backward.",
   "encouragement": "Reversing a doubly linked list looks intimidating in code, but it's one clean idea applied to every node: swap prev and next. When you erase and redraw the arrows on paper, the pattern becomes obvious. We'll use a train to see it.",
   "realWorldExample": "Think of a train on a track. Each car knows which car is ahead (next) and which is behind (prev). To reverse the train, you don't physically move the cars: you unhook the couplings and re-hook them facing the other way. Then you move the engine label to the other end. That's exactly what this algorithm does.",
-  "heroAnimation": "snake-ouroboros",
   "materials": [
     {
       "item": "Large sheet of paper",
