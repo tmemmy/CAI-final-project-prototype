@@ -45,7 +45,7 @@
       "action": "With your pencil, draw a rectangle split into three sections. The left section is for \"prev\", the middle is for data, and the right is for \"next\". Place the \"A\" card in the middle section.",
       "checkpoint": "You should have one rectangle: [prev | A | next].",
       "conceptNote": "A doubly linked node has three fields: <code>prev</code>, <code>data</code>, and <code>next</code>. The extra pointer is what lets you go backward.",
-      "hint": "Make each rectangle about 3 inches wide so all three sections fit comfortably.",
+      "hint": "Make each rectangle wide enough so all three sections fit comfortably.",
       "diagram": {
         "type": "linkedlist",
         "nodes": [{"data": "A"}],
@@ -61,7 +61,7 @@
       "action": "Draw three more three-section rectangles. Place B, C, and D cards in the middle sections. Leave all prev and next sections empty.",
       "checkpoint": "Four nodes in a row: [_ | A | _] [_ | B | _] [_ | C | _] [_ | D | _].",
       "conceptNote": null,
-      "hint": "Leave about 3 inches between nodes. You need room for arrows going both ways.",
+      "hint": "Leave plenty of space between nodes. You need room for arrows going both ways.",
       "diagram": {
         "type": "linkedlist",
         "nodes": [{"data": "A"}, {"data": "B"}, {"data": "C"}, {"data": "D"}],

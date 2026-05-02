@@ -8,7 +8,7 @@
   "materials": [
     {
       "item": "One long strip of paper",
-      "detail": "About 12 inches long, 2 inches wide. This will be your array.",
+      "detail": "This will be your array.",
       "emoji": "\ud83d\udccf"
     },
     {
@@ -18,7 +18,7 @@
     },
     {
       "item": "6 small paper squares",
-      "detail": "About 1 inch each. Write these numbers on them: 3, 7, 1, 9, 4, 2",
+      "detail": "Write these numbers on them: 3, 7, 1, 9, 4, 2",
       "emoji": "\ud83d\udcdd"
     },
     {

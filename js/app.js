@@ -11,6 +11,13 @@ window.toggleConceptNote = function(id, toggleEl) {
   toggleEl.classList.toggle('open');
 };
 
+window.switchInstructorTab = function(tab) {
+  document.querySelectorAll('.instructor-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.instructor-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('tab-content-' + tab).classList.add('active');
+};
+
 window.toggleHint = function(id) {
   const el = document.getElementById(id);
   el.classList.toggle('open');

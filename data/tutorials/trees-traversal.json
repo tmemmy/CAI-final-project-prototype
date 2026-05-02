@@ -34,7 +34,7 @@
   ],
   "setup": [
     "Draw this binary tree on your paper. Put A at the top (root), B as A's left child, C as A's right child, D as B's left child, E as B's right child, F as C's left child. C has no right child.",
-    "Make the circles about 1.5 inches across with plenty of space between them.",
+    "Make the circles large enough with plenty of space between them.",
     "Draw lines connecting parents to children (blue for left, red for right, like the intro tutorial).",
     "Your tree should look like this: A at top, B and C on level 2, D and E under B, F under C."
   ],

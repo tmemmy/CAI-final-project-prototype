@@ -45,7 +45,7 @@
       "action": "With your pencil, draw a circle near the top center of the paper. Place the \"A\" card inside it. Write \"root\" above it with a small arrow pointing down.",
       "checkpoint": "You should have one circle with A inside it at the top of the page, labeled \"root\".",
       "conceptNote": "Every tree has exactly one <code>root</code> node. It has no parent. In code, you access the tree through this root reference, similar to <code>head</code> in a linked list.",
-      "hint": "Make circles about 1.5 inches in diameter so the letter cards fit inside.",
+      "hint": "Make circles large enough so the letter cards fit inside.",
       "diagram": {
         "type": "tree",
         "root": {"value": "A", "label": "root"}

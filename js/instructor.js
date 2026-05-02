@@ -83,6 +83,15 @@ export function renderInstructorMode() {
         <p class="section-subtitle">Generate new hands-on tutorials with AI, then publish them to the app.</p>
       </div>
 
+      <!-- Tab Navigation -->
+      <div class="instructor-tabs">
+        <button class="instructor-tab active" id="tab-tutorials" onclick="switchInstructorTab('tutorials')">Tutorials</button>
+        <button class="instructor-tab" id="tab-graphics" onclick="switchInstructorTab('graphics')">Graphics</button>
+      </div>
+
+      <!-- TUTORIALS TAB CONTENT -->
+      <div class="instructor-tab-content active" id="tab-content-tutorials">
+
       <!-- API Key Section -->
       <div class="instructor-card" id="api-key-section">
         <h3 class="instructor-card-title">API Key</h3>
@@ -186,6 +195,38 @@ export function renderInstructorMode() {
           `).join('')}
         </div>
       </div>
+
+      </div><!-- end tab-content-tutorials -->
+
+      <!-- GRAPHICS TAB CONTENT -->
+      <div class="instructor-tab-content" id="tab-content-graphics">
+        <div class="instructor-card">
+          <h3 class="instructor-card-title">Generate Graphics Library</h3>
+          <p class="instructor-hint">Describe the visual style and analogies you want for your tutorial's diagrams. The AI will generate a consistent image library for use in SVG diagrams.</p>
+
+          <div class="generator-form">
+            <label class="instructor-label" for="graphics-tutorial-input">Which tutorial is this for?</label>
+            <input class="instructor-input" id="graphics-tutorial-input"
+              placeholder="e.g., Binary Search Trees, Merge Sort, Stacks..." />
+
+            <label class="instructor-label" for="graphics-analogy-input">Visual analogy</label>
+            <textarea class="instructor-textarea" id="graphics-analogy-input"
+              placeholder="e.g., Use a real tree with branches for BST. Use a train with cars for linked list. Use stacked bowls for recursion..."
+              rows="3"></textarea>
+
+            <label class="instructor-label" for="graphics-style-input">Style direction</label>
+            <textarea class="instructor-textarea" id="graphics-style-input"
+              placeholder="e.g., Soft 3D pastel, hand-drawn sketch, flat minimalist, craft-paper collage..."
+              rows="2"></textarea>
+
+            <button class="btn btn-primary" disabled>
+              Generate Graphics
+            </button>
+            <p class="instructor-hint">Coming soon. This feature will generate a consistent set of images for tutorial diagrams.</p>
+          </div>
+        </div>
+      </div><!-- end tab-content-graphics -->
+
     </div>
   `;
 }

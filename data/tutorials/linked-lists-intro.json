@@ -56,7 +56,7 @@
       "action": "Draw three more split rectangles to the right. Place B, C, and D cards in the left halves. Leave the right halves empty.",
       "checkpoint": "You should have four separate rectangles in a row: [A | ] [B | ] [C | ] [D | ].",
       "conceptNote": null,
-      "hint": "Leave about 2 inches of space between each node. You'll draw arrows in this gap.",
+      "hint": "Leave space between each node. You'll draw arrows in this gap.",
       "diagram": {
         "type": "linkedlist",
         "nodes": [{"data": "A"}, {"data": "B"}, {"data": "C"}, {"data": "D"}],
