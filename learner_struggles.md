@@ -1,4 +1,4 @@
-# Cut and Code — Learner Struggles & Design Notes
+# Cut and Code: Learner Struggles & Design Notes
 ## Organized from Maria's Stream of Consciousness
 
 This document captures every learning struggle and design idea Maria described, organized by topic. These insights will drive the design of every physical simulation tutorial in the Cut and Code project.
