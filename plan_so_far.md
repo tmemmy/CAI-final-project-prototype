@@ -11,7 +11,7 @@ An interactive web app that teaches CS 1134 (Data Structures & Algorithms at NYU
 
 **Hosting:** Free on GitHub Pages. Pure HTML/CSS/JS, no frameworks, no build tools.
 
-**Repo:** https://github.com/tmemmy/CAI-final-project-prototype
+**Repo:** https://github.com/tmemmy/CAI-final-project
 
 ---
 

@@ -4,7 +4,7 @@
 
 CutAndCode is a web app that teaches CS data structures and algorithms through physical, hands-on simulations using household items. Students follow step-by-step tutorials that guide them through physically running algorithms with paper, scissors, bowls, tape, and pens.
 
-**Live demo:** https://tmemmy.github.io/CAI-final-project-prototype/
+**Live demo:** https://tmemmy.github.io/CAI-final-project/
 
 ## Topics (22 tutorials)
 
