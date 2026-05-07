@@ -2,39 +2,71 @@
 
 **Learn Data Structures & Algorithms with your hands, not just your eyes.**
 
-CutAndCode is a web app that teaches CS data structures and algorithms through physical, hands-on simulations using household items. Students follow step-by-step tutorials that guide them through physically running algorithms with paper, scissors, bowls, tape, and pens.
+An interactive web app that teaches CS 1134 (Data Structures & Algorithms at NYU) through physical, hands-on simulations using household items. Students pick a topic, gather simple materials (paper, scissors, bowls, tape, pen), and follow step-by-step tutorials that guide them through physically running algorithms. No coding answers are ever given; the student builds understanding through doing, then codes on their own.
 
 **Live demo:** https://tmemmy.github.io/CAI-final-project/
 
+**Creative AI angle:** Claude was used as a creative collaborator to design all tutorials and interactive components. The app uses pre-generated content (no API keys needed for students).
+
 ## Topics (22 tutorials)
 
-| Category | Tutorials |
-|---|---|
-| Foundations | ArrayList |
-| Stacks | Intro to Stacks, ArrayStack, MidStack |
-| Queues | Intro to Queues, ArrayQueue (with resize) |
-| Linked Lists | Intro to SLL, Intro to DLL, Reversing DLL by Node, Reversing DLL by Data, Manually Moving Nodes |
-| Recursion | Intro to Recursion, Counting Lowercase |
-| Sorting | Bubble Sort, Insertion Sort, Merge Sort |
-| Searching & Pointers | Binary Search, Two Pointers, Sliding Window |
-| Trees | Intro to Binary Trees, Tree Traversals |
-| Complexity | Growth Curves |
+| Topic | Tutorials | Difficulty Range |
+|-------|-----------|-----------------|
+| Foundations | ArrayList | Warm-up |
+| Stacks | Intro, ArrayStack, MidStack | Warm-up to Core |
+| Queues | Intro, ArrayQueue (with resize) | Warm-up to Core |
+| Linked Lists | SLL Intro, DLL Intro, Reverse by Node, Reverse by Data, Move Nodes | Warm-up to Challenge |
+| Recursion | Intro (bowl stack), Counting Lowercase | Core to Challenge |
+| Sorting | Bubble Sort, Insertion Sort, Merge Sort | Warm-up to Core |
+| Searching | Binary Search, Two Pointers, Sliding Window | Core |
+| Trees | Intro to Binary Trees, Tree Traversals (outline trick) | Warm-up to Core |
+| Complexity | Growth Curves | Core |
 
 ## Features
 
-- **Step-by-step physical simulation tutorials** using household items (paper, bowls, tape, pens)
-- **Interactive drag-and-drop**: push/pop cards on stacks, enqueue/dequeue in queues, tap-to-swap in sorting, slide windows across arrays
-- **SVG diagrams** rendered in real-time: arrays, stacks (3D Pringles can), queues (arrow/conveyor), linked lists, DLL trains (engine + caboose), trees, call stacks, growth curves
-- **Animations**: stack push/pop, sorting swap cross-slide, queue enqueue slide-in, all with reduced-motion support
+### Drag-and-drop interactions
+- Stack: push single card, push multiple in order, pop top card
+- Queue: enqueue (drag into IN end), dequeue (drag front item out)
+- Sorting: tap two highlighted cards to swap (animated cross-slide)
+- Sliding window: slide a frame across an array with running sum
+- Draw curve: sketch Big-O curves on a graph
+
+### Animations
+- Stack push/pop with slide in/out
+- Sorting swap with cross-slide and bounce
+- Queue enqueue cell slide-in
+- Step bubble entrance, diagram reveal, flashcard 3D flip
+- All respect prefers-reduced-motion
+
+### SVG Diagrams (craft/collage style)
+- Arrays with paper cards, tape, scissors, pushpins
+- Stacks as 3D see-through Pringles cans with chips
+- Queues as arrow shapes (conveyor belt)
+- Linked lists as node-pointer chains
+- DLLs as trains with engine (header) and caboose (trailer)
+- Trees as circles with wavy-line connections on a corkboard
+- Call stacks as sticky notes with paper folds
+- Growth curves graph
+
+### Other
 - **Materials checklist** before each tutorial with doodle illustrations
 - **Reflection flashcards** with 3D flip animation at the end of each tutorial
-- **Instructor Mode**: generate new tutorials using Claude API
 - **No frameworks, no build tools.** Pure HTML/CSS/JavaScript
 - Deployed on GitHub Pages
 
 ## Instructor Mode
 
 Instructors can generate new tutorials from any concept by entering a Claude API key. Generated tutorials are constrained to a standard kit of 7 materials and follow the same format as pre-built tutorials. The instructor reviews before publishing. Students never need API keys.
+
+## Design Rules
+
+1. **NEVER show complete code solutions.** The student understands physically, then codes on their own.
+2. **Accessibility first.** Design for low-income students. Only use materials everyone has at home.
+3. **Complexity labels:** Warm-up / Core Practice / Challenge.
+4. **Recursion has 3 parts:** base case, recursive assumption, work done by current call.
+5. **ArrayQueue tracks front + size, not front + back.** Back is always computed as (front + size) % capacity.
+6. **DLL tutorials with sentinels use train-dll diagrams** (engine = header, caboose = trailer).
+7. **Pre-generated content.** No API keys, no runtime model. Everything is baked in.
 
 ## Tech Stack
 
